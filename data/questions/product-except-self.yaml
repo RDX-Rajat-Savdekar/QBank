@@ -1,0 +1,63 @@
+id: product-except-self
+title: Product of Array Except Self
+type: dsa
+tags: [practice]
+topics: [arrays]
+difficulty: medium
+leetcode:
+  slug: product-of-array-except-self
+  id: 238
+  title: Product of Array Except Self
+  relationship: exact
+status: extracted
+confidence: high
+evidence: practice-curriculum
+prompt: |
+  Given an array `nums`, return an array `answer` such that `answer[i]` equals the product of all elements of `nums` except `nums[i]`. Solve without division (and ideally in O(1) extra space, output array aside).
+examples:
+  - input: '[1,2,3,4]'
+    output: '[24,12,8,6]'
+constraints: |
+  - `2 <= nums.length <= 10^5`
+  - `-30 <= nums[i] <= 30`
+  - The input is generated such that `answer[i]` is guaranteed to fit in a 32-bit integer.
+  Follow up: Can you solve the problem in `O(1)` extra space complexity? (The output array does not count as extra space for space complexity analysis.)
+starter: |
+  from typing import List
+  
+  class Solution:
+      def productExceptSelf(self, nums: List[int]) -> List[int]:
+          pass
+  
+  # print(Solution().productExceptSelf(...))  # e.g. nums = [1,2,3,4]
+solution:
+  approach: |
+    Prefix products left-to-right, then multiply suffix products right-to-left into the output.
+  complexity:
+    time: O(n)
+    space: O(1) extra
+  code: |
+    function productExceptSelf(nums) {
+      const n = nums.length
+      const out = Array(n).fill(1)
+      let prefix = 1
+      for (let i = 0; i < n; i++) {
+        out[i] = prefix
+        prefix *= nums[i]
+      }
+      let suffix = 1
+      for (let i = n - 1; i >= 0; i--) {
+        out[i] *= suffix
+        suffix *= nums[i]
+      }
+      return out
+    }
+  code_language: javascript
+  links: [https://claude.ai/chat/b648a7cf-cb88-40cd-961b-abe616e87363]
+sources:
+  - kind: 'bank'
+    path: "interview Q's/claude/PROBLEM_BANK (1).md"
+    ref: 'A3'
+    role: 'prompt'
+related: [two-sum, longest-repeating-char-replacement]
+updated_at: 2026-08-31

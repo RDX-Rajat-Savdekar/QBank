@@ -1,0 +1,29 @@
+id: goog-heightmap-rain
+title: Heightmap rain destinations
+type: dsa
+tags:
+  - google
+topics:
+  - geometry/grid
+  - graph
+difficulty: hard
+status: extracted
+confidence: high
+evidence: live-prompt
+prompt: |
+  You are given a 2D heightMap. Rain water flows from a cell to the neighboring cell with the lowest height. Return the destination for each cell. Water only flows downward in height.
+  
+  Water goes greedily to the neighbor with the lowest height, then the next decision is taken from that cell. If the path reaches a boundary, the destination is the ocean.
+occurrences:
+  - company: google
+    role: SWE L3
+    round: onsite
+    contributor: self
+    evidence: live-prompt
+    notes: R2 interview 1
+sources:
+  - kind: notes
+    path: "interview Q's/Google/q.md"
+    role: prompt
+    ref: Round 2 interview 1
+updated_at: 2026-08-31

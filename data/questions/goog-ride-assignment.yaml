@@ -1,0 +1,23 @@
+id: goog-ride-assignment
+title: Ride assignment minimize cars
+type: dsa
+tags:
+  - google
+topics:
+  - intervals
+  - heap
+difficulty: medium
+status: extracted
+confidence: medium
+evidence: friend-report
+prompt: 'You get ride requests as intervals [start, end). Assign each ride to a car so no two rides in the same car overlap, minimizing the number of cars. If multiple cars are free, pick the one that frees earliest. Output the minimal fleet size and, for each car, its rides in chronological order. Rides may be unsorted; treat end == next start as non-overlapping.'
+occurrences:
+  - company: google
+    contributor: friend
+    evidence: friend-report
+    notes: q.md friend report
+sources:
+  - kind: notes
+    path: "interview Q's/Google/q.md"
+    role: prompt
+updated_at: 2026-08-31

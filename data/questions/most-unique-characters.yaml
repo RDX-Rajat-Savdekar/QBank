@@ -1,0 +1,72 @@
+id: most-unique-characters
+title: Most unique characters + Jaccard
+type: dsa
+tags: [oa-custom, 3-part]
+topics: [strings, hashing]
+difficulty: medium
+status: extracted
+confidence: high
+evidence: practice-curriculum
+prompt: |
+  Input is a list of strings and a boolean flag. Function `solution(text, use_jaccard)`.
+  
+  Part 1 (`use_jaccard = False`): Select the strings whose most-common character has the *smallest* proportion relative to string length. Return a string of the characters that appear *only* in the selected strings (not in any non-selected string).
+  
+  Part 2 (`use_jaccard = True`): Same output format, but select strings by *lowest average Jaccard similarity* to all other strings (most dissimilar from the group).
+  
+  Part 3: Implement `jaccard(string1, string2)` yourself using multiset intersection / union.
+examples:
+  - input: '["aba","ab","abbcdd"], use_jaccard=False'
+    output: 'cdd'
+    explanation: 'select abbcdd (smallest most-common proportion); unique chars c,d,d'
+solution:
+  approach: |
+    Part 1: per-string max-char frequency / length; pick the min. Part 2: average pairwise multiset Jaccard, pick the min. Output is concatenation of chars that appear only inside the selected set.
+  pitfalls:
+    - Jaccard is multiset, not set
+    - ties in selection
+  links: [https://claude.ai/chat/a2cb4b0e-0ded-408d-9a4f-58aef28758a5, https://claude.ai/chat/5d9de937-f3fd-443a-a419-e7b74d40af99]
+occurrences:
+  - company: 'moveworks'
+    round: 'oa'
+    contributor: 'friend'
+    evidence: 'live-prompt'
+sources:
+  - kind: 'bank'
+    path: "interview Q's/claude/PROBLEM_BANK (1).md"
+    ref: 'A4'
+    role: 'prompt'
+  - kind: 'image'
+    path: "interview Q's/claude/dsa/Most Unique Elements/Screenshot 2026-06-30 at 4.30.40\u202fAM.png"
+    role: 'prompt'
+  - kind: 'image'
+    path: "interview Q's/claude/dsa/Most Unique Elements/preview (1).webp"
+    role: 'prompt'
+  - kind: 'image'
+    path: "interview Q's/claude/dsa/Most Unique Elements/preview (2).webp"
+    role: 'prompt'
+  - kind: 'image'
+    path: "interview Q's/claude/dsa/Most Unique Elements/preview (3).webp"
+    role: 'prompt'
+  - kind: 'image'
+    path: "interview Q's/claude/dsa/Most Unique Elements/preview (4).webp"
+    role: 'prompt'
+  - kind: 'image'
+    path: "interview Q's/claude/dsa/Most Unique Elements/preview (5).webp"
+    role: 'prompt'
+  - kind: 'image'
+    path: "interview Q's/claude/dsa/Most Unique Elements/preview.webp"
+    role: 'prompt'
+  - kind: 'code'
+    path: "interview Q's/F moveworks/new.py"
+    role: 'solution'
+  - kind: 'code'
+    path: "interview Q's/F moveworks/part1.py"
+    role: 'solution'
+  - kind: 'code'
+    path: "interview Q's/F moveworks/part2.py"
+    role: 'solution'
+  - kind: 'code'
+    path: "interview Q's/F moveworks/part3.py"
+    role: 'solution'
+updated_at: 2026-08-31

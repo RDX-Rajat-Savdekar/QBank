@@ -1,0 +1,8 @@
+name: Palo Alto Networks
+aliases: [palo-alto, panw]
+levels: []
+loop: [onsite]
+signals: []
+tools: []
+resources: []
+notes_md: palo-alto.md

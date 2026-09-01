@@ -1,0 +1,18 @@
+id: mock-improve-product
+title: How would you improve our product
+type: behavioral
+tags:
+  - mock
+  - behavioral
+topics: []
+difficulty: unknown
+status: extracted
+confidence: medium
+evidence: practice-curriculum
+prompt: How would you improve our product? Scope bank in the mock-interview appendix.
+sources:
+  - kind: pdf
+    path: extras/Mock Behav Interview Qs.pdf
+    role: prompt
+    ref: p245
+updated_at: 2026-08-31

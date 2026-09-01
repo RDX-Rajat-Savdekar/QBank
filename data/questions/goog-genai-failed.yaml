@@ -1,0 +1,23 @@
+id: goog-genai-failed
+title: GenAI usage that did not work correctly
+type: genai
+tags:
+  - google
+  - genai
+topics: []
+difficulty: unknown
+status: extracted
+confidence: medium
+evidence: friend-report
+prompt: Gen AI usage and it not working correctly.
+occurrences:
+  - company: google
+    contributor: self
+    evidence: friend-report
+sources:
+  - kind: notes
+    path: "interview Q's/Google/q.md"
+    role: prompt
+related:
+  - amz-lp-genai-usage
+updated_at: 2026-08-31

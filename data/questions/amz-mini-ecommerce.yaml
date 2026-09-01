@@ -1,0 +1,26 @@
+id: amz-mini-ecommerce
+title: Design Amazon (mini ecommerce)
+type: lld
+tags:
+  - amazon
+  - discord
+  - lld
+topics:
+  - design-api
+difficulty: unknown
+status: extracted
+confidence: medium
+evidence: discord-title
+prompt: 'Model users, cart, and orders for a mini ecommerce.'
+occurrences:
+  - company: amazon
+    contributor: online
+    evidence: discord-title
+sources:
+  - kind: discord
+    path: extras/zonline discord/LLD Qs 1.txt
+    role: prompt
+  - kind: discord
+    path: extras/zonline discord/LLD Qs 2.txt
+    role: prompt
+updated_at: 2026-08-31

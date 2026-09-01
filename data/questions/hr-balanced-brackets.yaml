@@ -1,0 +1,40 @@
+id: hr-balanced-brackets
+title: Balanced brackets
+type: dsa
+tags:
+  - hackerrank
+topics:
+  - stack
+difficulty: easy
+status: extracted
+confidence: high
+evidence: live-prompt
+prompt: |
+  Evaluate an array of bracket sequences. Return YES if a sequence is valid (balanced and properly nested) and NO otherwise.
+  
+  Example q=4, strings ["{}()[]", "({[]", "({[]})", "]{}()"] → ["YES", "NO", "YES", "NO"].
+leetcode:
+  slug: valid-parentheses
+  id: 20
+  title: Valid Parentheses
+  relationship: similar
+examples:
+  - input: '["{}()[]", "({[]", "({[]})", "]{}()"]'
+    output: '["YES", "NO", "YES", "NO"]'
+occurrences:
+  - company: unknown
+    round: oa
+    contributor: self
+    evidence: live-prompt
+  - company: amazon
+    contributor: online
+    evidence: discord-title
+    notes: Valid Parentheses
+sources:
+  - kind: image
+    path: "interview Q's/not sure/Q1/WhatsApp Image 2026-03-26 at 21.33.25.jpeg"
+    role: prompt
+  - kind: discord
+    path: extras/zonline discord/LC qs.txt
+    role: prompt
+updated_at: 2026-08-31

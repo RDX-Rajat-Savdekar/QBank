@@ -1,0 +1,53 @@
+id: c3-industrial-pm
+title: Industrial predictive maintenance plus NL assistant
+type: hld
+tags:
+  - c3
+  - fde
+  - case-study
+topics:
+  - ml-systems
+  - rag
+difficulty: hard
+status: extracted
+confidence: high
+evidence: live-prompt
+prompt: |
+  Design a platform for a global industrial company to reduce unplanned equipment downtime using predictive failure alerts and a natural-language assistant.
+  
+  Thousands of assets (pumps, compressors, turbines) across dozens of plants. High-frequency sensor telemetry already exists, plus SAP maintenance/asset data and work orders. Data is partly on-prem and partly cloud. Regulated: SSO and strict change control.
+  
+  Goal 1: predictive failure alerts so engineers act before equipment fails.
+  Goal 2: an assistant that can answer: Why was pump P-12 flagged, and what should I do?
+  
+  Start humans-in-the-loop. Do not autonomously shut down equipment or execute maintenance.
+solution:
+  approach: |
+    Telemetry from plant edge gateways into a durable stream, features, versioned prediction, alert service with dedup, then an authorized retrieval layer for the assistant. Humans stay in the loop.
+  diagram: |
+    graph TD
+      Assets --> Edge[Plant edge gateway]
+      Edge --> Stream[Telemetry stream]
+      Stream --> Features
+      Features --> Predict
+      Predict --> Alerts
+      Alerts --> Dashboard
+      Alerts --> RAG[Authorized retrieval]
+      SAP[SAP / work orders] --> RAG
+      RAG --> Assistant
+occurrences:
+  - company: c3
+    role: FDE
+    round: onsite
+    year: 2026
+    contributor: self
+    evidence: live-prompt
+sources:
+  - kind: pdf
+    path: "interview Q's/c3/interview_2_industrial_reliability_interview_journal.pdf"
+    role: prompt
+  - kind: docx
+    path: "interview Q's/not sure/fde_case_study_questions.docx"
+    role: prompt
+notes: FDE docx is the same HLD prompt plus probe questions. One id.
+updated_at: 2026-08-31

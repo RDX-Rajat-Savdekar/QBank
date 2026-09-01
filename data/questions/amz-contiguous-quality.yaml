@@ -1,0 +1,73 @@
+id: amz-contiguous-quality
+title: Minimize cost to make equal qualities contiguous
+type: dsa
+tags: [oa-custom]
+topics: [arrays, greedy]
+difficulty: hard
+status: extracted
+confidence: high
+evidence: live-prompt
+prompt: |
+  Given an array `quality`, you want all equal values to be contiguous. Each operation replaces *all* occurrences of one value with another value, at a cost equal to the count of items replaced. Return the minimum total cost. Function `getMinAmount`.
+examples:
+  - input: '[7,7,5,7,3,5,3]'
+    output: '4'
+  - input: '[1,2,1,2,1]'
+    output: '2'
+  - input: '[10,6,10,-3,1,1,4,-4,-1,1,-7]'
+    output: '4'
+constraints: |
+  n up to 2e5, values in [-1e9, 1e9]
+solution:
+  approach: |
+    Equal values must form one block. Paying to recolor a value is cheaper than leaving split groups. Work from frequencies and the spans of each value.
+  complexity:
+    time: O(n log n) or better depending on grouping
+    space: O(n)
+  links: [https://claude.ai/chat/82ff2a91-fd70-4443-94bd-1272f1d7431a]
+occurrences:
+  - company: 'amazon'
+    role: 'sde-new-grad'
+    round: 'oa'
+    year: 2026
+    tool: 'hackerrank'
+    contributor: friend
+    evidence: live-prompt
+    notes: "Q1 paired with VibeShop debug"
+sources:
+  - kind: bank
+    path: "interview Q's/claude/PROBLEM_BANK (1).md"
+    ref: A11
+    role: prompt
+  - kind: image
+    path: "interview Q's/Amazon/anoushka/1/WhatsApp Image 2026-06-22 at 17.30.37.jpeg"
+    role: prompt
+  - kind: image
+    path: "interview Q's/Amazon/anoushka/1/WhatsApp Image 2026-06-22 at 17.30.37 (1).jpeg"
+    role: prompt
+  - kind: image
+    path: "interview Q's/Amazon/anoushka/1/WhatsApp Image 2026-06-22 at 17.30.38.jpeg"
+    role: prompt
+  - kind: image
+    path: "interview Q's/Amazon/anoushka/1/WhatsApp Image 2026-06-22 at 17.30.38 (1).jpeg"
+    role: prompt
+  - kind: image
+    path: "interview Q's/Amazon/anoushka/1/WhatsApp Image 2026-06-22 at 17.30.38 (2).jpeg"
+    role: prompt
+  - kind: image
+    path: "interview Q's/Amazon/anoushka/1/WhatsApp Image 2026-06-22 at 17.30.39.jpeg"
+    role: prompt
+  - kind: image
+    path: "interview Q's/Amazon/anoushka/1/WhatsApp Image 2026-06-22 at 17.30.39 (1).jpeg"
+    role: prompt
+  - kind: 'image'
+    path: "interview Q's/claude/dsa/optimal inventory/Screenshot 2026-06-30 at 4.36.10\u202fAM.png"
+    role: 'prompt'
+  - kind: 'image'
+    path: "interview Q's/claude/dsa/optimal inventory/Screenshot 2026-06-30 at 4.36.26\u202fAM.png"
+    role: 'prompt'
+  - kind: 'image'
+    path: "interview Q's/claude/dsa/optimal inventory/Screenshot 2026-06-30 at 4.36.37\u202fAM.png"
+    role: 'prompt'
+related: [amz-vibeshop-csv, amz-min-inconvenience, amz-min-merge-conflicts, amz-drone-hubs]
+updated_at: 2026-08-31

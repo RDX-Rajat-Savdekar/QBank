@@ -1,0 +1,23 @@
+id: goog-longest-subseq-diff
+title: Longest subsequence with abs diff at most 1 then at most k
+type: dsa
+tags:
+  - google
+topics:
+  - dp
+difficulty: unknown
+status: raw
+confidence: low
+evidence: friend-report
+prompt: Longest subsequence where consecutive absolute difference is at most 1; follow-up at most k. WhatsApp fragment in Google notes.
+occurrences:
+  - company: google
+    role: SWE L3
+    round: onsite
+    contributor: friend
+    evidence: friend-report
+sources:
+  - kind: notes
+    path: data/companies/google.md
+    role: prompt
+updated_at: 2026-08-31

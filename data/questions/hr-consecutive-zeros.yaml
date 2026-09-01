@@ -1,0 +1,28 @@
+id: hr-consecutive-zeros
+title: Minimum operations to break long zero runs
+type: dsa
+tags:
+  - hackerrank
+topics:
+  - greedy
+difficulty: medium
+status: extracted
+confidence: high
+evidence: live-prompt
+prompt: |
+  getMinOperations(s, m, k): s is a binary string. Ensure no contiguous run of 0s has length >= m. In one operation, pick any contiguous segment of length k and set every bit in it to 1. Return the minimum number of operations.
+  
+  Example: s="000000", m=3, k=2 → operate on [3,4] → "001100" → 1.
+examples:
+  - input: 's="000000", m=3, k=2'
+    output: '1'
+occurrences:
+  - company: unknown
+    round: oa
+    contributor: self
+    evidence: live-prompt
+sources:
+  - kind: image
+    path: "interview Q's/not sure/Q1/Q3/WhatsApp Image 2026-03-26 at 22.06.38.jpeg"
+    role: prompt
+updated_at: 2026-08-31

@@ -1,0 +1,50 @@
+id: amz-longest-substring
+title: Longest substring without repeating characters
+type: dsa
+tags:
+  - amazon
+  - livecode
+topics:
+  - sliding-window
+  - strings
+difficulty: medium
+status: extracted
+confidence: medium
+evidence: friend-report
+prompt: 'Given a string, find the length of the longest substring without repeating characters.'
+examples:
+  - input: 's = "abcabcbb"'
+    output: '3'
+    explanation: 'The answer is "abc", with the length of 3. Note that `"bca"` and `"cab"` are also correct answers.'
+  - input: 's = "bbbbb"'
+    output: '1'
+    explanation: 'The answer is "b", with the length of 1.'
+  - input: 's = "pwwkew"'
+    output: '3'
+    explanation: 'The answer is "wke", with the length of 3.'
+constraints: |
+  - `0 <= s.length <= 10^5`
+  - `s` consists of English letters, digits, symbols and spaces.
+starter: |
+  class Solution:
+      def lengthOfLongestSubstring(self, s: str) -> int:
+          pass
+  
+  # print(Solution().lengthOfLongestSubstring(...))  # e.g. s = "abcabcbb"
+leetcode:
+  slug: longest-substring-without-repeating-characters
+  id: 3
+  title: Longest Substring Without Repeating Characters
+  relationship: exact
+occurrences:
+  - company: amazon
+    role: SDE
+    round: onsite
+    tool: LiveCode
+    contributor: self
+    evidence: friend-report
+sources:
+  - kind: notes
+    path: data/companies/amazon.md
+    role: prompt
+updated_at: 2026-08-31

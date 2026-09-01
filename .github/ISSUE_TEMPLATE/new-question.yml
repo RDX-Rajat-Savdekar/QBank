@@ -1,0 +1,147 @@
+name: New question
+description: Bank a question you already have as text. Friends should use CONTRIBUTE.md, not this form.
+title: "[intake] "
+labels: ["intake"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        For **you** (the operator). Friends send via the Google Form in `CONTRIBUTE.md`.
+
+        At least one of **question text** or **screenshots in a follow-up comment**.
+        GitHub issue forms cannot attach files — drop images on the issue after it is created.
+
+        Every metadata field is optional. Leave blank if unknown.
+  - type: textarea
+    id: prompt
+    attributes:
+      label: Question text
+      description: Paste the prompt as presented. Leave empty if you will attach screenshots in a comment.
+      placeholder: As it appeared. Not a cleaned LeetCode paraphrase.
+    validations:
+      required: false
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes / follow-ups
+      description: Often more valuable than the prompt.
+    validations:
+      required: false
+  - type: input
+    id: company
+    attributes:
+      label: Company
+      placeholder: amazon, google, palo-alto, c3, …
+    validations:
+      required: false
+  - type: dropdown
+    id: type
+    attributes:
+      label: Interview type
+      options:
+        - unknown
+        - dsa
+        - debug
+        - lld
+        - hld
+        - behavioral
+        - takehome
+        - ai-assisted
+        - oa-sim
+        - case-study
+        - hm
+        - genai
+        - puzzle
+    validations:
+      required: false
+  - type: dropdown
+    id: round
+    attributes:
+      label: Round
+      options:
+        - unknown
+        - oa
+        - recruiter
+        - phone
+        - onsite
+        - bar-raiser
+        - hiring-manager
+        - takehome
+        - genai-fluency
+    validations:
+      required: false
+  - type: input
+    id: role
+    attributes:
+      label: Role + level
+      placeholder: SDE new grad, FDE, SWE L3, …
+    validations:
+      required: false
+  - type: input
+    id: year
+    attributes:
+      label: Year / month
+      placeholder: 2026-08
+    validations:
+      required: false
+  - type: input
+    id: tool
+    attributes:
+      label: Tool
+      placeholder: HackerRank, LiveCode, CoderPad, Chime
+    validations:
+      required: false
+  - type: input
+    id: time_allowed
+    attributes:
+      label: Time allowed
+    validations:
+      required: false
+  - type: input
+    id: language
+    attributes:
+      label: Language required
+    validations:
+      required: false
+  - type: input
+    id: team
+    attributes:
+      label: Team / location
+    validations:
+      required: false
+  - type: input
+    id: leetcode
+    attributes:
+      label: LeetCode id
+    validations:
+      required: false
+  - type: dropdown
+    id: heard
+    attributes:
+      label: How you heard the Q
+      options:
+        - self
+        - friend
+        - Blind
+        - LeetCode Discuss
+        - Discord
+        - other
+    validations:
+      required: false
+  - type: dropdown
+    id: permission
+    attributes:
+      label: Permission to keep an anonymized copy if this bank is ever public
+      options:
+        - skip
+        - yes
+        - no
+    validations:
+      required: false
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Outcome (private)
+      description: Offer / reject / other. Never copied onto public question YAML.
+    validations:
+      required: false

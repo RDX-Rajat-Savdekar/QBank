@@ -1,0 +1,29 @@
+id: palo-rate-limiter-review
+title: Rate limiter Claude-Code design review
+type: ai-assisted
+tags:
+  - palo-alto
+  - i3
+  - ai-assisted
+topics:
+  - design-api
+difficulty: unknown
+status: extracted
+confidence: medium
+evidence: live-prompt
+prompt: 'Same in-memory rate limiter as palo-rate-limiter, reviewed / walked with AI assistance (Claude Code). Interviewer traces allow/deny on a smaller limit and checks that denied timestamps are not recorded.'
+occurrences:
+  - company: palo-alto
+    role: SDE
+    round: onsite
+    year: 2026
+    tool: Claude Code
+    contributor: self
+    evidence: live-prompt
+sources:
+  - kind: image
+    path: "interview Q's/F paolo alto/i3/Screenshot 2026-07-23 at 4.28.40 PM.png"
+    role: prompt
+related:
+  - palo-rate-limiter
+updated_at: 2026-08-31

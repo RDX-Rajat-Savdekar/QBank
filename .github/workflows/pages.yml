@@ -1,0 +1,34 @@
+name: Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+        env:
+          VITE_BASE: /${{ github.event.repository.name }}/
+          VITE_INTAKE_FORM_URL: ${{ vars.INTAKE_FORM_URL }}
+      - name: Guard interview archive
+        run: |
+          if find dist -iname '*whatsapp*' -o -path '*interview Q*' | grep -q .; then
+            echo "interview archive leaked into dist" >&2
+            exit 1
+          fi
+      - uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: dist

@@ -1,0 +1,22 @@
+id: commerce-todo-api
+title: In-memory todo list API
+type: ai-assisted
+tags:
+  - commerceiq
+topics:
+  - design-api
+difficulty: unknown
+status: extracted
+confidence: medium
+evidence: research
+prompt: 'Build an in-memory todo list API: GET /todos, POST /todos, DELETE /todos/:id. No database. CommerceIQ official practice prompt.'
+occurrences:
+  - company: commerceiq
+    round: onsite
+    contributor: online
+    evidence: research
+sources:
+  - kind: docx
+    path: "interview Q's/not sure/R2_Question_Bank.docx"
+    role: prompt
+updated_at: 2026-08-31

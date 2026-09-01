@@ -1,0 +1,26 @@
+id: amz-file-filtering
+title: File filtering system
+type: lld
+tags:
+  - amazon
+  - discord
+  - lld
+topics:
+  - design-api
+difficulty: unknown
+status: extracted
+confidence: medium
+evidence: discord-title
+prompt: 'Design a file filtering system. Filters for name, size, type, extension. Filters should be composable.'
+occurrences:
+  - company: amazon
+    contributor: online
+    evidence: discord-title
+sources:
+  - kind: discord
+    path: extras/zonline discord/LLD Qs 1.txt
+    role: prompt
+  - kind: discord
+    path: extras/zonline discord/LLD Qs 2.txt
+    role: prompt
+updated_at: 2026-08-31

@@ -1,0 +1,42 @@
+id: bloomberg-currency-conversion
+title: Currency conversion
+type: dsa
+tags:
+  - bloomberg
+  - placeholder
+topics:
+  - graph
+difficulty: medium
+status: raw
+confidence: low
+evidence: friend-report
+prompt: 'Given a currency conversion graph, return the conversion rate between two currencies. Folder is a title-only placeholder (N bloomberg / N got asked currency conversion leetcode).'
+leetcode:
+  slug: evaluate-division
+  id: 399
+  title: Evaluate Division
+  relationship: similar
+occurrences:
+  - company: bloomberg
+    round: unknown
+    contributor: friend
+    evidence: friend-report
+    notes: empty folder claim only
+  - company: amazon
+    round: onsite
+    contributor: online
+    evidence: discord-title
+    year: 2025
+sources:
+  - kind: notes
+    path: "interview Q's/claude/dsa/N bloomberg/N got asked currency conversion leetcode"
+    role: prompt
+  - kind: discord
+    path: extras/zonline discord/LC qs.txt
+    role: prompt
+  - kind: discord
+    path: extras/zonline discord/LLD Qs 1.txt
+    role: prompt
+    ref: Currency Conversion System
+notes: No prompt file. Discord also lists this as LLD.
+updated_at: 2026-08-31

@@ -1,0 +1,17 @@
+id: google-r2
+title: Google R2 writeups
+description: The two onsite coding prompts from q.md plus a couple of supporting drills.
+company: google
+steps:
+  - question: goog-heightmap-rain
+    day: 1
+    note: R2 interview 1
+  - question: goog-task-scheduler
+    day: 2
+    note: R2 interview 2
+  - question: goog-subarray-sum
+    day: 3
+  - question: goog-float-ranges
+    day: 4
+  - question: goog-lca
+    day: 5

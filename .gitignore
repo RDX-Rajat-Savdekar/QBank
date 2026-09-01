@@ -1,0 +1,15 @@
+.DS_Store
+.velite/
+node_modules/
+dist/
+dist-anki/
+data/inbox-media/
+src/generated/*.json
+*.local
+.env
+.env.*
+
+# Source archive — keep local, never publish screenshots / raw extras.
+/interview Q's/
+/extras/
+/extras 2/

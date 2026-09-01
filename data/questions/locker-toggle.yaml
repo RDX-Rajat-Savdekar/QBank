@@ -1,0 +1,32 @@
+id: locker-toggle
+title: Locker toggle
+type: dsa
+tags: [practice]
+topics: [math]
+difficulty: easy
+status: extracted
+confidence: high
+evidence: practice-curriculum
+prompt: |
+  There are `x` lockers, all starting closed. You make `x` passes; on pass `i` you toggle every `i`-th locker. After all passes, how many (and which) lockers are open?
+examples:
+  - input: 'x = 10'
+    output: 'lockers 1,4,9 open (perfect squares)'
+  - input: 'x = 5'
+    output: 'lockers 1,4 open'
+follow_ups:
+  - text: 'What changes if all lockers start open instead of closed?'
+    kind: 'variant'
+solution:
+  approach: |
+    Locker k is toggled once per divisor. Odd number of toggles iff k is a perfect square.
+  links: [https://claude.ai/chat/33e49d58-1b3b-47cb-9459-c347d86645f0]
+sources:
+  - kind: 'bank'
+    path: "interview Q's/claude/PROBLEM_BANK (1).md"
+    ref: 'A9'
+    role: 'prompt'
+  - kind: 'image'
+    path: "interview Q's/claude/dsa/locker/Screenshot 2026-06-30 at 4.32.58\u202fAM.png"
+    role: 'prompt'
+updated_at: 2026-08-31

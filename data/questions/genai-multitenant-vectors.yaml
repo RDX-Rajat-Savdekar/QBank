@@ -1,0 +1,26 @@
+id: genai-multitenant-vectors
+title: Multi-tenant vector retrieval
+type: genai
+tags:
+  - amazon
+  - genai
+topics:
+  - rag
+difficulty: unknown
+status: extracted
+confidence: medium
+evidence: practice-curriculum
+prompt: 'What design patterns would you use to support high-throughput, multi-tenant vector retrieval with strict tenant data isolation?'
+occurrences:
+  - company: amazon
+    round: genai-fluency
+    contributor: online
+    evidence: practice-curriculum
+sources:
+  - kind: notes
+    path: extras/zonline discord/amazon_sde1_genai_interview_guide.md
+    role: prompt
+notes: Do not copy extras/zonline discord/genai.txt personal stories into public fields.
+related:
+  - amz-lp-genai-usage
+updated_at: 2026-08-31

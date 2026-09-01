@@ -1,0 +1,48 @@
+id: isomorphic-strings
+title: Isomorphic strings
+type: dsa
+tags: [practice]
+topics: [strings, hashing]
+difficulty: easy
+leetcode:
+  slug: isomorphic-strings
+  id: 205
+  title: Isomorphic Strings
+  relationship: exact
+status: extracted
+confidence: high
+evidence: practice-curriculum
+prompt: |
+  Given two strings `s` and `t`, return `true` if they are isomorphic — characters in `s` can be replaced to get `t` with a one-to-one (bijective) mapping that preserves order. No two characters may map to the same character; a character may map to itself.
+examples:
+  - input: '"egg" / "add"'
+    output: 'true'
+  - input: '"egg" / "ten"'
+    output: 'false'
+  - input: '"ab" / "aa"'
+    output: 'false'
+constraints: |
+  - `1 <= s.length <= 5 * 10^4`
+  - `t.length == s.length`
+  - `s` and `t` consist of any valid ascii character.
+starter: |
+  class Solution:
+      def isIsomorphic(self, s: str, t: str) -> bool:
+          pass
+  
+  # print(Solution().isIsomorphic(...))  # e.g. s = "egg", t = "add"
+follow_ups:
+  - text: 'Word Pattern I/II'
+    kind: 'variant'
+solution:
+  approach: |
+    Two maps (or one map + used-set) so the mapping is bijective.
+  links: [https://claude.ai/chat/2aeb7963-a589-4f10-bf3a-9a5a91422780]
+sources:
+  - kind: 'bank'
+    path: "interview Q's/claude/PROBLEM_BANK (1).md"
+    ref: 'A8'
+    role: 'prompt'
+notes: |
+  Also reported as a Google-friend isomorphic / word-pattern pairing. Add that occurrence in the Google sweep.
+updated_at: 2026-08-31

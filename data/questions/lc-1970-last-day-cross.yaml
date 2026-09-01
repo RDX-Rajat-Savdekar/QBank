@@ -1,0 +1,44 @@
+id: lc-1970-last-day-cross
+title: Last day where you can still cross
+type: dsa
+tags:
+  - practice
+topics:
+  - union-find
+  - binary-search
+  - geometry/grid
+difficulty: hard
+status: extracted
+confidence: high
+evidence: practice-curriculum
+prompt: 'There is a 1-based binary matrix where 0 is land and 1 is water. Initially the entire matrix is land. Each day a new cell in cells[i]=[ri,ci] floods. Find the last day you can walk from any top-row land cell to any bottom-row land cell (4 directions).'
+leetcode:
+  slug: last-day-where-you-can-still-cross
+  id: 1970
+  title: Last Day Where You Can Still Cross
+  relationship: exact
+examples:
+  - input: 'row=2, col=2, cells=[[1,1],[2,1],[1,2],[2,2]]'
+    output: '2'
+  - input: 'row=2, col=2, cells=[[1,1],[1,2],[2,1],[2,2]]'
+    output: '1'
+constraints: |
+  - `2 <= row, col <= 2 * 10^4`
+  - `4 <= row * col <= 2 * 10^4`
+  - `cells.length == row * col`
+  - `1 <= ri <= row`
+  - `1 <= ci <= col`
+  - All the values of `cells` are unique.
+starter: |
+  from typing import List
+  
+  class Solution:
+      def latestDayToCross(self, row: int, col: int, cells: List[List[int]]) -> int:
+          pass
+  
+  # print(Solution().latestDayToCross(...))  # e.g. row = 2, col = 2, cells = [[1,1],[2,1],[1,2],[2,2]]
+sources:
+  - kind: docx
+    path: "interview Q's/not sure/leetcode_questions_and_solutions.docx"
+    role: prompt
+updated_at: 2026-08-31

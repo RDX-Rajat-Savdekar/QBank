@@ -1,0 +1,26 @@
+id: amz-noodle-bowl
+title: Noodle bowl pricing system
+type: lld
+tags:
+  - amazon
+  - discord
+  - lld
+topics:
+  - design-api
+difficulty: unknown
+status: extracted
+confidence: medium
+evidence: discord-title
+prompt: 'Design a noodle restaurant pricing system. Each bowl has exactly one soup base, exactly one size, and zero or more add-ons. Total = (size multiplier × soup price) + sum(add-ons). Follow-up: more add-ons later.'
+occurrences:
+  - company: amazon
+    contributor: online
+    evidence: discord-title
+sources:
+  - kind: discord
+    path: extras/zonline discord/LLD Qs 1.txt
+    role: prompt
+  - kind: discord
+    path: extras/zonline discord/LLD Qs 2.txt
+    role: prompt
+updated_at: 2026-08-31

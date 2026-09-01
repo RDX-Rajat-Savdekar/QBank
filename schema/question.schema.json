@@ -1,0 +1,280 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://qbank.local/schema/question.schema.json",
+  "title": "QBank question",
+  "description": "One canonical interview question. Many occurrences, many sources.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "title", "type", "status", "confidence", "evidence", "prompt"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "Stable kebab-case id"
+    },
+    "title": { "type": "string", "minLength": 1 },
+    "type": {
+      "type": "string",
+      "enum": [
+        "dsa",
+        "debug",
+        "lld",
+        "hld",
+        "behavioral",
+        "takehome",
+        "ai-assisted",
+        "oa-sim",
+        "case-study",
+        "hm",
+        "genai",
+        "puzzle"
+      ]
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "default": []
+    },
+    "topics": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "arrays",
+          "strings",
+          "hashing",
+          "two-pointers",
+          "sliding-window",
+          "intervals",
+          "heap",
+          "stack",
+          "tree",
+          "graph",
+          "union-find",
+          "dp",
+          "greedy",
+          "binary-search",
+          "geometry/grid",
+          "math",
+          "design-api",
+          "concurrency",
+          "ml-systems",
+          "rag"
+        ]
+      },
+      "default": []
+    },
+    "difficulty": {
+      "type": "string",
+      "enum": ["easy", "medium", "hard", "unknown"],
+      "default": "unknown"
+    },
+    "leetcode": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["relationship"],
+      "properties": {
+        "id": { "type": "integer", "minimum": 1 },
+        "title": { "type": "string" },
+        "slug": { "type": "string" },
+        "relationship": {
+          "type": "string",
+          "enum": ["exact", "variant", "similar", "none"]
+        }
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": ["raw", "extracted", "reviewed", "practiced"]
+    },
+    "confidence": {
+      "type": "string",
+      "enum": ["high", "medium", "low"],
+      "description": "Extraction confidence, not how hard the question is"
+    },
+    "evidence": {
+      "type": "string",
+      "enum": [
+        "live-prompt",
+        "friend-report",
+        "discord-title",
+        "reddit",
+        "research",
+        "practice-curriculum"
+      ]
+    },
+    "rubric": {
+      "type": "string",
+      "description": "Pointer into data/rubrics/<slug>.yaml"
+    },
+    "prompt": {
+      "type": "string",
+      "description": "Problem restated as presented, not a cleaned LeetCode paraphrase"
+    },
+    "examples": {
+      "type": "array",
+      "default": [],
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["input", "output"],
+        "properties": {
+          "input": { "type": "string" },
+          "output": { "type": "string" },
+          "explanation": { "type": "string" }
+        }
+      }
+    },
+    "constraints": { "type": "string" },
+    "starter": {
+      "type": "string",
+      "description": "Editor default: function stub, not the worked solution"
+    },
+    "follow_ups": {
+      "type": "array",
+      "default": [],
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["text"],
+        "properties": {
+          "text": { "type": "string" },
+          "kind": { "type": "string" }
+        }
+      }
+    },
+    "solution": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "approach": { "type": "string" },
+        "complexity": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "time": { "type": "string" },
+            "space": { "type": "string" }
+          }
+        },
+        "code": { "type": "string" },
+        "code_language": { "type": "string" },
+        "diagram": {
+          "type": "string",
+          "description": "Mermaid source for HLD/LLD"
+        },
+        "pitfalls": {
+          "type": "array",
+          "items": { "type": "string" },
+          "default": []
+        },
+        "links": {
+          "type": "array",
+          "items": { "type": "string" },
+          "default": [],
+          "description": "IGotAnOffer, LC, notes — never the only copy of the answer"
+        }
+      }
+    },
+    "occurrences": {
+      "type": "array",
+      "default": [],
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["company"],
+        "properties": {
+          "company": { "type": "string" },
+          "role": { "type": "string" },
+          "level": { "type": "string" },
+          "round": {
+            "type": "string",
+            "enum": [
+              "oa",
+              "recruiter",
+              "phone",
+              "onsite",
+              "bar-raiser",
+              "hiring-manager",
+              "takehome",
+              "genai-fluency",
+              "unknown"
+            ]
+          },
+          "year": { "type": "integer" },
+          "tool": { "type": "string" },
+          "notes": { "type": "string" },
+          "contributor": {
+            "type": "string",
+            "enum": ["self", "friend", "online"]
+          },
+          "evidence": {
+            "type": "string",
+            "enum": [
+              "live-prompt",
+              "friend-report",
+              "discord-title",
+              "reddit",
+              "research",
+              "practice-curriculum"
+            ]
+          }
+        }
+      }
+    },
+    "sources": {
+      "type": "array",
+      "default": [],
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["kind", "path"],
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "image",
+              "bank",
+              "discord",
+              "reddit",
+              "pdf",
+              "docx",
+              "notes",
+              "code"
+            ]
+          },
+          "path": { "type": "string" },
+          "role": {
+            "type": "string",
+            "enum": ["prompt", "solution", "commentary", "meta"]
+          },
+          "ref": { "type": "string" }
+        }
+      }
+    },
+    "notes": { "type": "string" },
+    "related": {
+      "type": "array",
+      "items": { "type": "string" },
+      "default": []
+    },
+    "study_path": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path_id"],
+      "properties": {
+        "path_id": { "type": "string" },
+        "order": { "type": "integer" },
+        "prerequisites": {
+          "type": "array",
+          "items": { "type": "string" },
+          "default": []
+        }
+      }
+    },
+    "updated_at": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+      "description": "YYYY-MM-DD. Velite may overwrite from git metadata later."
+    }
+  }
+}

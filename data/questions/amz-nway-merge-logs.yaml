@@ -1,0 +1,30 @@
+id: amz-nway-merge-logs
+title: N-way merge of sorted log files
+type: dsa
+tags:
+  - amazon
+  - onsite
+topics:
+  - heap
+difficulty: medium
+status: extracted
+confidence: medium
+evidence: friend-report
+prompt: 'Given n sorted files (log files), merge them into a single file (n-way merge).'
+leetcode:
+  slug: merge-k-sorted-lists
+  id: 23
+  title: Merge k Sorted Lists
+  relationship: similar
+occurrences:
+  - company: amazon
+    role: SDE intern Prime Video
+    round: onsite
+    contributor: friend
+    evidence: friend-report
+    notes: chat summary; coding first then project walkthrough
+sources:
+  - kind: image
+    path: "interview Q's/Amazon/animesh samir/WhatsApp Image 2026-08-30 at 14.41.01.jpeg"
+    role: prompt
+updated_at: 2026-08-31

@@ -1,0 +1,22 @@
+id: next-day-higher-traffic
+title: Days until next strictly higher traffic
+type: dsa
+tags:
+  - claude-dsa
+topics:
+  - stack
+difficulty: medium
+status: extracted
+confidence: high
+evidence: live-prompt
+prompt: 'You are given a time series representing daily traffic to a website. Compute the number of days from each day until the next day with strictly higher traffic. Input is a length-n list; output is a length-n list where index i is j-i for the first j>i with traffic[j] > traffic[i]. If never exceeded, return -1.'
+examples:
+  - input: '1,2,3,4'
+    output: '1,1,1,-1'
+  - input: '10, 8, 6, 8, 8, 11, 9'
+    output: '5, 4, 1, 2, 1, -1, -1'
+sources:
+  - kind: image
+    path: "interview Q's/claude/dsa/Screenshot 2026-03-23 at 11.03.15 AM.png"
+    role: prompt
+updated_at: 2026-08-31

@@ -1,0 +1,25 @@
+id: live-checklist
+company: generic
+dimensions:
+  - name: DSA
+  - name: Problem Solving
+  - name: Coding
+  - name: Speed
+  - name: Communication
+checklist:
+  before:
+    - restate
+    - constraints
+    - 2 approaches
+    - complexity
+    - go-ahead
+  during:
+    - narrate
+    - names
+    - modular
+    - edges
+  after:
+    - dry run
+    - manual edges
+    - bugs
+    - optimizations

@@ -1,0 +1,28 @@
+id: reddit-fenwick-oa
+title: Fenwick-tree OA (hard)
+type: dsa
+tags:
+  - amazon
+  - ftc
+  - reddit
+topics: []
+difficulty: unknown
+status: raw
+confidence: low
+evidence: reddit
+prompt: 'Amazon FTC report: a hard Fenwick-tree OA. No prompt text captured.'
+occurrences:
+  - company: amazon
+    role: SDE FTC
+    round: oa
+    contributor: online
+    evidence: reddit
+sources:
+  - kind: image
+    path: extras/WhatsApp Image 2026-08-20 at 22.58.10.jpeg
+    role: commentary
+  - kind: reddit
+    path: extras/WhatsApp Image 2026-08-20 at 22.58.10.jpeg
+    role: prompt
+notes: Evidence only. Do not invent a prompt from the title.
+updated_at: 2026-08-31

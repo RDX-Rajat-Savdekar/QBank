@@ -1,0 +1,53 @@
+id: amz-top-k-keywords
+title: Top K most frequent search keywords
+type: dsa
+tags:
+  - amazon
+  - onsite
+  - livecode
+topics:
+  - hashing
+  - heap
+difficulty: medium
+status: extracted
+confidence: high
+evidence: live-prompt
+prompt: |
+  Customers use Amazon Search. Keywords typed into the search box are saved in a file (per day or hour). Find the top K most frequent keywords.
+  
+  Example file:
+  nike
+  nike shoes
+  nike basketball shoes
+  adidas
+  laptop
+  Phone
+  laptop
+  Phone
+  laptop
+  Phone
+  nike
+  adidas
+leetcode:
+  slug: top-k-frequent-elements
+  id: 347
+  title: Top K Frequent Elements
+  relationship: similar
+occurrences:
+  - company: amazon
+    role: SDE
+    round: onsite
+    year: 2025
+    tool: LiveCode
+    contributor: friend
+    evidence: live-prompt
+    notes: onsite LiveCode; leftover empty folder k most frequent element
+sources:
+  - kind: image
+    path: "interview Q's/Amazon/animesh samir/WhatsApp Image 2026-08-30 at 14.38.14.jpeg"
+    role: prompt
+  - kind: notes
+    path: "interview Q's/Amazon/animesh samir/k most frequent element"
+    role: meta
+notes: Empty leftover folder had no files. Prompt recovered from the LiveCode screenshot in the parent folder.
+updated_at: 2026-08-31

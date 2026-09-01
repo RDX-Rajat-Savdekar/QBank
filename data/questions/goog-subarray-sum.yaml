@@ -1,0 +1,23 @@
+id: goog-subarray-sum
+title: Subarray that adds up to target
+type: dsa
+tags:
+  - google
+topics:
+  - arrays
+difficulty: medium
+status: extracted
+confidence: medium
+evidence: friend-report
+prompt: 'Given an array, return the subarray that adds up to the target.'
+occurrences:
+  - company: google
+    role: SWE L3
+    round: onsite
+    contributor: friend
+    evidence: friend-report
+sources:
+  - kind: notes
+    path: "interview Q's/Google/q.md"
+    role: prompt
+updated_at: 2026-08-31

@@ -1,0 +1,26 @@
+id: amz-elevator
+title: Elevator
+type: lld
+tags:
+  - amazon
+  - discord
+  - lld
+topics:
+  - design-api
+difficulty: unknown
+status: raw
+confidence: low
+evidence: discord-title
+prompt: Design an elevator system.
+occurrences:
+  - company: amazon
+    contributor: online
+    evidence: discord-title
+sources:
+  - kind: discord
+    path: extras/zonline discord/LLD Qs 1.txt
+    role: prompt
+  - kind: discord
+    path: extras/zonline discord/LLD Qs 2.txt
+    role: prompt
+updated_at: 2026-08-31

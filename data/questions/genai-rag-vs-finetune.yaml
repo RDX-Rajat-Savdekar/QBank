@@ -1,0 +1,26 @@
+id: genai-rag-vs-finetune
+title: RAG vs fine-tune vs few-shot
+type: genai
+tags:
+  - amazon
+  - genai
+topics:
+  - rag
+difficulty: unknown
+status: extracted
+confidence: medium
+evidence: practice-curriculum
+prompt: 'What criteria determine whether a project should use RAG, fine-tuning, or in-context few-shot learning?'
+occurrences:
+  - company: amazon
+    round: genai-fluency
+    contributor: online
+    evidence: practice-curriculum
+sources:
+  - kind: notes
+    path: extras/zonline discord/amazon_sde1_genai_interview_guide.md
+    role: prompt
+notes: Do not copy extras/zonline discord/genai.txt personal stories into public fields.
+related:
+  - amz-lp-genai-usage
+updated_at: 2026-08-31

@@ -1,0 +1,27 @@
+id: amz-oa-job-profit
+title: OA job profit
+type: dsa
+tags:
+  - amazon
+  - oa
+  - reported
+topics:
+  - intervals
+  - dp
+difficulty: unknown
+status: raw
+confidence: low
+evidence: friend-report
+prompt: Amazon OA style job-profit / weighted interval scheduling variant. Exact wording not captured — Glassdoor writeup only.
+occurrences:
+  - company: amazon
+    role: SDE new grad
+    round: oa
+    contributor: self
+    evidence: friend-report
+sources:
+  - kind: notes
+    path: data/companies/amazon.md
+    role: prompt
+notes: 'Reported, not screenshot-backed.'
+updated_at: 2026-08-31

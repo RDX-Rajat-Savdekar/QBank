@@ -1,0 +1,28 @@
+id: amz-cache-api
+title: Cache API with pluggable eviction
+type: lld
+tags:
+  - amazon
+  - discord
+  - lld
+topics:
+  - design-api
+difficulty: unknown
+status: extracted
+confidence: medium
+evidence: discord-title
+prompt: 'Design a cache used by multiple teams. Eviction strategy should be pluggable. Follow-up: evict keys starting with abc.'
+occurrences:
+  - company: amazon
+    contributor: online
+    evidence: discord-title
+sources:
+  - kind: discord
+    path: extras/zonline discord/LLD Qs 1.txt
+    role: prompt
+  - kind: discord
+    path: extras/zonline discord/LLD Qs 2.txt
+    role: prompt
+related:
+  - lru-cache
+updated_at: 2026-08-31

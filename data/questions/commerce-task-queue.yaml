@@ -1,0 +1,22 @@
+id: commerce-task-queue
+title: Task queue manager with concurrency limit
+type: lld
+tags:
+  - commerceiq
+topics:
+  - concurrency
+difficulty: unknown
+status: extracted
+confidence: medium
+evidence: research
+prompt: 'Build a task queue manager in progressive levels: (a) unlimited concurrency, (b) concurrency limit of 3, (c) edge cases like near-simultaneous completion. Reported CommerceIQ R2/R3.'
+occurrences:
+  - company: commerceiq
+    round: onsite
+    contributor: online
+    evidence: research
+sources:
+  - kind: docx
+    path: "interview Q's/not sure/R2_Question_Bank.docx"
+    role: prompt
+updated_at: 2026-08-31

@@ -1,0 +1,12 @@
+id: google-1-to-4
+company: google
+dimensions:
+  - name: Algorithm & DS
+    scale: "1-4"
+    anchors: "poor … outstanding"
+  - name: Coding
+    scale: "1-4"
+  - name: Values Feedback
+    scale: "1-4"
+  - name: Communication
+    scale: "1-4"

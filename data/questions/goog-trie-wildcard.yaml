@@ -1,0 +1,23 @@
+id: goog-trie-wildcard
+title: Trie prefix plus wildcard plus URL route
+type: dsa
+tags:
+  - google
+topics:
+  - strings
+difficulty: unknown
+status: raw
+confidence: low
+evidence: friend-report
+prompt: 'Trie supporting prefix search, wildcard, and URL routing. WhatsApp fragment in Google notes.'
+occurrences:
+  - company: google
+    role: SWE L3
+    round: onsite
+    contributor: friend
+    evidence: friend-report
+sources:
+  - kind: notes
+    path: data/companies/google.md
+    role: prompt
+updated_at: 2026-08-31

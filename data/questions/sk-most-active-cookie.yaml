@@ -1,0 +1,38 @@
+id: sk-most-active-cookie
+title: Most active cookie
+type: takehome
+tags:
+  - sk
+  - takehome
+topics:
+  - hashing
+difficulty: medium
+status: extracted
+confidence: high
+evidence: live-prompt
+prompt: |
+  Pair-programming on a submitted CLI take-home.
+  
+  Command: ./most_active_cookie cookie_log.csv -d 2018-12-09
+  
+  Count cookies on one UTC day (not the date string on the timestamp). Ties: print every winner, one per line, first-seen. Stream the CSV; memory is unique cookies that day. Fail closed on bad rows; no partial stdout; no traceback.
+  
+  Pipeline: cli.py → app.py → csv_log.py → analyzer.py
+  
+  Live extensions cover other inputs (not only CSV), folder-of-CSVs, and RAM / scale.
+occurrences:
+  - company: sk
+    round: takehome
+    contributor: self
+    evidence: live-prompt
+sources:
+  - kind: notes
+    path: "interview Q's/S K/interview-journal.md"
+    role: prompt
+  - kind: code
+    path: "interview Q's/S K/code-submission-most-active-cookie (1).zip"
+    role: solution
+  - kind: image
+    path: "interview Q's/S K/Screenshot 2026-08-30 at 2.15.56 PM.png"
+    role: prompt
+updated_at: 2026-08-31

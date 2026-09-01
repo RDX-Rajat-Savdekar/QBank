@@ -1,0 +1,33 @@
+id: c3-daily-inventory
+title: Daily inventory movements
+type: dsa
+tags:
+  - c3
+topics:
+  - arrays
+difficulty: medium
+status: extracted
+confidence: high
+evidence: live-prompt
+prompt: |
+  Given daily movements of inventory, return an array of the total amount of daily inventory from day 0 through the maximum day present.
+  
+  Each transaction is {day, amount} (positive add, negative deduct). Multiple transactions may share a day. Missing days carry the previous running total. Output includes a leading 0 for inventory before day 0.
+examples:
+  - input: "[{ 'day': 0, 'amount': +10 }, { 'day': 0, 'amount': -5 }, { 'day': 1, 'amount': +3 }, { 'day': 3, 'amount': +10 }]"
+    output: '[0, 5, 8, 8, 18]'
+occurrences:
+  - company: c3
+    role: FDE
+    round: onsite
+    year: 2026
+    contributor: self
+    evidence: live-prompt
+sources:
+  - kind: image
+    path: "interview Q's/c3/Screenshot 2026-08-31 at 7.11.59 AM.png"
+    role: prompt
+  - kind: pdf
+    path: "interview Q's/c3/interview_1_journal_daily_inventory.pdf"
+    role: prompt
+updated_at: 2026-08-31

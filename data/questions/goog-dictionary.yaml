@@ -1,0 +1,26 @@
+id: goog-dictionary
+title: Dictionary add and read
+type: dsa
+tags:
+  - google
+topics:
+  - hashing
+difficulty: unknown
+status: extracted
+confidence: medium
+evidence: friend-report
+prompt: Make a dictionary that stores a word and a meaning. Support add and read methods.
+follow_ups:
+  - text: Optimize for space from O(N)
+    kind: follow-up
+occurrences:
+  - company: google
+    role: SWE L3
+    round: onsite
+    contributor: friend
+    evidence: friend-report
+sources:
+  - kind: notes
+    path: "interview Q's/Google/q.md"
+    role: prompt
+updated_at: 2026-08-31

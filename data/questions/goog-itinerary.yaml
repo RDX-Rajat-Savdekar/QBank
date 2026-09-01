@@ -1,0 +1,22 @@
+id: goog-itinerary
+title: Itinerary validity over airports
+type: dsa
+tags:
+  - google
+topics:
+  - graph
+difficulty: unknown
+status: extracted
+confidence: medium
+evidence: friend-report
+prompt: You are given a start time and end time for an itinerary along with src and destination. You are given a list of airports which signifies where flights are present. Tell whether the itinerary is valid.
+occurrences:
+  - company: google
+    contributor: friend
+    evidence: friend-report
+    notes: q.md friend report
+sources:
+  - kind: notes
+    path: "interview Q's/Google/q.md"
+    role: prompt
+updated_at: 2026-08-31

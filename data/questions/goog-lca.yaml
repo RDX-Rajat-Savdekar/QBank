@@ -1,0 +1,66 @@
+id: goog-lca
+title: Lowest common ancestor
+type: dsa
+tags:
+  - google
+topics:
+  - tree
+difficulty: medium
+status: extracted
+confidence: medium
+evidence: friend-report
+prompt: |
+  Given a binary tree, find the lowest common ancestor (LCA) of two given nodes in the tree.
+  
+  According to the definition of LCA on Wikipedia: &ldquo;The lowest common ancestor is defined between two nodes `p` and `q` as the lowest node in `T` that has both `p` and `q` as descendants (where we allow a node to be a descendant of itself).&rdquo;
+examples:
+  - input: 'root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 1'
+    output: '3'
+    explanation: 'The LCA of nodes 5 and 1 is 3.'
+  - input: 'root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 4'
+    output: '5'
+    explanation: 'The LCA of nodes 5 and 4 is 5, since a node can be a descendant of itself according to the LCA definition.'
+  - input: 'root = [1,2], p = 1, q = 2'
+    output: '1'
+constraints: |
+  - The number of nodes in the tree is in the range `[2, 10^5]`.
+  - `-10^9 <= Node.val <= 10^9`
+  - All `Node.val` are unique.
+  - `p != q`
+  - `p` and `q` will exist in the tree.
+starter: |
+  # Definition for a binary tree node.
+  # class TreeNode:
+  #     def __init__(self, x):
+  #         self.val = x
+  #         self.left = None
+  #         self.right = None
+  
+  class Solution:
+      def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+          pass
+  
+  # print(Solution().__init__(...))  # e.g. root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 1
+leetcode:
+  slug: lowest-common-ancestor-of-a-binary-tree
+  id: 236
+  title: Lowest Common Ancestor of a Binary Tree
+  relationship: exact
+occurrences:
+  - company: google
+    contributor: friend
+    evidence: friend-report
+    notes: q.md friend report
+  - company: amazon
+    contributor: online
+    evidence: discord-title
+sources:
+  - kind: notes
+    path: "interview Q's/Google/q.md"
+    role: prompt
+  - kind: discord
+    path: extras/zonline discord/LC qs.txt
+    role: prompt
+related:
+  - goog-lca-nary
+updated_at: 2026-08-31

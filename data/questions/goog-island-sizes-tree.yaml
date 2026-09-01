@@ -1,0 +1,22 @@
+id: goog-island-sizes-tree
+title: Number of islands in a tree and distinct sizes
+type: dsa
+tags:
+  - google
+topics:
+  - tree
+difficulty: unknown
+status: extracted
+confidence: medium
+evidence: friend-report
+prompt: Number of islands in the tree; find the number of distinct sizes of the islands / shapes of the islands.
+occurrences:
+  - company: google
+    contributor: friend
+    evidence: friend-report
+    notes: q.md friend report
+sources:
+  - kind: notes
+    path: "interview Q's/Google/q.md"
+    role: prompt
+updated_at: 2026-08-31

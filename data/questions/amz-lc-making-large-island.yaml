@@ -1,0 +1,59 @@
+id: amz-lc-making-large-island
+title: Making a Large Island
+type: dsa
+tags:
+  - amazon
+  - discord
+topics:
+  - arrays
+  - graph
+  - union-find
+  - geometry/grid
+difficulty: hard
+status: extracted
+confidence: medium
+evidence: discord-title
+prompt: |
+  You are given an `n x n` binary matrix `grid`. You are allowed to change at most one `0` to be `1`.
+  
+  Return the size of the largest island in `grid` after applying this operation.
+  
+  An island is a 4-directionally connected group of `1`s.
+examples:
+  - input: 'grid = [[1,0],[0,1]]'
+    output: '3'
+    explanation: 'Change one 0 to 1 and connect two 1s, then we get an island with area = 3.'
+  - input: 'grid = [[1,1],[1,0]]'
+    output: '4'
+    explanation: 'Change the 0 to 1 and make the island bigger, only one island with area = 4.'
+  - input: 'grid = [[1,1],[1,1]]'
+    output: '4'
+    explanation: 'Can''t change any 0 to 1, only one island with area = 4.'
+constraints: |
+  - `n == grid.length`
+  - `n == grid[i].length`
+  - `1 <= n <= 500`
+  - `grid[i][j]` is either `0` or `1`.
+starter: |
+  from typing import List
+  
+  class Solution:
+      def largestIsland(self, grid: List[List[int]]) -> int:
+          pass
+  
+  # print(Solution().largestIsland(...))  # e.g. grid = [[1,0],[0,1]]
+leetcode:
+  slug: making-a-large-island
+  id: 827
+  title: Making A Large Island
+  relationship: exact
+occurrences:
+  - company: amazon
+    contributor: online
+    evidence: discord-title
+sources:
+  - kind: discord
+    path: extras/zonline discord/LC qs.txt
+    role: prompt
+notes: Official LeetCode statement filled from public problem data. Discord row was title-only.
+updated_at: 2026-08-31

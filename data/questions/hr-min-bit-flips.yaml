@@ -1,0 +1,30 @@
+id: hr-min-bit-flips
+title: Minimum bit flips to equalize an array
+type: dsa
+tags:
+  - hackerrank
+topics:
+  - math
+difficulty: medium
+status: extracted
+confidence: high
+evidence: live-prompt
+prompt: |
+  Find the minimum number of operations required to make all integers in an array equal. In one operation, any bit of any element can be flipped.
+  
+  Example: n=2, arr=[1, 2]. Flip 1 (01) → 3 (11), flip 2 (10) → 3 (11). Answer 2.
+  
+  Function: getMinOperations(arr)
+examples:
+  - input: 'arr = [1, 2]'
+    output: '2'
+occurrences:
+  - company: unknown
+    round: oa
+    contributor: self
+    evidence: live-prompt
+sources:
+  - kind: image
+    path: "interview Q's/not sure/Q1/Q2/WhatsApp Image 2026-03-26 at 21.58.18.jpeg"
+    role: prompt
+updated_at: 2026-08-31

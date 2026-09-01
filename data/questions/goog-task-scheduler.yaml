@@ -1,0 +1,35 @@
+id: goog-task-scheduler
+title: User tasks start and end times plus priority
+type: dsa
+tags:
+  - google
+topics:
+  - heap
+difficulty: unknown
+status: extracted
+confidence: high
+evidence: live-prompt
+prompt: |
+  You are given a list of user tasks with submission time and execution time. Return a result list with the start time and end time of each user task.
+  
+  Assume jobs are sorted and submission times are unique for the first version.
+follow_ups:
+  - text: Jobs are not sorted (min-heap or sort)
+    kind: follow-up
+  - text: Jobs have a unique priority; lower value is higher priority
+    kind: follow-up
+  - text: Interesting examples that hit each if/else
+    kind: follow-up
+occurrences:
+  - company: google
+    role: SWE L3
+    round: onsite
+    contributor: self
+    evidence: live-prompt
+    notes: R2 interview 2
+sources:
+  - kind: notes
+    path: "interview Q's/Google/q.md"
+    role: prompt
+    ref: Round 2 interview 2
+updated_at: 2026-08-31

@@ -1,0 +1,8 @@
+name: Anthropic
+aliases: [claude]
+levels: []
+loop: []
+signals: []
+tools: [coderpad]
+resources: []
+notes_md: anthropic.md

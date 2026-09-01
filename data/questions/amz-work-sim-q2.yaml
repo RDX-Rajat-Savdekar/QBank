@@ -1,0 +1,23 @@
+id: amz-work-sim-q2
+title: Amazon work-sim inbox (Q2 only)
+type: oa-sim
+tags:
+  - amazon
+  - work-sim
+topics: []
+difficulty: unknown
+status: raw
+confidence: low
+evidence: friend-report
+prompt: Amazon online work simulation (inbox / Ryan / Matthew). Only Q2 was captured in notes. Full Qs 1 and 3–5 were not captured.
+occurrences:
+  - company: amazon
+    round: oa
+    contributor: self
+    evidence: friend-report
+sources:
+  - kind: notes
+    path: data/companies/amazon.md
+    role: prompt
+notes: Do not invent Q1/Q3–Q5.
+updated_at: 2026-08-31

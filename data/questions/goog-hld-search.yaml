@@ -1,0 +1,25 @@
+id: goog-hld-search
+title: Design Search
+type: hld
+tags:
+  - google
+  - hld
+  - online
+topics:
+  - design-api
+difficulty: unknown
+status: raw
+confidence: low
+evidence: research
+prompt: 'Design web search (HLD). Google system-design reference list — banked as an HLD prompt, source online.'
+occurrences:
+  - company: google
+    round: onsite
+    contributor: online
+    evidence: research
+sources:
+  - kind: notes
+    path: data/companies/google.md
+    role: prompt
+notes: No local prompt dump. Title-level HLD from the seed inventory.
+updated_at: 2026-08-31

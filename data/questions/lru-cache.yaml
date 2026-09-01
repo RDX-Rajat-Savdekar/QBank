@@ -1,0 +1,58 @@
+id: lru-cache
+title: LRU Cache
+type: lld
+tags:
+  - amazon
+  - discord
+topics:
+  - design-api
+difficulty: medium
+status: raw
+confidence: low
+evidence: discord-title
+prompt: "Design an LRU cache. Frequently asked at Amazon. Many 'design linked list' questions are actually LRU."
+constraints: |
+  - `1 <= capacity <= 3000`
+  - `0 <= key <= 10^4`
+  - `0 <= value <= 10^5`
+  - At most `2 * 10^5` calls will be made to `get` and `put`.
+starter: |
+  class LRUCache:
+  
+      def __init__(self, capacity: int):
+          
+  
+      def get(self, key: int) -> int:
+          
+  
+      def put(self, key: int, value: int) -> None:
+          
+  
+  
+  # Your LRUCache object will be instantiated and called as such:
+  # obj = LRUCache(capacity)
+  # param_1 = obj.get(key)
+  # obj.put(key,value)
+  
+  # print(Solution().__init__(...))
+leetcode:
+  slug: lru-cache
+  id: 146
+  title: LRU Cache
+  relationship: exact
+occurrences:
+  - company: amazon
+    contributor: online
+    evidence: discord-title
+sources:
+  - kind: discord
+    path: extras/zonline discord/LC qs.txt
+    role: prompt
+  - kind: discord
+    path: extras/zonline discord/LLD Qs 1.txt
+    role: prompt
+    ref: LRU Cache
+  - kind: notes
+    path: data/companies/amazon.md
+    role: prompt
+updated_at: 2026-08-31

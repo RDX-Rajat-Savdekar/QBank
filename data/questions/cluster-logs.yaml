@@ -1,0 +1,73 @@
+id: cluster-logs
+title: Cluster logs
+type: dsa
+tags: [3-part, practice]
+topics: [hashing, design-api]
+difficulty: medium
+status: extracted
+confidence: high
+evidence: practice-curriculum
+prompt: |
+  You have structured `Log` objects, each with a `timestamp` and a `fields` dict of arbitrary key-value pairs. Group logs that share the same `hostname` *and* `container_id` values into `LogCluster` objects (each tracking match fields, all timestamps, and one sample log). Dict key ordering must not affect grouping; extra fields are irrelevant; output must be deterministic.
+  
+  Part 2 (generalize): make `cluster_logs` accept an arbitrary `cluster_keys` list (default `None` → backwards compatible).
+  
+  Part 3 (interface): define a `LogProcessingOperation` ABC with `process(log, config) -> list`, a concrete `ClusterLogsOperation`, and a `process_and_save` runner that writes NDJSON to a file.
+solution:
+  approach: |
+    Canonicalize the grouping key from the requested fields (sorted / tuple), ignore extra keys, sort output for determinism. Part 3 is a small strategy interface plus an NDJSON writer.
+  links: [https://claude.ai/chat/0898ed66-6f52-4b1a-8e24-4068bd5c0b0b]
+sources:
+  - kind: 'bank'
+    path: "interview Q's/claude/PROBLEM_BANK (1).md"
+    ref: 'A15'
+    role: 'prompt'
+  - kind: 'image'
+    path: "interview Q's/claude/debug/log clustering/Screenshot 2026-06-30 at 4.48.58\u202fAM.png"
+    role: 'prompt'
+  - kind: 'image'
+    path: "interview Q's/claude/debug/log clustering/Screenshot 2026-06-30 at 4.49.08\u202fAM.png"
+    role: 'prompt'
+  - kind: 'image'
+    path: "interview Q's/claude/debug/log clustering/Screenshot 2026-06-30 at 4.49.18\u202fAM.png"
+    role: 'prompt'
+  - kind: 'image'
+    path: "interview Q's/claude/debug/log clustering/Screenshot 2026-06-30 at 4.49.37\u202fAM.png"
+    role: 'prompt'
+  - kind: 'image'
+    path: "interview Q's/claude/debug/log clustering/preview (1).webp"
+    role: 'prompt'
+  - kind: 'image'
+    path: "interview Q's/claude/debug/log clustering/preview (10).webp"
+    role: 'prompt'
+  - kind: 'image'
+    path: "interview Q's/claude/debug/log clustering/preview (11).webp"
+    role: 'prompt'
+  - kind: 'image'
+    path: "interview Q's/claude/debug/log clustering/preview (2).webp"
+    role: 'prompt'
+  - kind: 'image'
+    path: "interview Q's/claude/debug/log clustering/preview (3).webp"
+    role: 'prompt'
+  - kind: 'image'
+    path: "interview Q's/claude/debug/log clustering/preview (4).webp"
+    role: 'prompt'
+  - kind: 'image'
+    path: "interview Q's/claude/debug/log clustering/preview (5).webp"
+    role: 'prompt'
+  - kind: 'image'
+    path: "interview Q's/claude/debug/log clustering/preview (6).webp"
+    role: 'prompt'
+  - kind: 'image'
+    path: "interview Q's/claude/debug/log clustering/preview (7).webp"
+    role: 'prompt'
+  - kind: 'image'
+    path: "interview Q's/claude/debug/log clustering/preview (8).webp"
+    role: 'prompt'
+  - kind: 'image'
+    path: "interview Q's/claude/debug/log clustering/preview (9).webp"
+    role: 'prompt'
+  - kind: 'image'
+    path: "interview Q's/claude/debug/log clustering/preview.webp"
+    role: 'prompt'
+updated_at: 2026-08-31

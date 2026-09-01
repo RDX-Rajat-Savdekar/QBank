@@ -1,0 +1,22 @@
+id: amz-lc-connect-four
+title: Connect Four winner from last move
+type: dsa
+tags:
+  - amazon
+  - discord
+topics: []
+difficulty: unknown
+status: raw
+confidence: low
+evidence: discord-title
+prompt: 'Connect Four winner from last move. Given the last move, determine whether the player won (4 in a row).'
+occurrences:
+  - company: amazon
+    contributor: online
+    evidence: discord-title
+sources:
+  - kind: discord
+    path: extras/zonline discord/LC qs.txt
+    role: prompt
+notes: Title-only Discord row. Prompt is the listed title plus any listed follow-up. Do not invent a full statement.
+updated_at: 2026-08-31

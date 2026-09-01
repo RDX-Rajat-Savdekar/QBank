@@ -1,0 +1,8 @@
+name: CommerceIQ
+aliases: [commerceiq]
+levels: [SDE]
+loop: [onsite]
+signals: []
+tools: [Claude]
+resources: []
+notes_md: commerceiq.md

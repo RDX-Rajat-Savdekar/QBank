@@ -1,0 +1,28 @@
+id: amz-lc-meeting-rooms
+title: Meeting Rooms
+type: dsa
+tags:
+  - amazon
+  - discord
+topics:
+  - arrays
+difficulty: easy
+status: raw
+confidence: low
+evidence: discord-title
+prompt: Meeting Rooms.
+leetcode:
+  slug: meeting-rooms
+  id: 252
+  title: Meeting Rooms
+  relationship: exact
+occurrences:
+  - company: amazon
+    contributor: online
+    evidence: discord-title
+sources:
+  - kind: discord
+    path: extras/zonline discord/LC qs.txt
+    role: prompt
+notes: Title-only Discord row. Prompt is the listed title plus any listed follow-up. Do not invent a full statement.
+updated_at: 2026-08-31

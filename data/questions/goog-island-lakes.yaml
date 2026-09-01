@@ -1,0 +1,22 @@
+id: goog-island-lakes
+title: Island lakes and bounding box
+type: dsa
+tags:
+  - google
+topics:
+  - geometry/grid
+difficulty: unknown
+status: extracted
+confidence: medium
+evidence: friend-report
+prompt: If an island has a water body completely surrounded by land then it is a lake. There are multiple lakes on the islands. The islands will always be square. Find the island bounding box (minimum x and y).
+occurrences:
+  - company: google
+    contributor: friend
+    evidence: friend-report
+    notes: q.md friend report
+sources:
+  - kind: notes
+    path: "interview Q's/Google/q.md"
+    role: prompt
+updated_at: 2026-08-31

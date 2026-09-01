@@ -1,0 +1,26 @@
+id: amz-product-filter
+title: Amazon product filter
+type: lld
+tags:
+  - amazon
+  - discord
+  - lld
+topics:
+  - design-api
+difficulty: unknown
+status: extracted
+confidence: medium
+evidence: discord-title
+prompt: 'Design a product filtering system by category, price, brand, rating. Easy to add new filters.'
+occurrences:
+  - company: amazon
+    contributor: online
+    evidence: discord-title
+sources:
+  - kind: discord
+    path: extras/zonline discord/LLD Qs 1.txt
+    role: prompt
+  - kind: discord
+    path: extras/zonline discord/LLD Qs 2.txt
+    role: prompt
+updated_at: 2026-08-31

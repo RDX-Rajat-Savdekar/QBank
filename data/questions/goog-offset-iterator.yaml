@@ -1,0 +1,22 @@
+id: goog-offset-iterator
+title: Offset array then iterator
+type: dsa
+tags:
+  - google
+topics:
+  - arrays
+difficulty: unknown
+status: extracted
+confidence: medium
+evidence: friend-report
+prompt: 'Given an array and an offset: if the offset is +3 return the first 3, if -1 then the last 1 (notes say last 3 for -1). Follow-up: instead of an array you have an iterator with hasNext and getNext.'
+occurrences:
+  - company: google
+    contributor: friend
+    evidence: friend-report
+    notes: q.md friend report
+sources:
+  - kind: notes
+    path: "interview Q's/Google/q.md"
+    role: prompt
+updated_at: 2026-08-31

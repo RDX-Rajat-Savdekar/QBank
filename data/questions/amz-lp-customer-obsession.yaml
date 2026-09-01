@@ -1,0 +1,37 @@
+id: amz-lp-customer-obsession
+title: Difficult customer / customer obsession
+type: behavioral
+tags:
+  - amazon
+  - lp
+  - behavioral
+topics: []
+difficulty: unknown
+status: extracted
+confidence: medium
+evidence: discord-title
+prompt: Tell me about a difficult customer. Tell me about a customer issue you resolved. How did you prioritize the customer?
+occurrences:
+  - company: amazon
+    round: onsite
+    contributor: online
+    evidence: discord-title
+  - company: amazon
+    round: onsite
+    contributor: self
+    evidence: research
+    notes: 16 LP sample list in amazon.md
+sources:
+  - kind: discord
+    path: extras/zonline discord/LP 1.txt
+    role: prompt
+  - kind: discord
+    path: extras/zonline discord/LP 2.txt
+    role: prompt
+  - kind: pdf
+    path: extras/Mock Behav Interview Qs.pdf
+    role: prompt
+  - kind: notes
+    path: data/companies/amazon.md
+    role: prompt
+updated_at: 2026-08-31

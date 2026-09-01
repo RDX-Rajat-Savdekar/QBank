@@ -1,0 +1,59 @@
+id: amz-min-merge-conflicts
+title: Minimum merge conflicts
+type: dsa
+tags: [oa-custom]
+topics: [strings]
+difficulty: hard
+status: extracted
+confidence: high
+evidence: live-prompt
+prompt: |
+  Merge `primary` and `secondary` source-control branches while
+  preserving the relative order of commits from each branch. Each
+  character is a commit priority; earlier in the alphabet is higher
+  priority. A conflict is a lower-priority commit placed before a
+  higher-priority commit in the merge. Return the minimum number of
+  conflicts over any valid merge. Function `getMinimumConflicts`.
+
+  Example: primary = "zc", secondary = "d" → 2
+  (merges "zcd" and "dzc" both have 2 conflicts; "zdc" has 3).
+examples:
+  - input: 'primary="zc", secondary="d"'
+    output: "2"
+constraints: |
+  1 <= |primary|, |secondary| <= 1000
+  lowercase English letters only
+solution:
+  approach: |
+    Count inversions created by the forced interleaving order, both
+    inside each string and across strings. Pick the merge that
+    minimizes those inversions.
+  links: [https://claude.ai/chat/f861be36-a401-46d8-ab30-e2ecf7b99b38]
+occurrences:
+  - company: amazon
+    role: sde-new-grad
+    round: oa
+    year: 2026
+    tool: hackerrank
+    contributor: friend
+    evidence: live-prompt
+    notes: "Q1 paired with MovieDB debug"
+sources:
+  - kind: bank
+    path: "interview Q's/claude/PROBLEM_BANK (1).md"
+    ref: A13
+    role: prompt
+  - kind: image
+    path: "interview Q's/Amazon/Anika/1/WhatsApp Image 2026-06-21 at 20.59.43.jpeg"
+    role: prompt
+  - kind: image
+    path: "interview Q's/Amazon/Anika/1/WhatsApp Image 2026-06-21 at 21.00.01.jpeg"
+    role: prompt
+  - kind: image
+    path: "interview Q's/Amazon/Anika/1/WhatsApp Image 2026-06-21 at 21.08.10.jpeg"
+    role: prompt
+  - kind: image
+    path: "interview Q's/Amazon/Anika/1/WhatsApp Image 2026-06-21 at 21.08.29.jpeg"
+    role: prompt
+related: [amz-moviedb-debug, amz-contiguous-quality, amz-min-inconvenience, amz-drone-hubs]
+updated_at: 2026-08-31

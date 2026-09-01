@@ -1,0 +1,25 @@
+name: Google
+aliases: [goog]
+levels: [L3, L4]
+loop:
+  - oa
+  - phone
+  - onsite
+signals:
+  - Googliness
+  - Ambiguity
+  - Bias for Action
+  - Collaboration
+  - Psychological Safety
+  - Growth Mindset
+  - Customer Empathy
+tools: [coderpad]
+resources:
+  - { title: "interviewing.io", url: "https://interviewing.io", kind: tool }
+  - { title: "interviewing.io showcase", url: "https://start.interviewing.io/showcase", kind: article }
+  - { title: "interviewing.io company process", url: "https://interviewing.io/learn#interview-process-and-questions-by-company", kind: article }
+  - { title: "Alpha-Code", url: "https://www.youtube.com/@Alpha-Code/videos", kind: video }
+  - { title: "IGotAnOffer Google interview guide", url: "https://igotanoffer.com/blogs/tech/google-software-engineer-interview", kind: article }
+  - { title: "Hello Interview", url: "https://www.hellointerview.com", kind: article }
+  - { title: "Google Interview Prep PDF (curriculum, not a dump)", kind: book }
+notes_md: google.md

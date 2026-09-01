@@ -1,0 +1,20 @@
+id: goog-why-google
+title: Why Google
+type: behavioral
+tags:
+  - google
+topics: []
+difficulty: unknown
+status: extracted
+confidence: medium
+evidence: research
+prompt: Why Google? (from Google notes / interviewing.io list).
+occurrences:
+  - company: google
+    contributor: self
+    evidence: research
+sources:
+  - kind: notes
+    path: data/companies/google.md
+    role: prompt
+updated_at: 2026-08-31

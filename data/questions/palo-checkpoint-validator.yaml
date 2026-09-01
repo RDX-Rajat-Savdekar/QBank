@@ -1,0 +1,34 @@
+id: palo-checkpoint-validator
+title: Inspection checkpoint validator
+type: dsa
+tags:
+  - palo-alto
+  - i2
+topics:
+  - arrays
+  - math
+difficulty: medium
+status: extracted
+confidence: high
+evidence: live-prompt
+prompt: |
+  Validate a sequence of checkpoint positions before they are scheduled on a security appliance data plane.
+  
+  Checkpoints sit on a cyclic inspection ring and wrap after maxCheckpoint. Input may be untrusted and out of order.
+  
+  A sequence is valid iff:
+  1. Every checkpoint <= maxCheckpoint.
+  2. After ordering, no two adjacent checkpoints on the ring (including wrap-around from highest back to lowest) are closer than minSpacing.
+occurrences:
+  - company: palo-alto
+    role: SDE
+    round: onsite
+    year: 2026
+    contributor: self
+    evidence: live-prompt
+    notes: i2
+sources:
+  - kind: image
+    path: "interview Q's/F paolo alto/i2/Screenshot 2026-07-23 at 2.51.20 PM.png"
+    role: prompt
+updated_at: 2026-08-31

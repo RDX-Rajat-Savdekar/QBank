@@ -1,0 +1,27 @@
+id: amz-oa-intervals-queries
+title: OA intervals plus queries
+type: dsa
+tags:
+  - amazon
+  - oa
+  - reported
+topics:
+  - intervals
+difficulty: unknown
+status: raw
+confidence: low
+evidence: friend-report
+prompt: 'Amazon OA style: process intervals and then answer queries over them. Exact wording not captured — Glassdoor writeup only.'
+occurrences:
+  - company: amazon
+    role: SDE new grad
+    round: oa
+    contributor: self
+    evidence: friend-report
+    notes: Rajat_notes Glassdoor writeup
+sources:
+  - kind: notes
+    path: data/companies/amazon.md
+    role: prompt
+notes: 'Reported, not screenshot-backed. Do not invent a full prompt.'
+updated_at: 2026-08-31

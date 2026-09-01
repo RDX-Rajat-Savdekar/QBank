@@ -1,0 +1,30 @@
+id: amz-lc-website-visit-pattern
+title: Analyze User Website Visit Pattern
+type: dsa
+tags:
+  - amazon
+  - discord
+topics:
+  - arrays
+  - hashing
+  - strings
+difficulty: medium
+status: raw
+confidence: low
+evidence: discord-title
+prompt: Analyze User Website Visit Pattern.
+leetcode:
+  slug: analyze-user-website-visit-pattern
+  id: 1152
+  title: Analyze User Website Visit Pattern
+  relationship: exact
+occurrences:
+  - company: amazon
+    contributor: online
+    evidence: discord-title
+sources:
+  - kind: discord
+    path: extras/zonline discord/LC qs.txt
+    role: prompt
+notes: Title-only Discord row. Prompt is the listed title plus any listed follow-up. Do not invent a full statement.
+updated_at: 2026-08-31

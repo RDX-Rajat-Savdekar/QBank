@@ -1,0 +1,9 @@
+id: engineering-dimensions
+company: generic
+dimensions:
+  - name: Code Comprehension
+  - name: Programming
+  - name: DS and algorithm
+  - name: Debugging, Diagnosis, and Resolution
+  - name: Test Engineering
+  - name: Code and System Health

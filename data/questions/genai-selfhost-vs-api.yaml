@@ -1,0 +1,25 @@
+id: genai-selfhost-vs-api
+title: Self-hosted LLM versus managed API
+type: genai
+tags:
+  - amazon
+  - genai
+topics: []
+difficulty: unknown
+status: extracted
+confidence: medium
+evidence: practice-curriculum
+prompt: What are the operational trade-offs of hosting an open-source LLM on self-managed infrastructure versus using a managed API service (e.g. Amazon Bedrock)?
+occurrences:
+  - company: amazon
+    round: genai-fluency
+    contributor: online
+    evidence: practice-curriculum
+sources:
+  - kind: notes
+    path: extras/zonline discord/amazon_sde1_genai_interview_guide.md
+    role: prompt
+notes: Do not copy extras/zonline discord/genai.txt personal stories into public fields.
+related:
+  - amz-lp-genai-usage
+updated_at: 2026-08-31

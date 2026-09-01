@@ -1,0 +1,67 @@
+id: two-sum
+title: Two Sum
+type: dsa
+tags: [practice, lc-easy]
+topics: [arrays, hashing]
+difficulty: easy
+leetcode:
+  slug: two-sum
+  id: 1
+  title: Two Sum
+  relationship: exact
+status: extracted
+confidence: high
+evidence: practice-curriculum
+prompt: |
+  Given an array of integers `nums` and an integer `target`, return the indices of the two numbers that add up to `target`. Each input has exactly one solution, and you may not use the same element twice.
+examples:
+  - input: 'nums = [2,7,11,15], target = 9'
+    output: '[0,1]'
+  - input: 'nums = [3,3], target = 6'
+    output: '[0,1]'
+    explanation: 'edge: same value, different indices'
+constraints: |
+  - `2 <= nums.length <= 10^4`
+  - `-10^9 <= nums[i] <= 10^9`
+  - `-10^9 <= target <= 10^9`
+  - Only one valid answer exists.
+starter: |
+  from typing import List
+  
+  class Solution:
+      def twoSum(self, nums: List[int], target: int) -> List[int]:
+          pass
+  
+  # print(Solution().twoSum(...))  # e.g. nums = [2,7,11,15], target = 9
+solution:
+  approach: |
+    One pass: store value → index. For each x, look up target-x.
+  complexity:
+    time: O(n)
+    space: O(n)
+  code: |
+    def two_sum(nums, target):
+        seen = {}
+        for i, x in enumerate(nums):
+            if target - x in seen:
+                return [seen[target - x], i]
+            seen[x] = i
+        return []
+  code_language: python
+  pitfalls: [Do not reuse the same index]
+  links: [https://claude.ai/chat/6ab5e750-ee96-452b-8f18-fb83fcd9b945]
+occurrences:
+  - company: amazon
+    contributor: online
+    evidence: discord-title
+    notes: Discord LC dump
+sources:
+  - kind: 'bank'
+    path: "interview Q's/claude/PROBLEM_BANK (1).md"
+    ref: 'A1'
+    role: 'prompt'
+  - kind: discord
+    path: extras/zonline discord/LC qs.txt
+    role: prompt
+related: [longest-repeating-char-replacement, product-except-self, amz-lc-three-sum]
+updated_at: 2026-08-31

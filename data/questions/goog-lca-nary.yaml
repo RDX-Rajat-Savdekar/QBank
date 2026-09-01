@@ -1,0 +1,24 @@
+id: goog-lca-nary
+title: LCA on an n-ary tree
+type: dsa
+tags:
+  - google
+topics:
+  - tree
+difficulty: unknown
+status: extracted
+confidence: medium
+evidence: friend-report
+prompt: Lowest common ancestor on an n-ary tree.
+occurrences:
+  - company: google
+    contributor: friend
+    evidence: friend-report
+    notes: q.md friend report
+sources:
+  - kind: notes
+    path: "interview Q's/Google/q.md"
+    role: prompt
+related:
+  - goog-lca
+updated_at: 2026-08-31

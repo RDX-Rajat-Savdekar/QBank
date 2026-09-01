@@ -1,0 +1,49 @@
+id: amz-number-of-islands
+title: Number of islands
+type: dsa
+tags:
+  - amazon
+  - reported
+topics:
+  - geometry/grid
+  - graph
+difficulty: medium
+status: extracted
+confidence: medium
+evidence: friend-report
+prompt: 'Given a 2D grid of land and water, count the number of islands (connected land components).'
+examples:
+  - input: 'grid = ['
+    output: '1'
+  - input: 'grid = ['
+    output: '3'
+constraints: |
+  - `m == grid.length`
+  - `n == grid[i].length`
+  - `1 <= m, n <= 300`
+  - `grid[i][j]` is `'0'` or `'1'`.
+starter: |
+  from typing import List
+  
+  class Solution:
+      def numIslands(self, grid: List[List[str]]) -> int:
+          pass
+  
+  # print(Solution().numIslands(...))  # e.g. grid = [
+leetcode:
+  slug: number-of-islands
+  id: 200
+  title: Number of Islands
+  relationship: exact
+occurrences:
+  - company: amazon
+    role: SDE
+    round: onsite
+    contributor: self
+    evidence: friend-report
+    notes: Glassdoor-reported loop; no live screenshot
+sources:
+  - kind: notes
+    path: data/companies/amazon.md
+    role: prompt
+updated_at: 2026-08-31

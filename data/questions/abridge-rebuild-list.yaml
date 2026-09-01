@@ -1,0 +1,30 @@
+id: abridge-rebuild-list
+title: Rebuild list from unordered records
+type: dsa
+tags:
+  - abridge
+  - coderbyte
+topics:
+  - hashing
+difficulty: medium
+status: extracted
+confidence: high
+evidence: practice-curriculum
+prompt: |
+  A singly linked list was serialized into an unordered collection of node records. Each node has a unique integer ID. You receive three parallel arrays and the ID of the head:
+  
+  ids[i] is the unique ID of record i.
+  vals[i] is the value stored in record i.
+  next_ids[i] is the ID of the next node, or -1 when record i is the tail.
+  
+  Records are in arbitrary order. Reconstruct the list and return its values from head to tail. If head_id is -1, return an empty list. Values are not unique — use IDs.
+occurrences:
+  - company: abridge
+    round: oa
+    contributor: online
+    evidence: practice-curriculum
+sources:
+  - kind: pdf
+    path: extras/coderbyte_abridge _oa_python_interview_practice_guide.pdf
+    role: prompt
+updated_at: 2026-08-31

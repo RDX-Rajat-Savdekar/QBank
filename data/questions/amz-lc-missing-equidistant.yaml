@@ -1,0 +1,22 @@
+id: amz-lc-missing-equidistant
+title: Missing element in an equidistant array
+type: dsa
+tags:
+  - amazon
+  - discord
+topics: []
+difficulty: unknown
+status: raw
+confidence: low
+evidence: discord-title
+prompt: Missing element in an equidistant array. Similar to Missing Number. Expected O(log n).
+occurrences:
+  - company: amazon
+    contributor: online
+    evidence: discord-title
+sources:
+  - kind: discord
+    path: extras/zonline discord/LC qs.txt
+    role: prompt
+notes: Title-only Discord row. Prompt is the listed title plus any listed follow-up. Do not invent a full statement.
+updated_at: 2026-08-31

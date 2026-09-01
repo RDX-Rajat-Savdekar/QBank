@@ -1,0 +1,39 @@
+name: Amazon
+aliases: [amzn, aws]
+levels: [sde-new-grad, sde-ftc, sde-1]
+loop:
+  - oa
+  - phone
+  - onsite
+  - bar-raiser
+  - hiring-manager
+  - genai-fluency
+signals:
+  - Customer Obsession
+  - Ownership
+  - Invent and Simplify
+  - Are Right, A Lot
+  - Learn and Be Curious
+  - Hire and Develop the Best
+  - Insist on the Highest Standards
+  - Think Big
+  - Bias for Action
+  - Frugality
+  - Earn Trust
+  - Dive Deep
+  - Have Backbone; Disagree and Commit
+  - Deliver Results
+  - Strive to be Earth's Best Employer
+  - Success and Scale Bring Broad Responsibility
+tools: [hackerrank, livecode, chime]
+resources:
+  - { title: "interviewing.io", url: "https://interviewing.io", kind: tool }
+  - { title: "interviewing.io company process", url: "https://interviewing.io/learn#interview-process-and-questions-by-company", kind: article }
+  - { title: "Alpha-Code", url: "https://www.youtube.com/@Alpha-Code/videos", kind: video }
+  - { title: "Amazon Bound (per-LP videos)", kind: video }
+  - { title: "Bahroz Abbas coaching recordings", kind: video }
+  - { title: "IGotAnOffer Amazon interview guide", url: "https://igotanoffer.com/blogs/tech/amazon-software-development-engineer-interview", kind: article }
+  - { title: "Hello Interview", url: "https://www.hellointerview.com", kind: article }
+  - { title: "r/amazonsdeprep", url: "https://www.reddit.com/r/amazonsdeprep", kind: article }
+  - { title: "MockPad", url: "https://mockpad-kappa.vercel.app/", kind: tool }
+notes_md: amazon.md

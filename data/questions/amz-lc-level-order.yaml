@@ -1,0 +1,54 @@
+id: amz-lc-level-order
+title: Binary Tree Level Order Traversal
+type: dsa
+tags:
+  - amazon
+  - discord
+topics:
+  - tree
+  - graph
+difficulty: medium
+status: extracted
+confidence: medium
+evidence: discord-title
+prompt: |
+  Given the `root` of a binary tree, return the level order traversal of its nodes' values. (i.e., from left to right, level by level).
+examples:
+  - input: 'root = [3,9,20,null,null,15,7]'
+    output: '[[3],[9,20],[15,7]]'
+  - input: 'root = [1]'
+    output: '[[1]]'
+  - input: 'root = []'
+    output: '[]'
+constraints: |
+  - The number of nodes in the tree is in the range `[0, 2000]`.
+  - `-1000 <= Node.val <= 1000`
+starter: |
+  from typing import List
+  
+  # Definition for a binary tree node.
+  # class TreeNode:
+  #     def __init__(self, val=0, left=None, right=None):
+  #         self.val = val
+  #         self.left = left
+  #         self.right = right
+  class Solution:
+      def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+          pass
+  
+  # print(Solution().__init__(...))  # e.g. root = [3,9,20,null,null,15,7]
+leetcode:
+  slug: binary-tree-level-order-traversal
+  id: 102
+  title: Binary Tree Level Order Traversal
+  relationship: exact
+occurrences:
+  - company: amazon
+    contributor: online
+    evidence: discord-title
+sources:
+  - kind: discord
+    path: extras/zonline discord/LC qs.txt
+    role: prompt
+notes: Official LeetCode statement filled from public problem data. Discord row was title-only.
+updated_at: 2026-08-31

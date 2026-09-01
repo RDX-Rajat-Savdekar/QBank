@@ -1,0 +1,25 @@
+id: hr-unify-sequences
+title: Unifying numeric sequences
+type: dsa
+tags:
+  - hackerrank
+topics:
+  - two-pointers
+difficulty: medium
+status: extracted
+confidence: high
+evidence: live-prompt
+prompt: |
+  Two integer arrays arrA (n) and arrB (m). You may repeatedly replace any subsegment of either array with the sum of its elements. Maximize the length of the resulting arrays such that they become identical. If impossible, return -1.
+  
+  Example: arrA=[2,4,3,7,10], arrB=[6,5,5,10]. One operation on [1,5,6] of some array would become its sum (illustrative).
+occurrences:
+  - company: unknown
+    round: oa
+    contributor: self
+    evidence: live-prompt
+sources:
+  - kind: image
+    path: "interview Q's/not sure/Q1/QQ/WhatsApp Image 2026-03-26 at 22.35.09.jpeg"
+    role: prompt
+updated_at: 2026-08-31

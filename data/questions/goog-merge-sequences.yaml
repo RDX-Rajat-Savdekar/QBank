@@ -1,0 +1,22 @@
+id: goog-merge-sequences
+title: Merge sequences preserving relative order
+type: dsa
+tags:
+  - google
+topics:
+  - heap
+difficulty: unknown
+status: extracted
+confidence: medium
+evidence: friend-report
+prompt: Merge sequences of numbers (multiple sequences). The merge should preserve the same relative order.
+occurrences:
+  - company: google
+    contributor: friend
+    evidence: friend-report
+    notes: q.md friend report
+sources:
+  - kind: notes
+    path: "interview Q's/Google/q.md"
+    role: prompt
+updated_at: 2026-08-31

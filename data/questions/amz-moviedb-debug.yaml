@@ -1,0 +1,50 @@
+id: amz-moviedb-debug
+title: MovieDB recommendations endpoint
+type: debug
+tags: [oa-custom, django]
+topics: [design-api]
+difficulty: medium
+status: extracted
+confidence: high
+evidence: live-prompt
+prompt: |
+  MovieDB: personalized "Recommended For You" stays empty after a
+  user marks a movie watched and rates it. Login sample:
+  sam.rivera@email.com / Password@123.
+
+  Backend is Django (`moviedb_backend`). Endpoints in the README
+  include GET `/api/ratings/:movieId/user` and POST
+  `/api/ratings/:movieId/watched`. Recommendation scoring boosts
+  similar-genre titles after a rating above 5.
+
+  Six tests failing — correct keys, branch logic, filters, source
+  labels, self-exclusion.
+solution:
+  approach: |
+    Read the six tests first. Fix key names, recommendation source labels, filter branches, and exclude the requesting user.
+  links: [https://claude.ai/chat/680f835a-aaa8-4a37-8633-a5ccd1f0c207, https://claude.ai/chat/f861be36-a401-46d8-ab30-e2ecf7b99b38]
+occurrences:
+  - company: 'amazon'
+    role: 'sde-new-grad'
+    round: 'oa'
+    year: 2026
+    tool: 'hackerrank'
+    contributor: friend
+    evidence: live-prompt
+    notes: "Q2 paired with merge-conflicts / inconvenience / unfulfilled-customers"
+sources:
+  - kind: bank
+    path: "interview Q's/claude/PROBLEM_BANK (1).md"
+    ref: D4
+    role: prompt
+  - kind: image
+    path: "interview Q's/Amazon/Anika/q/WhatsApp Image 2026-06-21 at 21.26.12.jpeg"
+    role: prompt
+  - kind: image
+    path: "interview Q's/Amazon/sajid/q/WhatsApp Image 2026-06-21 at 23.00.06.jpeg"
+    role: prompt
+  - kind: image
+    path: "interview Q's/Amazon/N test/WhatsApp Image 2026-06-18 at 10.40.55.jpeg"
+    role: prompt
+related: [amz-unfulfilled-customers, amz-min-merge-conflicts, amz-min-inconvenience, amz-wallet-debug, amz-vibeshop-csv]
+updated_at: 2026-08-31

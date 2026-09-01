@@ -1,0 +1,59 @@
+id: amz-min-inconvenience
+title: Grid inconvenience minimization
+type: dsa
+tags: [oa-custom]
+topics: [geometry/grid, binary-search]
+difficulty: hard
+status: extracted
+confidence: high
+evidence: live-prompt
+prompt: |
+  City grid: 1 = delivery center, 0 = empty. Distance is Chebyshev
+  max(|dx|, |dy|). Inconvenience is the max distance of any 0-cell
+  to its nearest center. Convert at most one 0 into a 1. Return the
+  minimum possible inconvenience. Function `getMinInconvenience`.
+
+  Example 2x4 grid with centers on the last column: initial
+  inconvenience 3; adding a center at (0,0) drops it to 1.
+follow_ups:
+  - text: TLE on large grids if you recompute nearest-center naively per threshold
+    kind: trap
+  - text: all-zero grid (no centers)
+    kind: trap
+  - text: Chebyshev, not Manhattan
+    kind: trap
+solution:
+  approach: |
+    Binary search the inconvenience threshold. For a mid, multi-source BFS from existing centers (and optionally one new center) to test coverage.
+  links: [https://claude.ai/chat/f861be36-a401-46d8-ab30-e2ecf7b99b38]
+occurrences:
+  - company: 'amazon'
+    role: 'sde-new-grad'
+    round: 'oa'
+    year: 2026
+    tool: 'hackerrank'
+    contributor: friend
+    evidence: live-prompt
+    notes: "Q1 paired with MovieDB debug"
+sources:
+  - kind: bank
+    path: "interview Q's/claude/PROBLEM_BANK (1).md"
+    ref: A12
+    role: prompt
+  - kind: image
+    path: "interview Q's/Amazon/sajid/1/WhatsApp Image 2026-06-21 at 22.18.12.jpeg"
+    role: prompt
+  - kind: image
+    path: "interview Q's/Amazon/sajid/1/WhatsApp Image 2026-06-21 at 22.18.22.jpeg"
+    role: prompt
+  - kind: image
+    path: "interview Q's/Amazon/sajid/1/WhatsApp Image 2026-06-21 at 22.18.30.jpeg"
+    role: prompt
+  - kind: image
+    path: "interview Q's/Amazon/sajid/1/WhatsApp Image 2026-06-21 at 22.48.05.jpeg"
+    role: prompt
+  - kind: image
+    path: "interview Q's/Amazon/sajid/1/WhatsApp Image 2026-06-21 at 22.48.10.jpeg"
+    role: prompt
+related: [amz-moviedb-debug, amz-contiguous-quality, amz-min-merge-conflicts, amz-drone-hubs]
+updated_at: 2026-08-31

@@ -1,0 +1,22 @@
+id: goog-abnormal-chain
+title: Abnormal-node chain length in a tree
+type: dsa
+tags:
+  - google
+topics:
+  - tree
+difficulty: unknown
+status: extracted
+confidence: medium
+evidence: friend-report
+prompt: Find the length of the chain of a tree. A normal node has 0 or 2 children. A node with exactly 1 child is abnormal. A chain is consecutive abnormal nodes.
+occurrences:
+  - company: google
+    contributor: friend
+    evidence: friend-report
+    notes: q.md friend report
+sources:
+  - kind: notes
+    path: "interview Q's/Google/q.md"
+    role: prompt
+updated_at: 2026-08-31

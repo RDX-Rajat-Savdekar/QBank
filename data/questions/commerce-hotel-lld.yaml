@@ -1,0 +1,22 @@
+id: commerce-hotel-lld
+title: Hotel management app
+type: lld
+tags:
+  - commerceiq
+topics:
+  - design-api
+difficulty: unknown
+status: extracted
+confidence: medium
+evidence: research
+prompt: 'Design a hotel management app (OYO-style): DB choice, end-to-end flow, integration points. Glassdoor Jun 2025, CommerceIQ recurring LLD.'
+occurrences:
+  - company: commerceiq
+    round: onsite
+    contributor: online
+    evidence: research
+sources:
+  - kind: docx
+    path: "interview Q's/not sure/R2_Question_Bank.docx"
+    role: prompt
+updated_at: 2026-08-31

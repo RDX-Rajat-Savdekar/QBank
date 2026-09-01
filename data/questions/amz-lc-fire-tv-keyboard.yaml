@@ -1,0 +1,22 @@
+id: amz-lc-fire-tv-keyboard
+title: Fire TV Remote Keyboard
+type: dsa
+tags:
+  - amazon
+  - discord
+topics: []
+difficulty: unknown
+status: raw
+confidence: low
+evidence: discord-title
+prompt: Fire TV Remote Keyboard. Return button presses to type a word.
+occurrences:
+  - company: amazon
+    contributor: online
+    evidence: discord-title
+sources:
+  - kind: discord
+    path: extras/zonline discord/LC qs.txt
+    role: prompt
+notes: Title-only Discord row. Prompt is the listed title plus any listed follow-up. Do not invent a full statement.
+updated_at: 2026-08-31

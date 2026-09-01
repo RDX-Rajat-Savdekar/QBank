@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://qbank.local/schema/inbox.schema.json",
+  "title": "QBank inbox item",
+  "description": "Raw intake. Not a question until extract → data/questions/<id>.yaml.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "received_at", "status"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^inbox-[0-9]{4}-[0-9]{2}-[0-9]{2}-[0-9]{2}$"
+    },
+    "received_at": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+    },
+    "raw_text": { "type": "string" },
+    "attachments": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Drive links or paths under data/inbox-media/ (gitignored)"
+    },
+    "meta": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "company": { "type": "string" },
+        "type": { "type": "string" },
+        "round": { "type": "string" },
+        "year": { "type": "string" },
+        "tool": { "type": "string" },
+        "role": { "type": "string" },
+        "contributor": {
+          "type": "string",
+          "enum": ["self", "friend", "online"]
+        },
+        "time_allowed": { "type": "string" },
+        "language": { "type": "string" },
+        "leetcode": { "type": "string" },
+        "heard": { "type": "string" },
+        "permission": { "type": "string" },
+        "outcome": {
+          "type": "string",
+          "description": "Private. Never copy onto questions YAML."
+        }
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": ["pending", "extracted", "duplicate", "rejected"]
+    },
+    "result_ids": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Question ids written or patched after extract"
+    },
+    "notes": { "type": "string" }
+  }
+}

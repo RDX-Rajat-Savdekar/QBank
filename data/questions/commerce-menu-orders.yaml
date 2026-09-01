@@ -1,0 +1,30 @@
+id: commerce-menu-orders
+title: In-memory menu and orders API
+type: ai-assisted
+tags:
+  - commerceiq
+topics:
+  - design-api
+difficulty: unknown
+status: extracted
+confidence: medium
+evidence: research
+prompt: |
+  Build an in-memory API: GET /menu and POST /orders (CommerceIQ setup-guide 'good prompt').
+  
+  Checkpoint 1: GET /menu (hardcoded items with prices), POST /orders with validation (unknown item_ids → 400, empty list → 422), order gets id + status created.
+  Checkpoint 2: order total in a separate function; GET /orders/{id}; status created → paid → fulfilled with invalid-transition rejection.
+  Checkpoint 3: inventory counts, decrement on order, reject when out of stock; then the race of two orders for the last item.
+follow_ups:
+  - text: Idempotency-Key header on POST /orders
+    kind: follow-up
+occurrences:
+  - company: commerceiq
+    round: onsite
+    contributor: online
+    evidence: research
+sources:
+  - kind: docx
+    path: "interview Q's/not sure/R2_Question_Bank.docx"
+    role: prompt
+updated_at: 2026-08-31

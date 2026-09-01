@@ -1,0 +1,23 @@
+id: commerce-fix-maze
+title: Fix the maze
+type: ai-assisted
+tags:
+  - commerceiq
+  - meta-template
+topics:
+  - design-api
+difficulty: unknown
+status: raw
+confidence: low
+evidence: research
+prompt: 'Fix the Maze: debug and extend existing buggy code with AI assistance. Shape: understand code you did not write, then extend it.'
+occurrences:
+  - company: commerceiq
+    round: onsite
+    contributor: online
+    evidence: research
+sources:
+  - kind: docx
+    path: "interview Q's/not sure/R2_Question_Bank.docx"
+    role: prompt
+updated_at: 2026-08-31

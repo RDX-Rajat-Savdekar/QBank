@@ -1,0 +1,46 @@
+id: car-rental-backend
+title: Car rental reservation backend
+type: hld
+tags: [practice]
+topics: [design-api]
+difficulty: medium
+status: extracted
+confidence: high
+evidence: practice-curriculum
+prompt: |
+  Design the backend for a car rental web app. Users search available cars by city, capacity (S/M/L), and date range, and reserve one — with guaranteed no double-booking. User auth and payments are pre-built microservices (black boxes).
+  
+  Scale: 10M DAU, ~10M requests/day, 1M cars, 200 cities (~5,000 cars/city), reservations up to 1 year in advance.
+  
+  Focus: date-range availability (overlap query, not `Car.status`), double-booking prevention, double-payment prevention, Redis caching strategy and key design, post-commit event publishing.
+  
+  Variant: 1M individually-tracked cars across 2 cities with a strict no-double-booking requirement (locking strategy + sharding).
+solution:
+  approach: |
+    Availability is an overlap query on reservations, not a mutable Car.status. Reserve with a conditional write / lock on (car_id, date range). Payments are a separate service — use an idempotency key and outbox events after commit. Cache search keys by city+capacity+date bucket.
+  diagram: |
+    graph TD
+      Client --> API
+      API --> Search
+      API --> Reserve
+      Search --> Redis
+      Search --> DB[(Reservations)]
+      Reserve --> DB
+      Reserve --> Outbox
+      Outbox --> Pay[Payments black box]
+  links: [https://claude.ai/chat/011892e1-6ad5-41de-9af4-9268de1a1203, https://claude.ai/chat/a1e776a6-0cfe-411f-9294-67c78f92fb83]
+sources:
+  - kind: 'bank'
+    path: "interview Q's/claude/PROBLEM_BANK (1).md"
+    ref: 'S1'
+    role: 'prompt'
+  - kind: 'image'
+    path: "interview Q's/claude/system design/car reservation/Screenshot 2026-06-30 at 4.44.16\u202fAM.png"
+    role: 'prompt'
+  - kind: 'image'
+    path: "interview Q's/claude/system design/car reservation/Screenshot 2026-06-30 at 4.44.46\u202fAM.png"
+    role: 'prompt'
+  - kind: 'image'
+    path: "interview Q's/claude/system design/car reservation/preview.webp"
+    role: 'prompt'
+updated_at: 2026-08-31

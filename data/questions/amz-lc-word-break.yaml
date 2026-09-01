@@ -1,0 +1,57 @@
+id: amz-lc-word-break
+title: Word Break
+type: dsa
+tags:
+  - amazon
+  - discord
+topics:
+  - arrays
+  - hashing
+  - strings
+  - dp
+difficulty: medium
+status: extracted
+confidence: medium
+evidence: discord-title
+prompt: |
+  Given a string `s` and a dictionary of strings `wordDict`, return `true` if `s` can be segmented into a space-separated sequence of one or more dictionary words.
+  
+  Note that the same word in the dictionary may be reused multiple times in the segmentation.
+examples:
+  - input: 's = "leetcode", wordDict = ["leet","code"]'
+    output: 'true'
+    explanation: 'Return true because "leetcode" can be segmented as "leet code".'
+  - input: 's = "applepenapple", wordDict = ["apple","pen"]'
+    output: 'true'
+    explanation: 'Return true because "applepenapple" can be segmented as "apple pen apple".'
+  - input: 's = "catsandog", wordDict = ["cats","dog","sand","and","cat"]'
+    output: 'false'
+constraints: |
+  - `1 <= s.length <= 300`
+  - `1 <= wordDict.length <= 1000`
+  - `1 <= wordDict[i].length <= 20`
+  - `s` and `wordDict[i]` consist of only lowercase English letters.
+  - All the strings of `wordDict` are unique.
+starter: |
+  from typing import List
+  
+  class Solution:
+      def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+          pass
+  
+  # print(Solution().wordBreak(...))  # e.g. s = "leetcode", wordDict = ["leet","code"]
+leetcode:
+  slug: word-break
+  id: 139
+  title: Word Break
+  relationship: exact
+occurrences:
+  - company: amazon
+    contributor: online
+    evidence: discord-title
+sources:
+  - kind: discord
+    path: extras/zonline discord/LC qs.txt
+    role: prompt
+notes: Official LeetCode statement filled from public problem data. Discord row was title-only.
+updated_at: 2026-08-31

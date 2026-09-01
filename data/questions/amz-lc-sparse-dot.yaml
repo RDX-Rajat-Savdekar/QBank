@@ -1,0 +1,31 @@
+id: amz-lc-sparse-dot
+title: Dot Product of Sparse Vector
+type: dsa
+tags:
+  - amazon
+  - discord
+topics:
+  - arrays
+  - hashing
+  - two-pointers
+  - design-api
+difficulty: medium
+status: raw
+confidence: low
+evidence: discord-title
+prompt: Dot Product of Sparse Vector.
+leetcode:
+  slug: dot-product-of-two-sparse-vectors
+  id: 1570
+  title: Dot Product of Two Sparse Vectors
+  relationship: exact
+occurrences:
+  - company: amazon
+    contributor: online
+    evidence: discord-title
+sources:
+  - kind: discord
+    path: extras/zonline discord/LC qs.txt
+    role: prompt
+notes: Title-only Discord row. Prompt is the listed title plus any listed follow-up. Do not invent a full statement.
+updated_at: 2026-08-31

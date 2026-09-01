@@ -1,0 +1,27 @@
+id: common-availability
+title: Common availability
+type: dsa
+tags: [practice, 3-variant]
+topics: [intervals]
+difficulty: medium
+status: extracted
+confidence: high
+evidence: practice-curriculum
+prompt: |
+  Each employee has availability/blocked windows. Return the days that satisfy the constraint.
+  
+  V1 (available windows): Each block is `[employee_id, [start, end]]` describing when the person *is* available. Return all days everyone is simultaneously available (interval intersection).
+  
+  V2 (blocked / inverted): Given a total day range and each employee's *unavailable* window, return the days where *no* employee is blocked.
+  
+  V3 (int format): Same as above but each entry is `[employee_id, start, end]` with days as plain integers.
+solution:
+  approach: |
+    V1: intersect intervals across employees. V2: invert blocked windows against the global range, then same intersection. V3 is a parse variant.
+  links: [https://claude.ai/chat/2aeb7963-a589-4f10-bf3a-9a5a91422780]
+sources:
+  - kind: 'bank'
+    path: "interview Q's/claude/PROBLEM_BANK (1).md"
+    ref: 'A7'
+    role: 'prompt'
+updated_at: 2026-08-31

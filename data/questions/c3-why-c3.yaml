@@ -1,0 +1,26 @@
+id: c3-why-c3
+title: Why C3 / intro and project ownership
+type: behavioral
+tags:
+  - c3
+topics: []
+difficulty: unknown
+status: extracted
+confidence: medium
+evidence: research
+prompt: 'C3 intro, why C3, and a project you owned. Pair with the industrial PM case study.'
+occurrences:
+  - company: c3
+    role: FDE
+    contributor: self
+    evidence: research
+sources:
+  - kind: notes
+    path: data/companies/c3.md
+    role: prompt
+  - kind: docx
+    path: "interview Q's/not sure/fde_case_study_questions.docx"
+    role: prompt
+related:
+  - c3-industrial-pm
+updated_at: 2026-08-31

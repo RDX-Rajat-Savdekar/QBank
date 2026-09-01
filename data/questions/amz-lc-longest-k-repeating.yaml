@@ -1,0 +1,50 @@
+id: amz-lc-longest-k-repeating
+title: Longest Substring with At Least K Repeating Characters
+type: dsa
+tags:
+  - amazon
+  - discord
+topics:
+  - hashing
+  - strings
+  - sliding-window
+difficulty: medium
+status: extracted
+confidence: medium
+evidence: discord-title
+prompt: |
+  Given a string `s` and an integer `k`, return the length of the longest substring of `s` such that the frequency of each character in this substring is greater than or equal to `k`.
+  
+  if no such substring exists, return 0.
+examples:
+  - input: 's = "aaabb", k = 3'
+    output: '3'
+    explanation: 'The longest substring is "aaa", as ''a'' is repeated 3 times.'
+  - input: 's = "ababbc", k = 2'
+    output: '5'
+    explanation: 'The longest substring is "ababb", as ''a'' is repeated 2 times and ''b'' is repeated 3 times.'
+constraints: |
+  - `1 <= s.length <= 10^4`
+  - `s` consists of only lowercase English letters.
+  - `1 <= k <= 10^5`
+starter: |
+  class Solution:
+      def longestSubstring(self, s: str, k: int) -> int:
+          pass
+  
+  # print(Solution().longestSubstring(...))  # e.g. s = "aaabb", k = 3
+leetcode:
+  slug: longest-substring-with-at-least-k-repeating-characters
+  id: 395
+  title: Longest Substring with At Least K Repeating Characters
+  relationship: exact
+occurrences:
+  - company: amazon
+    contributor: online
+    evidence: discord-title
+sources:
+  - kind: discord
+    path: extras/zonline discord/LC qs.txt
+    role: prompt
+notes: Official LeetCode statement filled from public problem data. Discord row was title-only.
+updated_at: 2026-08-31

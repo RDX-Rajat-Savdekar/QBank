@@ -1,0 +1,8 @@
+name: C3.ai
+aliases: [c3]
+levels: [FDE]
+loop: [onsite]
+signals: []
+tools: []
+resources: []
+notes_md: c3.md

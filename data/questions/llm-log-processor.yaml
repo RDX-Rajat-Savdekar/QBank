@@ -1,0 +1,22 @@
+id: llm-log-processor
+title: llm_log_processor.py
+type: debug
+tags: [practice, llm]
+topics: [strings]
+difficulty: medium
+status: extracted
+confidence: high
+evidence: practice-curriculum
+prompt: |
+  Extend the log processor: implement `categorize_logs`, classifying each log line into a `LogCategory` enum using an LLM (GPT-4o). Make classification robust to verbose model output, and parallelize the (IO-bound) LLM calls.
+solution:
+  approach: |
+    Parse the enum out of messy model text (last token / regex). ThreadPool or asyncio for IO-bound calls. Do not assume one-word responses.
+  links: [https://claude.ai/chat/90468c3c-a30f-4871-99a5-3e98b9568e45]
+sources:
+  - kind: 'bank'
+    path: "interview Q's/claude/PROBLEM_BANK (1).md"
+    ref: 'D2'
+    role: 'prompt'
+related: [log-processor]
+updated_at: 2026-08-31

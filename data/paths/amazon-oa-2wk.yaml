@@ -1,0 +1,36 @@
+id: amazon-oa-2wk
+title: Amazon OA prep (2-week)
+description: Coding OA pair plus debug pair, then LPs that show up around the same loop.
+company: amazon
+steps:
+  - question: amz-drone-hubs
+    day: 1
+    note: Circular hubs — graph on a ring
+  - question: amz-unfulfilled-customers
+    day: 2
+    note: Inventory / unfulfilled
+  - question: amz-min-merge-conflicts
+    day: 3
+  - question: amz-contiguous-quality
+    day: 4
+  - question: amz-min-inconvenience
+    day: 5
+  - question: amz-wallet-debug
+    day: 6
+    note: Wallet recurring payments
+  - question: amz-moviedb-debug
+    day: 7
+  - question: amz-vibeshop-csv
+    day: 8
+  - question: amz-top-k-keywords
+    day: 9
+  - question: two-sum
+    day: 10
+    note: Warm-up / Discord title
+  - question: amz-lp-ownership
+    day: 12
+  - question: amz-lp-dive-deep
+    day: 13
+  - question: amz-lp-genai-usage
+    day: 14
+    note: HM / GenAI fluency

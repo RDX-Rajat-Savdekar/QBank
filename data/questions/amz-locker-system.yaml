@@ -1,0 +1,29 @@
+id: amz-locker-system
+title: Amazon locker system
+type: lld
+tags:
+  - amazon
+  - discord
+  - lld
+topics:
+  - design-api
+difficulty: unknown
+status: extracted
+confidence: medium
+evidence: discord-title
+prompt: 'Design Amazon Locker. Lockers small/medium/large. Support OTP, package allocation, pickup. Distinct from the locker-toggle math puzzle.'
+occurrences:
+  - company: amazon
+    contributor: online
+    evidence: discord-title
+sources:
+  - kind: discord
+    path: extras/zonline discord/LLD Qs 1.txt
+    role: prompt
+  - kind: discord
+    path: extras/zonline discord/LLD Qs 2.txt
+    role: prompt
+notes: Amazon Locker LLD is not the locker-toggle puzzle.
+related:
+  - locker-toggle
+updated_at: 2026-08-31

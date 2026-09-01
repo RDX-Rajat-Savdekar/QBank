@@ -1,0 +1,26 @@
+id: goog-stream-top-10
+title: Stream top 10 by order count
+type: dsa
+tags:
+  - google
+topics:
+  - heap
+difficulty: unknown
+status: extracted
+confidence: medium
+evidence: friend-report
+prompt: 'From a stream of (id, numberOfOrder), show the top 10.'
+occurrences:
+  - company: google
+    role: SWE L3
+    round: onsite
+    contributor: friend
+    evidence: friend-report
+sources:
+  - kind: notes
+    path: "interview Q's/Google/q.md"
+    role: prompt
+related:
+  - amz-top-k-keywords
+  - goog-storage-top-10
+updated_at: 2026-08-31

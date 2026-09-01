@@ -1,0 +1,44 @@
+id: amz-wallet-debug
+title: Wallet recurring payments
+type: debug
+tags: [oa-custom, django]
+topics: [design-api]
+difficulty: medium
+status: extracted
+confidence: high
+evidence: live-prompt
+prompt: |
+  Django wallet / Schedule Auto-Pay. Bugs seen on the live prompt:
+  passcode 1234 fails despite being correct; even a successful
+  create does not show up under "Your Auto-Payments".
+
+  Expected: valid inputs create; invalid inputs rejected with the
+  matching error; `process_recurring_payments` only runs payments
+  that are due; skip insufficient funds; track last-paid so the
+  next schedule is right. Six unit tests must pass.
+solution:
+  approach: |
+    Create endpoint + management command + serializer must agree on schedule, next-run, and insufficient-balance behavior. Read the six tests before editing.
+  links: [https://claude.ai/chat/680f835a-aaa8-4a37-8633-a5ccd1f0c207]
+occurrences:
+  - company: 'amazon'
+    role: 'sde-new-grad'
+    round: 'oa'
+    year: 2026
+    tool: 'hackerrank'
+    contributor: friend
+    evidence: live-prompt
+    notes: "Q2 paired with drone-hubs"
+sources:
+  - kind: bank
+    path: "interview Q's/claude/PROBLEM_BANK (1).md"
+    ref: D5
+    role: prompt
+  - kind: image
+    path: "interview Q's/Amazon/F test/Debug/WhatsApp Image 2026-06-18 at 11.29.52.jpeg"
+    role: prompt
+  - kind: image
+    path: "interview Q's/Amazon/chandresh/q/WhatsApp Image 2026-06-23 at 17.00.32.jpeg"
+    role: prompt
+related: [amz-drone-hubs, amz-moviedb-debug, amz-vibeshop-csv]
+updated_at: 2026-08-31

@@ -1,0 +1,28 @@
+id: goog-rpn
+title: Reverse Polish notation with string manipulation
+type: dsa
+tags:
+  - google
+topics:
+  - stack
+  - strings
+difficulty: medium
+status: extracted
+confidence: medium
+evidence: friend-report
+prompt: Reverse Polish notation. A lot of string manipulation involved.
+leetcode:
+  slug: evaluate-reverse-polish-notation
+  id: 150
+  title: Evaluate Reverse Polish Notation
+  relationship: similar
+occurrences:
+  - company: google
+    contributor: friend
+    evidence: friend-report
+    notes: q.md friend report
+sources:
+  - kind: notes
+    path: "interview Q's/Google/q.md"
+    role: prompt
+updated_at: 2026-08-31

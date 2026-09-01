@@ -1,0 +1,21 @@
+id: mern-movie-controllers
+title: MERN movie controllers
+type: debug
+tags: [practice, mern]
+topics: [design-api]
+difficulty: medium
+status: extracted
+confidence: high
+evidence: practice-curriculum
+prompt: |
+  A MERN-stack codebase with six broken API endpoints across follow, notification, and admin movie controllers (controllers have validation but missing DB operations). Drive `npm test` failures from six to zero.
+solution:
+  approach: |
+    Validation is present; the DB writes/reads are missing. Add the model calls the tests expect.
+  links: [https://claude.ai/chat/2aeb7963-a589-4f10-bf3a-9a5a91422780]
+sources:
+  - kind: 'bank'
+    path: "interview Q's/claude/PROBLEM_BANK (1).md"
+    ref: 'D6'
+    role: 'prompt'
+updated_at: 2026-08-31

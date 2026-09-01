@@ -1,0 +1,47 @@
+id: amz-lp-genai-usage
+title: How do you use GenAI / LLMs
+type: genai
+tags:
+  - amazon
+  - lp
+  - behavioral
+topics: []
+difficulty: unknown
+status: extracted
+confidence: medium
+evidence: discord-title
+prompt: How do you use AI? Which LLMs? How has AI improved productivity? How do you validate AI-generated answers? When is AI useful or not? Tell me about a time an LLM hallucinated.
+occurrences:
+  - company: amazon
+    round: onsite
+    contributor: online
+    evidence: discord-title
+  - company: amazon
+    round: onsite
+    contributor: self
+    evidence: research
+    notes: 16 LP sample list in amazon.md
+  - company: amazon
+    round: hiring-manager
+    contributor: self
+    evidence: research
+    notes: 'HM: how you use AI'
+  - company: amazon
+    contributor: friend
+    evidence: friend-report
+    notes: friend report — AI for study
+sources:
+  - kind: discord
+    path: extras/zonline discord/LP 1.txt
+    role: prompt
+  - kind: discord
+    path: extras/zonline discord/LP 2.txt
+    role: prompt
+  - kind: pdf
+    path: extras/Mock Behav Interview Qs.pdf
+    role: prompt
+  - kind: notes
+    path: data/companies/amazon.md
+    role: prompt
+notes: Type genai. Do not copy genai.txt personal stories into public fields.
+updated_at: 2026-08-31

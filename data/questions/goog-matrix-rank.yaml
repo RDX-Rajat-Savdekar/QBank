@@ -1,0 +1,22 @@
+id: goog-matrix-rank
+title: Rank of a matrix
+type: dsa
+tags:
+  - google
+topics:
+  - math
+difficulty: unknown
+status: extracted
+confidence: medium
+evidence: friend-report
+prompt: Compute the rank of a matrix.
+occurrences:
+  - company: google
+    contributor: friend
+    evidence: friend-report
+    notes: q.md friend report
+sources:
+  - kind: notes
+    path: "interview Q's/Google/q.md"
+    role: prompt
+updated_at: 2026-08-31

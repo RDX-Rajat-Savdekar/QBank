@@ -1,0 +1,21 @@
+id: three-boxes
+title: Three boxes
+type: puzzle
+tags: [logic]
+topics: [math]
+difficulty: easy
+status: extracted
+confidence: high
+evidence: practice-curriculum
+prompt: |
+  A classic mislabeled-boxes logic puzzle: every label is guaranteed wrong. Determine the minimum draws to relabel all boxes correctly.
+solution:
+  approach: |
+    Draw from the box labeled as mixed (must be pure). Then deduce the other two from the 'every label is wrong' constraint.
+  links: [https://claude.ai/chat/2aeb7963-a589-4f10-bf3a-9a5a91422780]
+sources:
+  - kind: 'bank'
+    path: "interview Q's/claude/PROBLEM_BANK (1).md"
+    ref: 'A10'
+    role: 'prompt'
+updated_at: 2026-08-31

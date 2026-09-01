@@ -1,0 +1,21 @@
+id: employee-lookup
+title: Employee lookup application
+type: lld
+tags: [practice]
+topics: [design-api]
+difficulty: medium
+status: extracted
+confidence: high
+evidence: practice-curriculum
+prompt: |
+  Design an employee lookup app (search/CRUD over employee records) using a layered Controller–Service–Repository architecture. Discuss the stack (e.g. Spring Boot / PostgreSQL / React) plus production backend security (parameterized queries, auth, RBAC, input validation, rate limiting, DTOs, CORS, HTTPS, audit logging).
+solution:
+  approach: |
+    Controller / Service / Repository. DTOs at the edge. Parameterized queries. Auth + RBAC on every write. Rate limit search. Audit log mutations.
+  links: [https://claude.ai/chat/2aeb7963-a589-4f10-bf3a-9a5a91422780]
+sources:
+  - kind: 'bank'
+    path: "interview Q's/claude/PROBLEM_BANK (1).md"
+    ref: 'S2'
+    role: 'prompt'
+updated_at: 2026-08-31

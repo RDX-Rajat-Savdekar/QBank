@@ -1,0 +1,29 @@
+id: goog-storage-top-10
+title: storage.file / storage.size top 10
+type: dsa
+tags:
+  - google
+topics:
+  - heap
+  - tree
+difficulty: unknown
+status: extracted
+confidence: medium
+evidence: friend-report
+prompt: 'storage.file gives files and folders. storage.size gives size in bytes, or -1 if not a file. Return the top 10 largest files. Follow-up: top 10 largest folders.'
+follow_ups:
+  - text: Top 10 largest folders
+    kind: follow-up
+occurrences:
+  - company: google
+    role: SWE L3
+    round: onsite
+    contributor: friend
+    evidence: friend-report
+sources:
+  - kind: notes
+    path: "interview Q's/Google/q.md"
+    role: prompt
+related:
+  - goog-stream-top-10
+updated_at: 2026-08-31

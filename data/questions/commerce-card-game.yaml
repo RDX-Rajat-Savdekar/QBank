@@ -1,0 +1,23 @@
+id: commerce-card-game
+title: Card game progressive checkpoints
+type: ai-assisted
+tags:
+  - commerceiq
+  - meta-template
+topics:
+  - design-api
+difficulty: unknown
+status: raw
+confidence: low
+evidence: research
+prompt: 'Card Game: implement game logic in progressive checkpoints. Meta-template format that CommerceIQ copied. Practice question for the AI-assisted format.'
+occurrences:
+  - company: commerceiq
+    round: onsite
+    contributor: online
+    evidence: research
+sources:
+  - kind: docx
+    path: "interview Q's/not sure/R2_Question_Bank.docx"
+    role: prompt
+updated_at: 2026-08-31

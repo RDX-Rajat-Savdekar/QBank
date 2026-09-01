@@ -1,0 +1,37 @@
+id: abridge-search-zones
+title: Search zones
+type: dsa
+tags:
+  - abridge
+  - coderbyte
+topics:
+  - arrays
+difficulty: easy
+status: extracted
+confidence: high
+evidence: practice-curriculum
+prompt: |
+  Implement search_value(numbers, value). Return a list of four integers, each either 0 or 1:
+
+  - Position 0 is 1 if value appears at any even index.
+  - Position 1 is 1 if value appears at any odd index.
+  - Position 2 is 1 if value appears in the first half of numbers.
+  - Position 3 is 1 if value appears in the second half of numbers.
+
+  Indices are zero-based. A value may appear multiple times. The list length is always even, including zero. First half is [0, n/2); second half is [n/2, n).
+examples:
+  - input: 'numbers=[5, 8, 5, 9], value=5'
+    output: '[1, 0, 1, 1]'
+    explanation: even indices 0 and 2; both halves
+  - input: 'numbers=[1,2,3,4], value=8'
+    output: '[0, 0, 0, 0]'
+occurrences:
+  - company: abridge
+    round: oa
+    contributor: online
+    evidence: practice-curriculum
+sources:
+  - kind: pdf
+    path: extras/coderbyte_abridge _oa_python_interview_practice_guide.pdf
+    role: prompt
+updated_at: 2026-08-31

@@ -1,0 +1,35 @@
+id: goog-rearrange-string
+title: Rearrange string so same artist is not adjacent
+type: dsa
+tags:
+  - google
+topics:
+  - greedy
+  - heap
+difficulty: medium
+status: extracted
+confidence: medium
+evidence: friend-report
+prompt: 'Given a string, rearrange so the same characters are not continuous. Framing: you are on the team that designs algorithms for Spotify; data science says two songs by the same artist should not show up next to each other.'
+leetcode:
+  slug: reorganize-string
+  id: 767
+  title: Reorganize String
+  relationship: similar
+occurrences:
+  - company: google
+    contributor: friend
+    evidence: friend-report
+    notes: q.md Spotify framing
+  - company: amazon
+    round: onsite
+    contributor: online
+    evidence: discord-title
+sources:
+  - kind: notes
+    path: "interview Q's/Google/q.md"
+    role: prompt
+  - kind: discord
+    path: extras/zonline discord/LC qs.txt
+    role: prompt
+updated_at: 2026-08-31

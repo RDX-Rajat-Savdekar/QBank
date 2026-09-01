@@ -1,0 +1,47 @@
+id: amz-lc-largest-rectangle
+title: Largest Rectangle in Histogram
+type: dsa
+tags:
+  - amazon
+  - discord
+topics:
+  - arrays
+  - stack
+difficulty: hard
+status: extracted
+confidence: medium
+evidence: discord-title
+prompt: |
+  Given an array of integers `heights` representing the histogram's bar height where the width of each bar is `1`, return the area of the largest rectangle in the histogram.
+examples:
+  - input: 'heights = [2,1,5,6,2,3]'
+    output: '10'
+    explanation: 'The above is a histogram where width of each bar is 1.'
+  - input: 'heights = [2,4]'
+    output: '4'
+constraints: |
+  - `1 <= heights.length <= 10^5`
+  - `0 <= heights[i] <= 10^4`
+starter: |
+  from typing import List
+  
+  class Solution:
+      def largestRectangleArea(self, heights: List[int]) -> int:
+          pass
+  
+  # print(Solution().largestRectangleArea(...))  # e.g. heights = [2,1,5,6,2,3]
+leetcode:
+  slug: largest-rectangle-in-histogram
+  id: 84
+  title: Largest Rectangle in Histogram
+  relationship: exact
+occurrences:
+  - company: amazon
+    contributor: online
+    evidence: discord-title
+sources:
+  - kind: discord
+    path: extras/zonline discord/LC qs.txt
+    role: prompt
+notes: Official LeetCode statement filled from public problem data. Discord row was title-only.
+updated_at: 2026-08-31

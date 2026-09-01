@@ -1,0 +1,22 @@
+id: goog-nondecreasing-subarray
+title: Max non-decreasing contiguous subarray plus one deletion
+type: dsa
+tags:
+  - google
+topics:
+  - arrays
+difficulty: unknown
+status: extracted
+confidence: medium
+evidence: friend-report
+prompt: 'Part 1: Given an integer array, find the maximum length of a non-decreasing contiguous subarray. Part 2: you may delete at most one element to make a longer non-decreasing contiguous subarray. Optionally also return which index to delete and the start and end of the best subarray.'
+occurrences:
+  - company: google
+    contributor: friend
+    evidence: friend-report
+    notes: q.md friend report
+sources:
+  - kind: notes
+    path: "interview Q's/Google/q.md"
+    role: prompt
+updated_at: 2026-08-31

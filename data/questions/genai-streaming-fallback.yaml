@@ -1,0 +1,25 @@
+id: genai-streaming-fallback
+title: Streaming LLM with fallbacks
+type: genai
+tags:
+  - amazon
+  - genai
+topics: []
+difficulty: unknown
+status: extracted
+confidence: medium
+evidence: practice-curriculum
+prompt: How would you architect a streaming LLM response system with fallback mechanisms for latency-critical user interfaces?
+occurrences:
+  - company: amazon
+    round: genai-fluency
+    contributor: online
+    evidence: practice-curriculum
+sources:
+  - kind: notes
+    path: extras/zonline discord/amazon_sde1_genai_interview_guide.md
+    role: prompt
+notes: Do not copy extras/zonline discord/genai.txt personal stories into public fields.
+related:
+  - amz-lp-genai-usage
+updated_at: 2026-08-31

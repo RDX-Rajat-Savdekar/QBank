@@ -1,0 +1,153 @@
+id: amz-drone-hubs
+title: Circular hub drone delivery
+type: dsa
+tags: [graph, circular, oa-custom]
+topics: [graph, greedy]
+difficulty: medium
+leetcode:
+  slug: distance-between-bus-stops
+  id: 1184
+  title: Distance Between Bus Stops
+  relationship: similar
+status: extracted
+confidence: high
+evidence: live-prompt
+prompt: |
+  Amazon drone hubs sit on a ring. There are m hubs numbered 1..m.
+  Hub 1 is adjacent to hub 2 and hub m. A drone may travel between
+  adjacent hubs in either direction.
+
+  transitionTime[i] is the time associated with hub i (the cost to
+  *leave* that hub — not a plain undirected edge weight).
+
+  The drone starts at hub 1. requestedHubs is a sequence of n hubs
+  that must be visited in order. Return the minimum total travel
+  time to complete the sequence.
+
+  Function (HackerRank):
+    long computeMinDeliveryTime(int[] requestedHubs, int[] transitionTime)
+
+  Stub also seen as:
+    computeMinDeliveryTime(deliverySequence, hubTransitionTimes) -> LONG_INTEGER
+examples:
+  - input: "m=3, transitionTime=[3,2,1], requestedHubs=[2,3,3,1]"
+    output: "6"
+    explanation: |
+      Start at 1. 1→2 min=3; 2→3 min=2; 3→3 =0; 3→1 min=1. Total 6.
+  - input: "m=2, transitionTime=[1,2], requestedHubs=[1,2,1]"
+    output: "3"
+    explanation: |
+      Start at 1. Already at 1 (0); 1→2 =1; 2→1 =2. Total 3.
+constraints: |
+  1 <= n <= 2e5
+  1 <= m <= 5000
+  1 <= requestedHubs[i] <= m
+  1 <= transitionTime[i] <= 1e6
+follow_ups:
+  - text: "CCW is not total_ring - CW"
+    kind: trap
+solution:
+  approach: |
+    Prefix the ring so one-direction distance between any pair is O(1).
+    For each hop from current hub to the next requested hub, take the
+    cheaper of the two directions. Start current = 1.
+
+    Do not assume the other direction is (sum of all transitionTime) minus
+    the first direction — transitionTime[i] is the cost to leave hub i,
+    so the two arcs are not complementary edge sets.
+  complexity:
+    time: "O(n + m)"
+    space: "O(m)"
+  code_language: python
+  code: |
+    def computeMinDeliveryTime(requestedHubs, transitionTime):
+        m = len(transitionTime)
+        pref = [0] * (m + 1)
+        for i, t in enumerate(transitionTime):
+            pref[i + 1] = pref[i] + t
+        ring = pref[m]
+
+        def cw(src, dst):
+            if src == dst:
+                return 0
+            if src < dst:
+                return pref[dst - 1] - pref[src - 1]
+            return (ring - pref[src - 1]) + pref[dst - 1]
+
+        def ccw(src, dst):
+            if src == dst:
+                return 0
+            if src > dst:
+                return pref[src] - pref[dst]
+            return pref[src] + (ring - pref[dst])
+
+        total = 0
+        cur = 1
+        for dest in requestedHubs:
+            total += min(cw(cur, dest), ccw(cur, dest))
+            cur = dest
+        return total
+  pitfalls:
+    - "CCW cost is not total_ring - CW (A14 trap)"
+    - "transitionTime[i] is leave-cost of hub i, not the weight of edge i→i+1"
+    - "Drone starts at hub 1 even if the first request is elsewhere"
+    - "n is 2e5 and m is 5e3 — naive per-hop walks are too slow; prefix both directions"
+  links: []
+  diagram: |
+    graph TD
+      H1[Hub 1 start] --- H2[Hub 2]
+      H2 --- H3[Hub 3]
+      H3 --- Hm[Hub m]
+      Hm --- H1
+occurrences:
+  - company: amazon
+    role: sde-new-grad
+    level: ""
+    round: oa
+    year: 2026
+    tool: hackerrank
+    notes: "Q1 paired with Wallet debug"
+    contributor: friend
+    evidence: live-prompt
+  - company: amazon
+    role: sde-new-grad
+    round: oa
+    year: 2026
+    tool: hackerrank
+    notes: "Q1 paired with Wallet debug (second live copy)"
+    contributor: friend
+    evidence: live-prompt
+sources:
+  - kind: image
+    path: "interview Q's/Amazon/F test/1/WhatsApp Image 2026-06-18 at 11.14.17.jpeg"
+    role: prompt
+  - kind: image
+    path: "interview Q's/Amazon/F test/1/WhatsApp Image 2026-06-18 at 11.14.17 (1).jpeg"
+    role: prompt
+  - kind: image
+    path: "interview Q's/Amazon/F test/1/WhatsApp Image 2026-06-18 at 11.14.17 (2).jpeg"
+    role: prompt
+  - kind: image
+    path: "interview Q's/Amazon/F test/1/WhatsApp Image 2026-06-18 at 11.14.18.jpeg"
+    role: prompt
+  - kind: image
+    path: "interview Q's/Amazon/F test/1/WhatsApp Image 2026-06-18 at 11.14.17 (3).jpeg"
+    role: prompt
+  - kind: image
+    path: "interview Q's/Amazon/chandresh/1/WhatsApp Image 2026-06-23 at 16.27.16.jpeg"
+    role: prompt
+  - kind: image
+    path: "interview Q's/Amazon/chandresh/1/WhatsApp Image 2026-06-23 at 16.27.30.jpeg"
+    role: prompt
+  - kind: image
+    path: "interview Q's/Amazon/chandresh/1/WhatsApp Image 2026-06-23 at 16.27.50.jpeg"
+    role: prompt
+  - kind: image
+    path: "interview Q's/Amazon/chandresh/1/WhatsApp Image 2026-06-23 at 16.28.03.jpeg"
+    role: prompt
+  - kind: bank
+    path: "interview Q's/claude/PROBLEM_BANK (1).md"
+    ref: A14
+notes: ""
+related: [amz-wallet-debug]
+updated_at: 2026-08-31

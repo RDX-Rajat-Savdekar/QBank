@@ -1,0 +1,51 @@
+id: amz-lc-three-sum
+title: Three Sum
+type: dsa
+tags:
+  - amazon
+  - discord
+topics:
+  - arrays
+  - two-pointers
+difficulty: medium
+status: extracted
+confidence: medium
+evidence: discord-title
+prompt: |
+  Given an integer array nums, return all the triplets `[nums[i], nums[j], nums[k]]` such that `i != j`, `i != k`, and `j != k`, and `nums[i] + nums[j] + nums[k] == 0`.
+  
+  Notice that the solution set must not contain duplicate triplets.
+examples:
+  - input: 'nums = [-1,0,1,2,-1,-4]'
+    output: '[[-1,-1,2],[-1,0,1]]'
+    explanation: 'nums[0] + nums[1] + nums[2] = (-1) + 0 + 1 = 0.'
+  - input: 'nums = [0,1,1]'
+    output: '[]'
+    explanation: 'The only possible triplet does not sum up to 0.'
+  - input: 'nums = [0,0,0]'
+    output: '[[0,0,0]]'
+    explanation: 'The only possible triplet sums up to 0.'
+constraints: |
+  - `3 <= nums.length <= 3000`
+  - `-10^5 <= nums[i] <= 10^5`
+starter: |
+  class Solution:
+      def threeSum(self, nums: list[int]) -> list[list[int]]:
+          pass
+  
+  # print(Solution().threeSum(...))  # e.g. nums = [-1,0,1,2,-1,-4]
+leetcode:
+  slug: 3sum
+  id: 15
+  title: 3Sum
+  relationship: exact
+occurrences:
+  - company: amazon
+    contributor: online
+    evidence: discord-title
+sources:
+  - kind: discord
+    path: extras/zonline discord/LC qs.txt
+    role: prompt
+notes: Official LeetCode statement filled from public problem data. Discord row was title-only.
+updated_at: 2026-08-31

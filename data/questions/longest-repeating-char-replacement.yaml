@@ -1,0 +1,45 @@
+id: longest-repeating-char-replacement
+title: Longest Repeating Character Replacement
+type: dsa
+tags: [practice]
+topics: [strings, sliding-window]
+difficulty: medium
+leetcode:
+  slug: longest-repeating-character-replacement
+  id: 424
+  title: Longest Repeating Character Replacement
+  relationship: exact
+status: extracted
+confidence: high
+evidence: practice-curriculum
+prompt: |
+  Given a string `s` and an integer `k`, you may change at most `k` characters to any other uppercase letter. Return the length of the longest substring containing the same letter you can get after performing the operations.
+examples:
+  - input: 's = "ABAB", k = 2'
+    output: '4'
+  - input: 's = "AABABBA", k = 1'
+    output: '4'
+constraints: |
+  - `1 <= s.length <= 10^5`
+  - `s` consists of only uppercase English letters.
+  - `0 <= k <= s.length`
+starter: |
+  class Solution:
+      def characterReplacement(self, s: str, k: int) -> int:
+          pass
+  
+  # print(Solution().characterReplacement(...))  # e.g. s = "ABAB", k = 2
+solution:
+  approach: |
+    Sliding window. Track max frequency in the window. Shrink while window_len - max_freq > k.
+  complexity:
+    time: O(n)
+    space: O(26)
+  links: [https://claude.ai/chat/b648a7cf-cb88-40cd-961b-abe616e87363, https://claude.ai/chat/a2cb4b0e-0ded-408d-9a4f-58aef28758a5]
+sources:
+  - kind: 'bank'
+    path: "interview Q's/claude/PROBLEM_BANK (1).md"
+    ref: 'A2'
+    role: 'prompt'
+related: [two-sum, product-except-self]
+updated_at: 2026-08-31

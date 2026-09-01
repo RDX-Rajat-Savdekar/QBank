@@ -1,0 +1,24 @@
+id: goog-seller-orders
+title: Seller orders by price or latest timestamp
+type: dsa
+tags:
+  - google
+topics:
+  - heap
+difficulty: unknown
+status: extracted
+confidence: low
+evidence: friend-report
+prompt: 'Orders come in from different sellers. Sort so the lowest price comes first, or by latest timestamp. If the same seller has multiple orders, the later timestamp is shown first; otherwise sort by lower price.'
+occurrences:
+  - company: google
+    role: SWE L3
+    round: onsite
+    contributor: friend
+    evidence: friend-report
+sources:
+  - kind: notes
+    path: "interview Q's/Google/q.md"
+    role: prompt
+notes: q.md is a garbled transcript. Prompt restated from that fragment.
+updated_at: 2026-08-31

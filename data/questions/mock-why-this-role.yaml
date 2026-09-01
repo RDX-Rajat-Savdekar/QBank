@@ -1,0 +1,18 @@
+id: mock-why-this-role
+title: Why are you interested in this role
+type: behavioral
+tags:
+  - mock
+  - behavioral
+topics: []
+difficulty: unknown
+status: extracted
+confidence: medium
+evidence: practice-curriculum
+prompt: 'Why are you interested in this role? [Scope] — Mock interview script #2.'
+sources:
+  - kind: pdf
+    path: extras/Mock Behav Interview Qs.pdf
+    role: prompt
+    ref: script-2 p244
+updated_at: 2026-08-31

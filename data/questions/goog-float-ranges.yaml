@@ -1,0 +1,26 @@
+id: goog-float-ranges
+title: Float ranges A minus B
+type: dsa
+tags:
+  - google
+topics:
+  - intervals
+difficulty: unknown
+status: extracted
+confidence: medium
+evidence: friend-report
+prompt: 'Float ranges given, e.g. (2.3, 4.5) and (3.5, 7.5). Return what is in A but not in B. Follow-up: multiple ranges in A and B.'
+follow_ups:
+  - text: Multiple ranges in A and B
+    kind: follow-up
+occurrences:
+  - company: google
+    role: SWE L3
+    round: onsite
+    contributor: friend
+    evidence: friend-report
+sources:
+  - kind: notes
+    path: "interview Q's/Google/q.md"
+    role: prompt
+updated_at: 2026-08-31

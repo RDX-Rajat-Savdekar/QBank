@@ -1,0 +1,27 @@
+id: goog-lc-1101
+title: The earliest moment when everyone become friends
+type: dsa
+tags:
+  - google
+topics:
+  - union-find
+difficulty: medium
+status: extracted
+confidence: medium
+evidence: friend-report
+prompt: LeetCode 1101 as asked.
+leetcode:
+  slug: the-earliest-moment-when-everyone-become-friends
+  id: 1101
+  title: The Earliest Moment When Everyone Become Friends
+  relationship: exact
+occurrences:
+  - company: google
+    contributor: friend
+    evidence: friend-report
+    notes: q.md friend report
+sources:
+  - kind: notes
+    path: "interview Q's/Google/q.md"
+    role: prompt
+updated_at: 2026-08-31

@@ -1,0 +1,27 @@
+id: goog-lc-2534
+title: Time taken to cross the door
+type: dsa
+tags:
+  - google
+topics:
+  - arrays
+difficulty: hard
+status: extracted
+confidence: medium
+evidence: friend-report
+prompt: LeetCode 2534 as asked.
+leetcode:
+  slug: time-taken-to-cross-the-door
+  id: 2534
+  title: Time Taken to Cross the Door
+  relationship: exact
+occurrences:
+  - company: google
+    contributor: friend
+    evidence: friend-report
+    notes: q.md friend report
+sources:
+  - kind: notes
+    path: "interview Q's/Google/q.md"
+    role: prompt
+updated_at: 2026-08-31

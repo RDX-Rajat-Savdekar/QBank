@@ -1,0 +1,25 @@
+id: genai-tdd-sdd
+title: AI during TDD or SDD
+type: genai
+tags:
+  - amazon
+  - genai
+topics: []
+difficulty: unknown
+status: extracted
+confidence: medium
+evidence: practice-curriculum
+prompt: How do you use AI tools during Test-Driven Development (TDD) or Spec-Driven Development (SDD) without compromising code quality?
+occurrences:
+  - company: amazon
+    round: genai-fluency
+    contributor: online
+    evidence: practice-curriculum
+sources:
+  - kind: notes
+    path: extras/zonline discord/amazon_sde1_genai_interview_guide.md
+    role: prompt
+notes: Do not copy extras/zonline discord/genai.txt personal stories into public fields.
+related:
+  - amz-lp-genai-usage
+updated_at: 2026-08-31

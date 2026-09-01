@@ -1,0 +1,65 @@
+id: amz-unfulfilled-customers
+title: Inventory allocation / unfulfilled customers
+type: dsa
+tags: [oa-custom]
+topics: [arrays, greedy, heap]
+difficulty: medium
+status: extracted
+confidence: high
+evidence: live-prompt
+prompt: |
+  Function `getUnfulfilledCustomers(requests, totalInventory)`.
+
+  Each request is `[customerId, quantity, bidAmount, timestamp]`.
+  Allocate a limited `totalInventory` by highest bid first. On a bid
+  tie, earlier timestamp wins. A customer who receives zero items is
+  unfulfilled. Return those customerIds sorted ascending.
+
+  Sample: requests = [[1,2,5,0],[2,1,4,2],[3,5,4,6]], totalInventory = 3
+  → [3]. Customer 1 takes 2 (bid 5). Customers 2 and 3 tie at bid 4;
+  customer 2 has the earlier timestamp and takes the last 1. Customer 3
+  gets nothing.
+
+  Another sample: [[1,5,5,0],[2,7,8,1],[3,7,5,1],[4,10,3,3]],
+  totalInventory = 18 → [4].
+examples:
+  - input: "requests=[[1,2,5,0],[2,1,4,2],[3,5,4,6]], totalInventory=3"
+    output: "[3]"
+  - input: "requests=[[1,5,5,0],[2,7,8,1],[3,7,5,1],[4,10,3,3]], totalInventory=18"
+    output: "[4]"
+constraints: |
+  1 <= n < 1e4
+  1 <= customerId, quantity, bidAmount, timestamp, totalInventory < 1e9
+follow_ups:
+  - text: "Same bid uses timestamp, then one-item-at-a-time round-robin among the tie group"
+    kind: trap
+solution:
+  approach: |
+    Sort by (-bid, timestamp). Walk the list, subtract quantity (or
+    allocate one-at-a-time inside a tied bid group). Anyone who never
+    received an item goes on the result list, then sort ids.
+  complexity:
+    time: O(n log n)
+    space: O(n)
+  pitfalls:
+    - A partial fill still counts as fulfilled
+    - Return sorted ids, not the order you allocated
+occurrences:
+  - company: amazon
+    role: sde-new-grad
+    round: oa
+    year: 2026
+    tool: hackerrank
+    notes: "Q1 paired with MovieDB debug"
+    contributor: friend
+    evidence: live-prompt
+sources:
+  - kind: image
+    path: "interview Q's/Amazon/N test/q1.jpeg"
+    role: prompt
+  - kind: image
+    path: "interview Q's/Amazon/N test/q11.jpeg"
+    role: prompt
+notes: ""
+related: [amz-moviedb-debug]
+updated_at: 2026-08-31

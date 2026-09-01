@@ -1,0 +1,38 @@
+id: amz-pizza-calculator
+title: Pizza price calculator
+type: lld
+tags:
+  - amazon
+  - lld
+topics:
+  - design-api
+difficulty: unknown
+status: extracted
+confidence: medium
+evidence: discord-title
+prompt: |
+  Design a pizza pricing / billing system.
+  
+  One or more pizzas per order. Different sizes (and sometimes crusts). Multiple toppings. Price calculated automatically. Billing system.
+  
+  Follow-ups: new toppings without modifying existing code; drinks; discounts/coupons; taxes; multiple pizzas per order.
+occurrences:
+  - company: amazon
+    round: onsite
+    tool: LiveCode
+    contributor: online
+    evidence: discord-title
+    notes: most commonly reported Amazon SDE1 LLD
+  - company: amazon
+    contributor: friend
+    evidence: friend-report
+    notes: onsite LiveCode listed in seed inventory
+sources:
+  - kind: discord
+    path: extras/zonline discord/LLD Qs 1.txt
+    role: prompt
+    ref: Pizza Price Calculator
+  - kind: discord
+    path: extras/zonline discord/LLD Qs 2.txt
+    role: prompt
+updated_at: 2026-08-31

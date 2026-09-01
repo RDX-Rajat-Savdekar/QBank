@@ -1,0 +1,9 @@
+name: Abridge
+aliases: [coderbyte]
+levels: []
+loop: [oa]
+signals: []
+tools: [coderbyte]
+resources:
+  - { title: "Coderbyte / Abridge OA Python practice guide", kind: book }
+notes_md: abridge.md

@@ -1,0 +1,10 @@
+id: numeric-hire-scale
+company: generic
+hire_scale:
+  strong_no: "<2.6"
+  no: "2.6-2.7"
+  weak_no: "2.8-2.9"
+  weak_yes: "3.0-3.1"
+  yes: "3.2-3.4"
+  strong_yes: "3.5+"
+pass_note: "Usually 3.0+ if a working solution exists by the end (no extensions)."

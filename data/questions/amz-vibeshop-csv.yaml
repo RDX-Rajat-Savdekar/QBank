@@ -1,0 +1,40 @@
+id: amz-vibeshop-csv
+title: VibeShop CSV catalog import
+type: debug
+tags: [oa-custom, node]
+topics: [design-api]
+difficulty: medium
+status: extracted
+confidence: high
+evidence: live-prompt
+prompt: |
+  VibeShop catalog import is broken: not every catalog shows in the
+  UI, and imported products do not update. Log in as catalog
+  manager (admin@mail.com / admin123), Admin Dashboard → Import
+  Catalog.
+
+  Node/Express + Mocha/Chai. Fix directory read, path resolution,
+  file filtering, CSV parsing, response formatting, and dedup.
+solution:
+  approach: |
+    Minimal diffs: resolve the upload directory, filter .csv only, parse rows, format the response, dedup by the key the tests use.
+  links: [https://claude.ai/chat/82ff2a91-fd70-4443-94bd-1272f1d7431a]
+occurrences:
+  - company: 'amazon'
+    role: 'sde-new-grad'
+    round: 'oa'
+    year: 2026
+    tool: 'hackerrank'
+    contributor: friend
+    evidence: live-prompt
+    notes: "Q2 paired with contiguous-quality"
+sources:
+  - kind: bank
+    path: "interview Q's/claude/PROBLEM_BANK (1).md"
+    ref: D7
+    role: prompt
+  - kind: image
+    path: "interview Q's/Amazon/anoushka/q/WhatsApp Image 2026-06-22 at 18.01.33.jpeg"
+    role: prompt
+related: [amz-wallet-debug, amz-moviedb-debug]
+updated_at: 2026-08-31

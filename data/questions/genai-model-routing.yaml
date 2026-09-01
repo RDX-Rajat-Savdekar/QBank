@@ -1,0 +1,25 @@
+id: genai-model-routing
+title: Cost-aware model routing
+type: genai
+tags:
+  - amazon
+  - genai
+topics: []
+difficulty: unknown
+status: extracted
+confidence: medium
+evidence: practice-curriculum
+prompt: How would you design a cost-aware model routing layer that directs simple tasks to small models and complex tasks to large models?
+occurrences:
+  - company: amazon
+    round: genai-fluency
+    contributor: online
+    evidence: practice-curriculum
+sources:
+  - kind: notes
+    path: extras/zonline discord/amazon_sde1_genai_interview_guide.md
+    role: prompt
+notes: Do not copy extras/zonline discord/genai.txt personal stories into public fields.
+related:
+  - amz-lp-genai-usage
+updated_at: 2026-08-31
