@@ -1,0 +1,19 @@
+{
+  "name": "QBank",
+  "short_name": "QBank",
+  "description": "Filterable interview question bank",
+  "start_url": "/QBank/",
+  "display": "standalone",
+  "background_color": "#12110f",
+  "theme_color": "#12110f",
+  "lang": "en",
+  "scope": "/QBank/",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
