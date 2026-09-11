@@ -16,6 +16,17 @@ prompt: |
   One or more pizzas per order. Different sizes (and sometimes crusts). Multiple toppings. Price calculated automatically. Billing system.
   
   Follow-ups: new toppings without modifying existing code; drinks; discounts/coupons; taxes; multiple pizzas per order.
+follow_ups:
+  - text: "New toppings without modifying existing code"
+    kind: ocp
+  - text: "Drinks"
+    kind: variant
+  - text: "Discounts / coupons"
+    kind: variant
+  - text: "Taxes"
+    kind: variant
+  - text: "Multiple pizzas per order"
+    kind: variant
 occurrences:
   - company: amazon
     round: onsite
@@ -35,4 +46,4 @@ sources:
   - kind: discord
     path: extras/zonline discord/LLD Qs 2.txt
     role: prompt
-updated_at: 2026-08-31
+updated_at: 2026-09-11

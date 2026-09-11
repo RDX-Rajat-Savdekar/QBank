@@ -1,0 +1,8 @@
+name: Retell
+aliases: [retell-ai, retellai]
+levels: []
+loop: [onsite]
+signals: []
+tools: []
+resources: []
+notes_md: retell.md

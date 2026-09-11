@@ -28,6 +28,7 @@ export function QuestionPage() {
               <Badge>{c}</Badge>
             </Link>
           ))}
+          {q.hasFollowup && <Badge>follow-up</Badge>}
         </div>
       </header>
       <QuestionBody q={q} showRubric />

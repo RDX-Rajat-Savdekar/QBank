@@ -11,6 +11,9 @@ status: extracted
 confidence: medium
 evidence: discord-title
 prompt: Tell me about a time you improved team morale or productivity. What was the underlying issue?
+follow_ups:
+  - text: "How do you prove that this issue will not occur in the future?"
+    kind: asked
 occurrences:
   - company: amazon
     round: onsite
@@ -21,6 +24,13 @@ occurrences:
     contributor: self
     evidence: research
     notes: 16 LP sample list in amazon.md
+  - company: amazon
+    role: sde-new-grad
+    round: bar-raiser
+    year: 2026
+    contributor: friend
+    evidence: friend-report
+    notes: Describe a time you improved morale of the team; follow-up how you prove the issue will not recur
 sources:
   - kind: discord
     path: extras/zonline discord/LP 1.txt
@@ -34,4 +44,9 @@ sources:
   - kind: notes
     path: data/companies/amazon.md
     role: prompt
-updated_at: 2026-08-31
+  - kind: notes
+    path: "interview Q's/Amazon/new grad 2026/F/Bar Raiser_F (1).txt"
+    role: prompt
+related:
+  - amz-lp-unfair-treatment
+updated_at: 2026-09-11

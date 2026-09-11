@@ -33,6 +33,8 @@ constraints: |
 follow_ups:
   - text: "Same bid uses timestamp, then one-item-at-a-time round-robin among the tie group"
     kind: trap
+  - text: "OA variant with no timestamp — same bid distributes items round-robin"
+    kind: variant
 solution:
   approach: |
     Sort by (-bid, timestamp). Walk the list, subtract quantity (or
@@ -53,6 +55,13 @@ occurrences:
     notes: "Q1 paired with MovieDB debug"
     contributor: friend
     evidence: live-prompt
+  - company: amazon
+    role: sde-1
+    round: oa
+    year: 2026
+    contributor: online
+    evidence: reddit
+    notes: AWS Berlin OA — warehouse bids; same-bid uses round-robin, no timestamp field in the posted prompt
 sources:
   - kind: image
     path: "interview Q's/Amazon/N test/q1.jpeg"
@@ -60,6 +69,9 @@ sources:
   - kind: image
     path: "interview Q's/Amazon/N test/q11.jpeg"
     role: prompt
+  - kind: reddit
+    path: interview Q's/Amazon/new grad 2026/reddit/reddit-Amazon-exp.rtf
+    role: prompt
 notes: ""
 related: [amz-moviedb-debug]
-updated_at: 2026-08-31
+updated_at: 2026-09-11

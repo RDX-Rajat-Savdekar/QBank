@@ -51,4 +51,6 @@ sources:
     path: extras/zonline discord/LC qs.txt
     role: prompt
 notes: Official LeetCode statement filled from public problem data. Discord row was title-only.
-updated_at: 2026-08-31
+related:
+  - amz-lc-right-side-view
+updated_at: 2026-09-11

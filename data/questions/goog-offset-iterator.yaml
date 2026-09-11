@@ -10,6 +10,9 @@ status: extracted
 confidence: medium
 evidence: friend-report
 prompt: 'Given an array and an offset: if the offset is +3 return the first 3, if -1 then the last 1 (notes say last 3 for -1). Follow-up: instead of an array you have an iterator with hasNext and getNext.'
+follow_ups:
+  - text: "Instead of an array you have an iterator with hasNext and getNext"
+    kind: asked
 occurrences:
   - company: google
     contributor: friend
@@ -19,4 +22,4 @@ sources:
   - kind: notes
     path: "interview Q's/Google/q.md"
     role: prompt
-updated_at: 2026-08-31
+updated_at: 2026-09-11

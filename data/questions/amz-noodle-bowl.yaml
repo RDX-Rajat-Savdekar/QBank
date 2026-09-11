@@ -12,6 +12,9 @@ status: extracted
 confidence: medium
 evidence: discord-title
 prompt: 'Design a noodle restaurant pricing system. Each bowl has exactly one soup base, exactly one size, and zero or more add-ons. Total = (size multiplier × soup price) + sum(add-ons). Follow-up: more add-ons later.'
+follow_ups:
+  - text: "More add-ons later without rewriting the pricing core"
+    kind: asked
 occurrences:
   - company: amazon
     contributor: online
@@ -23,4 +26,4 @@ sources:
   - kind: discord
     path: extras/zonline discord/LLD Qs 2.txt
     role: prompt
-updated_at: 2026-08-31
+updated_at: 2026-09-11

@@ -1,0 +1,50 @@
+id: amz-lp-communicate-change
+title: Communicated a change people would resist
+type: behavioral
+tags:
+  - amazon
+  - lp
+  - behavioral
+topics: []
+difficulty: unknown
+status: extracted
+confidence: high
+evidence: live-prompt
+prompt: |
+  Tell me about a time you had to communicate a change in direction that
+  you anticipated people would have concern with.
+
+  Follow-ups seen:
+    - What was the proposal and what changes were made?
+    - You proposed a phased approach; the team did not want it; you
+      convinced them. Why, and what data supported the recommendation?
+    - How were you transparent about the data with the team?
+    - What was the final result?
+    - If you had to do this again, would you change your approach?
+follow_ups:
+  - text: "What was the proposal and what changes were made?"
+    kind: asked
+  - text: "You proposed a phased approach; the team did not want it. Why, and what data supported the recommendation?"
+    kind: asked
+  - text: "How were you transparent about the data with the team?"
+    kind: asked
+  - text: "What was the final result?"
+    kind: asked
+  - text: "If you had to do this again, would you change your approach?"
+    kind: asked
+occurrences:
+  - company: amazon
+    role: sde-new-grad
+    round: bar-raiser
+    year: 2026
+    contributor: self
+    evidence: live-prompt
+    notes: Day 1 bar raiser
+sources:
+  - kind: pdf
+    path: "interview Q's/Amazon/new grad 2026/S/day 1/br 1/S Amazon notes.pdf"
+    role: prompt
+related:
+  - amz-lp-scope-change
+  - amz-lp-convincing
+updated_at: 2026-09-11

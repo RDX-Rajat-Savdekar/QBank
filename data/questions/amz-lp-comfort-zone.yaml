@@ -11,6 +11,11 @@ status: extracted
 confidence: medium
 evidence: discord-title
 prompt: Tell me about a time you worked outside your comfort zone or something technically unfamiliar. How did you learn what you needed?
+follow_ups:
+  - text: "How did you go about learning what you needed?"
+    kind: asked
+  - text: "You changed the process — how did that impact customers besides downtime?"
+    kind: asked
 occurrences:
   - company: amazon
     round: onsite
@@ -21,6 +26,13 @@ occurrences:
     contributor: self
     evidence: research
     notes: 16 LP sample list in amazon.md
+  - company: amazon
+    role: sde-new-grad
+    round: bar-raiser
+    year: 2026
+    contributor: self
+    evidence: live-prompt
+    notes: Day 1 BR — took on work outside comfort area (deployment / rollback); follow-ups on how you learned and customer impact besides downtime
 sources:
   - kind: discord
     path: extras/zonline discord/LP 1.txt
@@ -34,4 +46,10 @@ sources:
   - kind: notes
     path: data/companies/amazon.md
     role: prompt
-updated_at: 2026-08-31
+  - kind: pdf
+    path: "interview Q's/Amazon/new grad 2026/S/day 1/br 1/S Amazon notes.pdf"
+    role: prompt
+related:
+  - amz-lp-ownership
+  - amz-lp-self-improvement
+updated_at: 2026-09-11

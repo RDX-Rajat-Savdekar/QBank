@@ -21,6 +21,13 @@ occurrences:
     contributor: self
     evidence: research
     notes: 16 LP sample list in amazon.md
+  - company: amazon
+    role: sde-1
+    round: bar-raiser
+    year: 2026
+    contributor: online
+    evidence: reddit
+    notes: AWS Berlin — tell me about a time when you helped a colleague who was struggling
 sources:
   - kind: discord
     path: extras/zonline discord/LP 1.txt
@@ -34,4 +41,7 @@ sources:
   - kind: notes
     path: data/companies/amazon.md
     role: prompt
-updated_at: 2026-08-31
+  - kind: reddit
+    path: interview Q's/Amazon/new grad 2026/reddit/reddit-Amazon-exp.rtf
+    role: prompt
+updated_at: 2026-09-11

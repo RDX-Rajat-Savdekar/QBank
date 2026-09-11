@@ -32,7 +32,8 @@ export function FilterBar({ count }: { count: number }) {
       filters.evidence.length >
       0 ||
     filters.has_solution ||
-    filters.leetcode;
+    filters.leetcode ||
+    filters.followup;
 
   return (
     <div className="space-y-3">
@@ -66,6 +67,14 @@ export function FilterBar({ count }: { count: number }) {
             onChange={(e) => set({ ...filters, leetcode: e.target.checked })}
           />
           LeetCode-mapped
+        </label>
+        <label className="flex items-center gap-1.5 rounded-md border border-border bg-card px-2.5 text-xs">
+          <input
+            type="checkbox"
+            checked={filters.followup}
+            onChange={(e) => set({ ...filters, followup: e.target.checked })}
+          />
+          Follow-up
         </label>
         {active && (
           <Button variant="ghost" size="sm" onClick={() => setParams("", { replace: true })}>

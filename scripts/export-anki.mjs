@@ -20,7 +20,8 @@ function card(q) {
   const examples = (q.examples || [])
     .map((ex) => `in: ${ex.input}\nout: ${ex.output}`)
     .join("\n\n");
-  const front = [q.title, q.prompt, q.constraints, examples].filter(Boolean).join("\n\n");
+  const follow = (q.follow_ups || []).map((f) => `follow-up: ${f.text}`).join("\n");
+  const front = [q.title, q.prompt, follow, q.constraints, examples].filter(Boolean).join("\n\n");
   const complexity = sol.complexity
     ? [sol.complexity.time && `time ${sol.complexity.time}`, sol.complexity.space && `space ${sol.complexity.space}`]
         .filter(Boolean)

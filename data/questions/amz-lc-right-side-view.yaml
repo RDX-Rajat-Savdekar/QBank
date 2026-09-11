@@ -1,0 +1,76 @@
+id: amz-lc-right-side-view
+title: Binary tree right side view
+type: dsa
+tags:
+  - amazon
+  - reddit
+topics:
+  - tree
+difficulty: medium
+leetcode:
+  id: 199
+  title: Binary Tree Right Side View
+  slug: binary-tree-right-side-view
+  relationship: exact
+status: extracted
+confidence: high
+evidence: reddit
+prompt: |
+  Given the root of a binary tree, imagine yourself standing on the
+  right side of it. Return the values of the nodes you can see ordered
+  from top to bottom.
+
+  Example:
+
+         19
+        /    \
+      12      16
+     /  \     /
+    7    9   6
+     \      /
+      1    3
+     /
+    18
+
+  Output: 19, 16, 6, 3, 18
+examples:
+  - input: "tree as in the prompt diagram"
+    output: "[19, 16, 6, 3, 18]"
+starter: |
+  from typing import Optional, List
+
+  class TreeNode:
+      def __init__(self, val=0, left=None, right=None):
+          self.val = val
+          self.left = left
+          self.right = right
+
+  class Solution:
+      def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
+          pass
+follow_ups:
+  - text: Time complexity
+    kind: complexity
+solution:
+  approach: |
+    BFS level order; take the last node on each level. Or DFS
+    right-first and record the first visit at each depth.
+  complexity:
+    time: O(n)
+    space: O(n)
+occurrences:
+  - company: amazon
+    role: sde-1
+    level: sde-1
+    round: onsite
+    year: 2026
+    contributor: online
+    evidence: reddit
+    notes: AWS Berlin new-grad loop, round 3 first coding problem
+sources:
+  - kind: reddit
+    path: interview Q's/Amazon/new grad 2026/reddit/reddit-Amazon-exp.rtf
+    role: prompt
+related:
+  - amz-lc-level-order
+updated_at: 2026-09-11

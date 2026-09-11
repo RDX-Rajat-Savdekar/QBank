@@ -1,0 +1,114 @@
+id: amz-database-clusters
+title: Database clusters
+type: dsa
+tags:
+  - amazon
+  - onsite
+  - union-find
+topics:
+  - graph
+  - union-find
+difficulty: medium
+leetcode:
+  id: 547
+  title: Number of Provinces
+  slug: number-of-provinces
+  relationship: variant
+status: extracted
+confidence: high
+evidence: live-prompt
+prompt: |
+  There are n database instances. Some of them are connected to other
+  instances, while some are not. If instance a is connected directly
+  with instance b, and instance b is connected directly with instance c,
+  then instance a is connected indirectly with instance c.
+
+  We define database cluster as a group of directly or indirectly
+  connected instances and no other instance outside of the group.
+
+  You are given an n x n matrix isConnected where isConnected[i][j] = 1
+  if the i-th instance and the j-th instance are directly connected, and
+  isConnected[i][j] = 0 otherwise. Return the total number of database
+  clusters.
+examples:
+  - input: "isConnected = [[1,1,0],[1,1,0],[0,0,1]]"
+    output: "2"
+  - input: "isConnected = [[1,0,0],[0,1,0],[0,0,1]]"
+    output: "3"
+constraints: |
+  Matrix is square and symmetric.
+  1 <= n <= 200. An isolated instance is one cluster.
+  Instances are 0-indexed.
+starter: |
+  from typing import List
+
+  def findCircleNum(isConnected: List[List[int]]) -> int:
+      pass
+follow_ups:
+  - text: Recursive DFS stack overflow on large N — iterative stack or Union-Find
+    kind: scale
+  - text: Sparse graph, N huge — adjacency list, O(V+E), not scan N²
+    kind: scale
+  - text: Dynamic edge inserts — Union-Find with path compression (+ union by rank)
+    kind: variant
+solution:
+  approach: |
+    Connected components on an undirected graph given as an adjacency
+    matrix. DFS/BFS from each unvisited node, or Union-Find over the
+    upper triangle (start at n clusters, decrement on merge). Union-Find
+    is the buy-in when they ask about dynamic connections.
+  complexity:
+    time: O(N^2 * α(N)) Union-Find / O(N^2) DFS
+    space: O(N)
+  code_language: python
+  code: |
+    def findCircleNum(isConnected):
+        n = len(isConnected)
+        parent = list(range(n))
+        clusters = n
+
+        def find(i):
+            if parent[i] != i:
+                parent[i] = find(parent[i])
+            return parent[i]
+
+        def union(i, j):
+            nonlocal clusters
+            ri, rj = find(i), find(j)
+            if ri != rj:
+                parent[ri] = rj
+                clusters -= 1
+
+        for i in range(n):
+            for j in range(i + 1, n):
+                if isConnected[i][j] == 1:
+                    union(i, j)
+        return clusters
+  pitfalls:
+    - Scanning the full matrix twice (i,j and j,i) double-unions harmlessly but wastes time
+    - Recursive DFS can hit RecursionError; Amazon follow-up often goes here
+occurrences:
+  - company: amazon
+    role: sde-new-grad
+    round: onsite
+    year: 2026
+    contributor: self
+    evidence: live-prompt
+    notes: Day 1 coding; LC 547 reskinned as database instances
+sources:
+  - kind: image
+    path: "interview Q's/Amazon/new grad 2026/S/day 1/Screenshot 2026-09-01 at 1.24.30 PM.png"
+    role: prompt
+  - kind: image
+    path: "interview Q's/Amazon/new grad 2026/S/day 1/Screenshot 2026-09-01 at 1.27.22 PM.png"
+    role: prompt
+  - kind: pdf
+    path: "interview Q's/Amazon/new grad 2026/S/day 1/2/database_clusters_interview_transcript.pdf"
+    role: solution
+  - kind: code
+    path: "interview Q's/Amazon/new grad 2026/S/day 1/prompt setup /interview_2.py"
+    role: solution
+related:
+  - accounts-merge
+  - amz-number-of-islands
+updated_at: 2026-09-11

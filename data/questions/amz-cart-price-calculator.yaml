@@ -1,0 +1,51 @@
+id: amz-cart-price-calculator
+title: Shopping cart price calculator
+type: lld
+tags:
+  - amazon
+  - onsite
+  - lld
+  - reddit
+topics:
+  - design-api
+difficulty: medium
+status: extracted
+confidence: high
+evidence: reddit
+prompt: |
+  Design a shopping cart price calculator API: given a list of product
+  ids in the cart, return the total price of the items.
+
+  Imagine you are doing this for a large scale service / website.
+
+  Plan for being able to apply discounts that we may want to play around
+  with in the future.
+follow_ups:
+  - text: A discount that applies to all products
+    kind: variant
+  - text: Carts above EUR 100 or with more than 10 items get double the discount
+    kind: variant
+  - text: Promotion on a specific item — buy three, get one free
+    kind: variant
+  - text: One product is bought very frequently — make that path faster
+    kind: scale
+  - text: Time complexity
+    kind: complexity
+occurrences:
+  - company: amazon
+    role: sde-1
+    level: sde-1
+    round: onsite
+    year: 2026
+    contributor: online
+    evidence: reddit
+    notes: AWS Berlin new-grad loop, round 1
+sources:
+  - kind: reddit
+    path: interview Q's/Amazon/new grad 2026/reddit/reddit-Amazon-exp.rtf
+    role: prompt
+related:
+  - amz-shopping-cart
+  - amz-pizza-calculator
+  - amz-offer-eligibility
+updated_at: 2026-09-11

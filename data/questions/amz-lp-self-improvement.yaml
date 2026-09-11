@@ -1,0 +1,32 @@
+id: amz-lp-self-improvement
+title: Worked on improving your effectiveness
+type: behavioral
+tags:
+  - amazon
+  - lp
+  - behavioral
+topics: []
+difficulty: unknown
+status: extracted
+confidence: high
+evidence: live-prompt
+prompt: |
+  We all have things about ourselves we'd like to improve on at work.
+  Give me an example of something that you've worked on to improve your
+  overall work effectiveness.
+occurrences:
+  - company: amazon
+    role: sde-new-grad
+    round: bar-raiser
+    year: 2026
+    contributor: self
+    evidence: live-prompt
+    notes: Day 1 bar raiser; interviewer also noted Amazon is documentation-heavy and new grads should leverage seniors on scale
+sources:
+  - kind: pdf
+    path: "interview Q's/Amazon/new grad 2026/S/day 1/br 1/S Amazon notes.pdf"
+    role: prompt
+related:
+  - amz-lp-negative-feedback
+  - amz-lp-comfort-zone
+updated_at: 2026-09-11

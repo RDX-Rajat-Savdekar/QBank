@@ -12,6 +12,13 @@ status: extracted
 confidence: medium
 evidence: discord-title
 prompt: 'Design a Unix file search API. Search by name, extension, size, directory, custom filters. Follow-ups: add filters without changing old code; AND/OR; recursive traversal.'
+follow_ups:
+  - text: "Add filters without changing old code"
+    kind: ocp
+  - text: "AND/OR composition of filters"
+    kind: variant
+  - text: "Recursive traversal"
+    kind: variant
 occurrences:
   - company: amazon
     contributor: online
@@ -23,4 +30,4 @@ sources:
   - kind: discord
     path: extras/zonline discord/LLD Qs 2.txt
     role: prompt
-updated_at: 2026-08-31
+updated_at: 2026-09-11

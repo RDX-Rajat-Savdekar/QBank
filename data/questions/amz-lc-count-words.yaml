@@ -10,6 +10,11 @@ status: raw
 confidence: low
 evidence: discord-title
 prompt: 'Count Words in String. Follow-ups: leading/trailing spaces; return array of words.'
+follow_ups:
+  - text: "Leading and trailing spaces"
+    kind: asked
+  - text: "Return an array of words, not just a count"
+    kind: asked
 occurrences:
   - company: amazon
     contributor: online
@@ -19,4 +24,4 @@ sources:
     path: extras/zonline discord/LC qs.txt
     role: prompt
 notes: Title-only Discord row. Prompt is the listed title plus any listed follow-up. Do not invent a full statement.
-updated_at: 2026-08-31
+updated_at: 2026-09-11

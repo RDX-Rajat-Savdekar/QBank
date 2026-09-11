@@ -22,6 +22,7 @@ export function filtersFromSearch(search) {
     evidence: parseList(p.get("evidence")),
     has_solution: p.get("has_solution") === "1",
     leetcode: p.get("leetcode") === "1",
+    followup: p.get("followup") === "1",
   };
 }
 
@@ -43,6 +44,7 @@ export function filtersToSearch(filters) {
   }
   if (filters.has_solution) p.set("has_solution", "1");
   if (filters.leetcode) p.set("leetcode", "1");
+  if (filters.followup) p.set("followup", "1");
   return p.toString();
 }
 
@@ -67,6 +69,7 @@ export function applyFilters(questions, filters) {
     if (!intersects([q.evidence], filters.evidence || [])) return false;
     if (filters.has_solution && !q.hasSolution) return false;
     if (filters.leetcode && !q.leetcodeMapped) return false;
+    if (filters.followup && !q.hasFollowup) return false;
     return true;
   });
 }

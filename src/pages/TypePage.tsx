@@ -8,7 +8,11 @@ export function TypePage() {
   if (!type || !id) {
     return <p className="text-sm text-muted-foreground">Type not found.</p>;
   }
-  const qs = questions.filter((q) => q.type === id);
+  const followup = id === "followup";
+  const qs = followup
+    ? questions.filter((q) => q.hasFollowup)
+    : questions.filter((q) => q.type === id);
+  const labTo = followup ? "/?followup=1" : `/?type=${id}`;
   return (
     <div className="space-y-6">
       <header>
@@ -21,13 +25,16 @@ export function TypePage() {
       <section className="space-y-3">
         <h2 className="text-lg font-medium">
           Questions{" "}
-          <Link to={`/?type=${id}`} className="text-sm font-normal text-muted-foreground underline">
+          <Link to={labTo} className="text-sm font-normal text-muted-foreground underline">
             open in lab
           </Link>
         </h2>
         {qs.map((q) => (
           <QuestionCard key={q.id} q={q} />
         ))}
+        {qs.length === 0 && (
+          <p className="text-sm text-muted-foreground">No questions in this category yet.</p>
+        )}
       </section>
     </div>
   );

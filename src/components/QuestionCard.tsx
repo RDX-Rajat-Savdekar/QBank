@@ -57,11 +57,21 @@ export function QuestionBody({
           </section>
         )}
         {q.follow_ups?.length ? (
-          <ul className="list-disc pl-5 text-muted-foreground">
-            {q.follow_ups.map((f) => (
-              <li key={f.text}>{f.text}</li>
-            ))}
-          </ul>
+          <section>
+            <h3 className="mb-1 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+              Follow-ups asked
+            </h3>
+            <ol className="list-decimal space-y-1.5 pl-5">
+              {q.follow_ups.map((f) => (
+                <li key={f.text}>
+                  <span>{f.text}</span>
+                  {f.kind && f.kind !== "asked" && f.kind !== "follow-up" ? (
+                    <span className="ml-1.5 text-xs text-muted-foreground">({f.kind})</span>
+                  ) : null}
+                </li>
+              ))}
+            </ol>
+          </section>
         ) : null}
         {sol?.approach && (
           <section>
@@ -144,6 +154,7 @@ export function QuestionCard({ q, defaultOpen = false }: { q: Question; defaultO
               <Badge key={c}>{c}</Badge>
             ))}
             {q.hasSolution && <Badge>solution</Badge>}
+            {q.hasFollowup && <Badge>follow-up</Badge>}
           </div>
         </div>
       </Collapsible.Trigger>

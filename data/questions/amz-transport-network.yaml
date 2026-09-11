@@ -12,6 +12,11 @@ status: extracted
 confidence: medium
 evidence: discord-title
 prompt: 'Part 1: undirected graph, return connected warehouse clusters. Follow-up: directed reachability. Follow-up: topological processing order.'
+follow_ups:
+  - text: "Directed reachability"
+    kind: variant
+  - text: "Topological processing order"
+    kind: variant
 occurrences:
   - company: amazon
     contributor: online
@@ -23,4 +28,4 @@ sources:
   - kind: discord
     path: extras/zonline discord/LLD Qs 2.txt
     role: prompt
-updated_at: 2026-08-31
+updated_at: 2026-09-11

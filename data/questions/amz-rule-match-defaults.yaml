@@ -1,0 +1,62 @@
+id: amz-rule-match-defaults
+title: Rule match with DEFAULT wildcards
+type: dsa
+tags:
+  - amazon
+  - genai
+  - reddit
+topics:
+  - hashing
+  - arrays
+difficulty: medium
+status: extracted
+confidence: high
+evidence: reddit
+prompt: |
+  A rule is an ordered list of match keys — for example
+  [country, brand, customer_tier].
+
+  A decision is a row of concrete values for each key, plus a result:
+
+    DE       | acme    | gold     -> OPEN
+    DE       | DEFAULT | gold     -> RESTRICTED
+    DEFAULT  | acme    | DEFAULT  -> OPEN
+    DEFAULT  | DEFAULT | DEFAULT  -> NO_DECISION
+
+  "DEFAULT" is a reserved wildcard value. It is valid in any key
+  position.
+
+  Given a query such as (DE, acme, silver), return the matching result.
+follow_ups:
+  - text: How do you select what result to return? First hit? First OPEN/RESTRICTED?
+    kind: clarify
+  - text: What other ways of selecting a result could there be?
+    kind: variant
+solution:
+  approach: |
+    Treat DEFAULT as a wildcard. Score a row by how many concrete
+    (non-DEFAULT) keys match the query; reject a row that mismatches a
+    concrete key. Pick the most specific match, or define first-hit
+    order if the table is ordered. Nested dict / trie keyed by the
+    rule columns is the natural structure.
+  pitfalls:
+    - DEFAULT is not a literal country/brand
+    - Query (DE, acme, silver) does not match the gold rows
+    - Need an explicit tie-break (first hit vs most specific vs first OPEN)
+occurrences:
+  - company: amazon
+    role: sde-1
+    level: sde-1
+    round: genai-fluency
+    year: 2026
+    contributor: online
+    evidence: reddit
+    notes: AWS Berlin new-grad loop, GenAI round coding
+sources:
+  - kind: reddit
+    path: interview Q's/Amazon/new grad 2026/reddit/reddit-Amazon-exp.rtf
+    role: prompt
+related:
+  - amz-offer-eligibility
+  - amz-lp-genai-usage
+updated_at: 2026-09-11

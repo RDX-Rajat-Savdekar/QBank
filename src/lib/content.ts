@@ -8,6 +8,8 @@ import typesJson from "@/generated/types.json";
 export type Question = (typeof questionsJson)[number] & {
   starter?: string;
   constraints?: string;
+  hasFollowup?: boolean;
+  followupText?: string;
 };
 export type Company = (typeof companiesJson)[number];
 export type TypePage = (typeof typesJson)[number];

@@ -53,7 +53,8 @@ export function LabSidebar({
       filters.evidence.length >
       0 ||
     filters.has_solution ||
-    filters.leetcode;
+    filters.leetcode ||
+    filters.followup;
 
   return (
     <div className="flex h-full min-h-0 flex-col bg-background">
@@ -88,6 +89,14 @@ export function LabSidebar({
             />
             Solution
           </label>
+          <label className="flex items-center gap-1 rounded-md border border-border bg-card px-2 text-[11px]">
+            <input
+              type="checkbox"
+              checked={filters.followup}
+              onChange={(e) => setFilters({ ...filters, followup: e.target.checked })}
+            />
+            Follow-up
+          </label>
           {hasFilters && (
             <Button
               variant="ghost"
@@ -121,6 +130,7 @@ export function LabSidebar({
                   <Badge>{q.type}</Badge>
                   <Badge>{q.difficulty}</Badge>
                   {q.hasSolution && <Badge>sol</Badge>}
+                  {q.hasFollowup && <Badge>follow-up</Badge>}
                 </span>
               </button>
             </li>

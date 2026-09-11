@@ -18,5 +18,7 @@ sources:
   - kind: discord
     path: extras/zonline discord/LC qs.txt
     role: prompt
-notes: Title-only Discord row. Prompt is the listed title plus any listed follow-up. Do not invent a full statement.
-updated_at: 2026-08-31
+notes: Title-only Discord row. Prompt is the listed title plus any listed follow-up. Do not invent a full statement. Related live prompt is amz-shortest-friend-connection (shortest chain, not all paths).
+related:
+  - amz-shortest-friend-connection
+updated_at: 2026-09-11

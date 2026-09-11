@@ -41,6 +41,9 @@ const prepared = questions.map((q) => {
   ];
   const sol = q.solution || {};
   const hasSolution = Boolean(sol.approach || sol.code || sol.diagram);
+  const followUps = q.follow_ups || [];
+  const hasFollowup = followUps.length > 0;
+  const followupText = followUps.map((f) => f.text).join(" ");
   const leetcodeMapped = Boolean(
     q.leetcode && q.leetcode.relationship && q.leetcode.relationship !== "none" && q.leetcode.id,
   );
@@ -54,6 +57,8 @@ const prepared = questions.map((q) => {
     occurrences: (q.occurrences || []).map(({ notes: _n, ...o }) => o),
     companySlugs,
     hasSolution,
+    hasFollowup,
+    followupText,
     leetcodeMapped,
     solution: q.solution ? { ...sol, codeHtml } : undefined,
   };

@@ -79,6 +79,7 @@ export const LabEditor = forwardRef<
             {q.companySlugs.map((c) => (
               <Badge key={c}>{c}</Badge>
             ))}
+            {q.hasFollowup && <Badge>follow-up</Badge>}
           </div>
         </div>
         <div className="flex shrink-0 flex-wrap items-center gap-2">

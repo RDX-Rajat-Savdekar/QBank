@@ -14,7 +14,7 @@ function ids(filters) {
 }
 
 const debugAmazon = ids({ company: ["amazon"], type: ["debug"] });
-const expectDebug = ["amz-moviedb-debug", "amz-vibeshop-csv", "amz-wallet-debug"];
+const expectDebug = ["amz-moviedb-debug", "amz-vibeshop-csv", "amz-wallet-debug", "django-issues-endpoint"];
 if (JSON.stringify(debugAmazon) !== JSON.stringify(expectDebug)) {
   console.error("amazon+debug", debugAmazon);
   process.exit(1);
@@ -36,4 +36,17 @@ for (const id of [
   }
 }
 
-console.log("filters ok", { debugAmazon, hldCount: hld.length });
+const followups = ids({ followup: true });
+if (!followups.includes("amz-pizza-calculator") || !followups.includes("amz-category-path")) {
+  console.error("followup filter missing expected ids", followups.slice(0, 20));
+  process.exit(1);
+}
+if (followups.some((id) => {
+  const q = questions.find((row) => row.id === id);
+  return !q?.hasFollowup;
+})) {
+  console.error("followup filter leaked a question with no follow_ups");
+  process.exit(1);
+}
+
+console.log("filters ok", { debugAmazon, hldCount: hld.length, followupCount: followups.length });

@@ -23,4 +23,7 @@ sources:
   - kind: discord
     path: extras/zonline discord/LLD Qs 2.txt
     role: prompt
-updated_at: 2026-08-31
+related:
+  - amz-cart-price-calculator
+  - amz-pizza-calculator
+updated_at: 2026-09-11

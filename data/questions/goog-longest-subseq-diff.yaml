@@ -10,6 +10,9 @@ status: raw
 confidence: low
 evidence: friend-report
 prompt: Longest subsequence where consecutive absolute difference is at most 1; follow-up at most k. WhatsApp fragment in Google notes.
+follow_ups:
+  - text: "Consecutive absolute difference at most k, not just 1"
+    kind: asked
 occurrences:
   - company: google
     role: SWE L3
@@ -20,4 +23,4 @@ sources:
   - kind: notes
     path: data/companies/google.md
     role: prompt
-updated_at: 2026-08-31
+updated_at: 2026-09-11

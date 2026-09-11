@@ -11,6 +11,23 @@ status: extracted
 confidence: medium
 evidence: discord-title
 prompt: Tell me about a time you had to dive deep. Tell me about a time you found the root cause. How did you know you were looking at the right thing?
+follow_ups:
+  - text: "How did you prioritize the issues, given there were many?"
+    kind: asked
+  - text: "How did you know you were approaching this the right way? Any indicator?"
+    kind: asked
+  - text: "Looking back, what would you change in your approach?"
+    kind: asked
+  - text: "Which aspects were you directly responsible for?"
+    kind: asked
+  - text: "What blocked doing the scalable fix initially?"
+    kind: asked
+  - text: "What did you learn, and has that approach been reused?"
+    kind: asked
+  - text: "Where did you find the information that actually solved it — people, docs, data?"
+    kind: asked
+  - text: "What was before vs after, in metrics (traffic, latency, error rate)?"
+    kind: asked
 occurrences:
   - company: amazon
     round: onsite
@@ -21,6 +38,20 @@ occurrences:
     contributor: self
     evidence: research
     notes: 16 LP sample list in amazon.md
+  - company: amazon
+    role: sde-new-grad
+    round: bar-raiser
+    year: 2026
+    contributor: friend
+    evidence: friend-report
+    notes: Tell me about a time you were trying to understand a complex problem where you had to dig into the details
+  - company: amazon
+    role: sde-new-grad
+    round: bar-raiser
+    year: 2026
+    contributor: self
+    evidence: live-prompt
+    notes: Situation that required you to dig deep to get to the root cause; follow-ups on prioritize, indicators, what you'd change, ownership, scalability blocker, later reuse
 sources:
   - kind: discord
     path: extras/zonline discord/LP 1.txt
@@ -34,4 +65,10 @@ sources:
   - kind: notes
     path: data/companies/amazon.md
     role: prompt
-updated_at: 2026-08-31
+  - kind: notes
+    path: "interview Q's/Amazon/new grad 2026/F/Bar Raiser_F (1).txt"
+    role: prompt
+  - kind: pdf
+    path: "interview Q's/Amazon/new grad 2026/S/day 1/br 1/S Amazon notes.pdf"
+    role: prompt
+updated_at: 2026-09-11

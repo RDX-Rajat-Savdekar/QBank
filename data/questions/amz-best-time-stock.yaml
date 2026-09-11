@@ -1,0 +1,69 @@
+id: amz-best-time-stock
+title: Best time to buy and sell stock
+type: dsa
+tags:
+  - amazon
+  - onsite
+topics:
+  - arrays
+  - greedy
+difficulty: easy
+leetcode:
+  id: 121
+  title: Best Time to Buy and Sell Stock
+  slug: best-time-to-buy-and-sell-stock
+  relationship: variant
+status: extracted
+confidence: high
+evidence: live-prompt
+prompt: |
+  Given a list of historic stock prices, write a function that tells
+  when you should have bought and sold to make the most profit. You can
+  only buy and sell once.
+
+  Input seen in the editor (multiple tickers, date + price rows):
+    amzn, 1/1/2026, $200
+    amzn, 1/2/2026, $100
+    amzn, 1/3/2026, $300
+    amzn, 1/4/2026, $300
+    amzn, 1/5/2026, $20
+    amzn, 1/6/2026, $123
+    amzn, 1/7/2026, $13
+    goog, 1/1/2026, $456
+    goog, 1/18/2026, $450
+    goog, 1/23/2026, $345
+    goog, 1/24/2026, $345
+starter: |
+  def best_buy_sell(rows: list[tuple[str, str, int]]) -> tuple[str, str, str, int]:
+      """Return (ticker, buy_date, sell_date, profit) for one buy and one sell."""
+      pass
+follow_ups:
+  - text: Clarify whether buy/sell is per ticker or one trade across the whole feed
+    kind: clarify
+solution:
+  approach: |
+    Group by ticker if the feed is mixed. For each series, one pass:
+    track the minimum price (and its date) so far; at each later price
+    compute profit vs that min. Keep the global max profit. O(n).
+  complexity:
+    time: O(n)
+    space: O(1) per series after grouping
+  pitfalls:
+    - Must sell after buy — cannot use a later min with an earlier max
+    - Mixed-ticker input is not the vanilla LC 121 array
+occurrences:
+  - company: amazon
+    role: sde-new-grad
+    round: onsite
+    year: 2026
+    contributor: friend
+    evidence: live-prompt
+sources:
+  - kind: image
+    path: "interview Q's/Amazon/new grad 2026/F/Screenshot 2026-09-09 at 3.10.21 PM.png"
+    role: prompt
+  - kind: image
+    path: "interview Q's/Amazon/new grad 2026/F/Screenshot 2026-09-09 at 3.17.05 PM.png"
+    role: prompt
+notes: Live prompt is one buy and one sell. Input dump is multi-ticker; clarify grouping before coding.
+updated_at: 2026-09-11

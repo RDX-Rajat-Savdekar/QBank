@@ -1,0 +1,125 @@
+id: amz-category-path
+title: Category browsing path
+type: dsa
+tags:
+  - amazon
+  - onsite
+  - graph
+topics:
+  - graph
+difficulty: medium
+leetcode:
+  id: 1971
+  title: Find if Path Exists in Graph
+  slug: find-if-path-exists-in-graph
+  relationship: similar
+status: extracted
+confidence: high
+evidence: live-prompt
+prompt: |
+  At Amazon, we analyze how customers navigate through product categories
+  while shopping. Customers often start browsing in one category and end
+  up purchasing in another through related product recommendations.
+
+  Given a set of direct category relationships (based on customer browsing
+  patterns), find one possible path a customer might take from one
+  category to another. A relationship (A → B) means customers who viewed
+  products in category A often viewed products in category B.
+
+  Example Category Relationships:
+    Electronics → Smart Home
+    Electronics → Computers
+    Electronics → Accessories
+    Smart Home → Home & Kitchen
+    Computers → Accessories
+    Home & Kitchen → Kitchen Appliances
+
+  Sample Query:
+    Find paths from 'Electronics' to 'Kitchen Appliances'
+
+  Valid paths would be:
+    1. Electronics → Smart Home → Home & Kitchen → Kitchen Appliances
+    2. Electronics → Computers → Accessories → Smart Home → Home & Kitchen → Kitchen Appliances
+
+  Live prompt asked for one possible path, not necessarily the shortest.
+examples:
+  - input: "graph={'A':['B'],'B':['C']}, start='A', target='C'"
+    output: "['A','B','C']"
+  - input: "graph={'A':['B']}, start='A', target='Z'"
+    output: "[]"
+starter: |
+  from collections import deque
+
+  def find_category_path(graph: dict[str, list[str]], start: str, target: str) -> list[str]:
+      pass
+follow_ups:
+  - text: Shortest path (fewest hops) instead of any path — unweighted BFS
+    kind: variant
+  - text: Weighted transitions (cost / conversion / traffic) — Dijkstra + parent pointers
+    kind: variant
+  - text: High TPS / sub-5ms — parent map instead of copying paths; cache or precompute frequent (start, target) pairs
+    kind: scale
+solution:
+  approach: |
+    Directed graph. Any-path can be DFS or BFS. Interview follow-up
+    usually wants fewest hops: BFS with a visited set (cycles exist).
+    Reconstruct via a parent map instead of storing a full path on every
+    queue entry. Weighted edges → Dijkstra. At high read volume, do not
+    run BFS/Dijkstra on every request; cache or batch-precompute.
+  complexity:
+    time: O(V + E)
+    space: O(V)
+  code_language: python
+  code: |
+    from collections import deque
+
+    def find_category_path(graph, start, target):
+        if not start or not target or start not in graph:
+            return []
+        if start == target:
+            return [start]
+        queue = deque([start])
+        parent = {start: None}
+        while queue:
+            curr = queue.popleft()
+            for neighbor in graph.get(curr, []):
+                if neighbor in parent:
+                    continue
+                parent[neighbor] = curr
+                if neighbor == target:
+                    path = []
+                    node = target
+                    while node is not None:
+                        path.append(node)
+                        node = parent[node]
+                    return path[::-1]
+                queue.append(neighbor)
+        return []
+  pitfalls:
+    - Live prompt is one possible path; do not assume shortest until asked
+    - Cycles — must mark visited
+    - start == target → [start]; missing nodes / disconnected → []
+    - Copying path+[neighbor] on every enqueue is the latency trap
+occurrences:
+  - company: amazon
+    role: sde-new-grad
+    round: onsite
+    year: 2026
+    contributor: friend
+    evidence: live-prompt
+    notes: LiveCode-style prompt screenshot; reconstructed BFS write-up in the PDF
+sources:
+  - kind: image
+    path: "interview Q's/Amazon/new grad 2026/F/Screenshot 2026-09-09 at 12.37.43 PM.png"
+    role: prompt
+  - kind: image
+    path: "interview Q's/Amazon/new grad 2026/F/Screenshot 2026-09-09 at 12.37.48 PM.png"
+    role: prompt
+  - kind: pdf
+    path: "interview Q's/Amazon/new grad 2026/F/Amazon_Category_Path_BFS_Interview_Summary (1).pdf"
+    role: solution
+notes: PDF reconstructs shortest-path BFS. The live screenshot asked for one possible path.
+related:
+  - amz-shortest-friend-connection
+  - amz-lc-friends-paths
+updated_at: 2026-09-11

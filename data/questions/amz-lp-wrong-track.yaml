@@ -1,0 +1,34 @@
+id: amz-lp-wrong-track
+title: Realized the approach was wrong mid-way
+type: behavioral
+tags:
+  - amazon
+  - lp
+  - behavioral
+topics: []
+difficulty: unknown
+status: extracted
+confidence: high
+evidence: friend-report
+prompt: |
+  Tell me about a time when you and your team realized that you were on
+  a wrong track, and realized halfway that it's not the correct
+  approach. What was the situation?
+follow_ups:
+  - text: "What was the situation?"
+    kind: asked
+occurrences:
+  - company: amazon
+    role: sde-new-grad
+    round: onsite
+    year: 2026
+    contributor: friend
+    evidence: friend-report
+sources:
+  - kind: image
+    path: "interview Q's/Amazon/new grad 2026/F/Screenshot 2026-09-11 at 5.16.30 AM.png"
+    role: prompt
+related:
+  - amz-lp-failure
+  - amz-lp-scope-change
+updated_at: 2026-09-11

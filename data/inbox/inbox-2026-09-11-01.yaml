@@ -1,0 +1,42 @@
+id: inbox-2026-09-11-01
+received_at: 2026-09-11
+raw_text: |
+  Local drop: three Amazon new-grad 2026 loops (F, S, reddit) plus one Retell round.
+  Archive now under interview Q's/Amazon/new grad 2026/ and interview Q's/retell/.
+status: extracted
+meta:
+  year: "2026"
+  contributor: friend
+  outcome: "reddit AWS Berlin loop: no offer (private; do not copy onto questions)"
+attachments: []
+result_ids:
+  - amz-category-path
+  - amz-offer-eligibility
+  - amz-best-time-stock
+  - amz-database-clusters
+  - amz-bird-cage-escape
+  - amz-shortest-friend-connection
+  - amz-cart-price-calculator
+  - amz-rule-match-defaults
+  - amz-lc-right-side-view
+  - amz-lp-cultures-identities
+  - amz-lp-think-differently
+  - amz-lp-unfair-treatment
+  - amz-lp-communicate-change
+  - amz-lp-self-improvement
+  - amz-lp-wrong-track
+  - retell-competitor-monitor
+  - amz-lp-dive-deep
+  - amz-lp-team-morale
+  - amz-lp-comfort-zone
+  - amz-lp-ownership
+  - amz-lp-tight-deadline
+  - amz-lp-genai-usage
+  - amz-lp-helping-others
+  - amz-lp-short-vs-long
+  - amz-lc-first-unique-stream
+  - amz-unfulfilled-customers
+  - django-issues-endpoint
+notes: |
+  Raw files stay in interview Q's/ (gitignored). Contributor on questions is self | friend | online only.
+  Reddit loop outcome stays here, never on question YAML.

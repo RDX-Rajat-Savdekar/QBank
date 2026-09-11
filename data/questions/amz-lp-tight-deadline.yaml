@@ -11,6 +11,19 @@ status: extracted
 confidence: medium
 evidence: discord-title
 prompt: Tell me about a time you delivered under a tight deadline. What trade-offs did you make? How did you prioritize?
+follow_ups:
+  - text: "Why was the deadline important, and how was the issue identified?"
+    kind: asked
+  - text: "What was the worst outcome if you missed it?"
+    kind: asked
+  - text: "When you found the bug, what was the trade-off between the short-term and long-term fix?"
+    kind: asked
+  - text: "What API / data did you actually have?"
+    kind: asked
+  - text: "If you had to change something, what would you do differently?"
+    kind: asked
+  - text: "What were the main challenges in breaking the work down?"
+    kind: asked
 occurrences:
   - company: amazon
     round: onsite
@@ -21,6 +34,20 @@ occurrences:
     contributor: self
     evidence: research
     notes: 16 LP sample list in amazon.md
+  - company: amazon
+    role: sde-new-grad
+    round: onsite
+    year: 2026
+    contributor: self
+    evidence: live-prompt
+    notes: Day 2 interview 3 — tight deadline; follow-ups on what API, what data, what you'd change, how you broke the system down
+  - company: amazon
+    role: sde-new-grad
+    round: onsite
+    year: 2026
+    contributor: friend
+    evidence: friend-report
+    notes: Follow-ups — why the deadline mattered, worst outcome, short-term vs long-term fix when a bug was found
 sources:
   - kind: discord
     path: extras/zonline discord/LP 1.txt
@@ -34,6 +61,17 @@ sources:
   - kind: notes
     path: data/companies/amazon.md
     role: prompt
+  - kind: pdf
+    path: "interview Q's/Amazon/new grad 2026/S/day 2/S Amazon notes_2 3 4.pdf"
+    role: prompt
+  - kind: image
+    path: "interview Q's/Amazon/new grad 2026/F/Screenshot 2026-09-11 at 5.16.30 AM.png"
+    role: prompt
+  - kind: image
+    path: "interview Q's/Amazon/new grad 2026/F/Screenshot 2026-09-11 at 5.16.54 AM.png"
+    role: prompt
 related:
   - amz-lp-genai-usage
-updated_at: 2026-08-31
+  - amz-lp-ownership
+  - amz-lp-short-vs-long
+updated_at: 2026-09-11

@@ -11,6 +11,11 @@ status: extracted
 confidence: medium
 evidence: discord-title
 prompt: Tell me about a time you sacrificed short-term gains for long-term success. Why was it worth it?
+follow_ups:
+  - text: "When you found this bug, what was the trade-off between the short-term and long-term solution?"
+    kind: asked
+  - text: "What would the outcome have been if you had longer time?"
+    kind: asked
 occurrences:
   - company: amazon
     round: onsite
@@ -21,6 +26,13 @@ occurrences:
     contributor: self
     evidence: research
     notes: 16 LP sample list in amazon.md
+  - company: amazon
+    role: sde-new-grad
+    round: onsite
+    year: 2026
+    contributor: friend
+    evidence: friend-report
+    notes: Follow-up on a deadline story — trade-off between the short-term and long-term solution when a bug was found
 sources:
   - kind: discord
     path: extras/zonline discord/LP 1.txt
@@ -34,4 +46,9 @@ sources:
   - kind: notes
     path: data/companies/amazon.md
     role: prompt
-updated_at: 2026-08-31
+  - kind: image
+    path: "interview Q's/Amazon/new grad 2026/F/Screenshot 2026-09-11 at 5.16.30 AM.png"
+    role: prompt
+related:
+  - amz-lp-tight-deadline
+updated_at: 2026-09-11

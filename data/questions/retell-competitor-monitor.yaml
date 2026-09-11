@@ -1,0 +1,96 @@
+id: retell-competitor-monitor
+title: Competitor web monitoring with AI analysis
+type: lld
+tags:
+  - retell
+  - lld
+  - genai
+topics:
+  - design-api
+difficulty: medium
+status: extracted
+confidence: high
+evidence: live-prompt
+prompt: |
+  How do you design an automated system that tracks competitor websites
+  for new features, product updates, and business changes, analyzes the
+  deltas using AI, and generates actionable insights?
+
+  Core requirements:
+    - Ingestion: periodic crawling/scraping of target competitor URLs
+    - Change detection: meaningful content deltas, filter cosmetic/layout noise
+    - AI analysis: classify updates and extract strategic insights
+    - Delivery: structured alerts (Slack / email / webhooks) and historical audit logs
+
+  Round shape: 10–15 min high-level design, then 25–30 min coding a
+  working slice of the pipeline. Interviewer wanted complete basic
+  working code (a couple of classes, a few methods each) — not a
+  multi-class optimized architecture.
+starter: |
+  import hashlib
+  from typing import Optional, Tuple
+
+  class WebScraperEngine:
+      def fetch_rendered_html(self, url: str) -> str:
+          pass
+
+      def clean_and_normalize(self, html_content: str) -> str:
+          pass
+
+      def compute_hash(self, text: str) -> str:
+          pass
+
+      def process_url(self, url: str, previous_hash: Optional[str] = None) -> Tuple[bool, str, str]:
+          pass
+follow_ups:
+  - text: Diverse / dynamic layouts — HTML to cleaned text, config selectors, Playwright/vision fallback
+    kind: variant
+  - text: Efficient delta — SHA-256 gate, then line diff, ignore tiny diffs
+    kind: variant
+  - text: LLM cost — cheap classifier first, expensive reasoning only on high-urgency diffs
+    kind: scale
+  - text: Resource constraints — HTTP first, reuse browser contexts, block images/CSS
+    kind: scale
+  - text: Anti-bot / rate limits, JSON schema validation, store raw HTML in object storage
+    kind: scale
+solution:
+  approach: |
+    Pipeline: scheduler → scrape → clean/normalize → hash vs baseline →
+    line diff → cheap model classify → expensive model only if high
+    impact → alert + store. Do not send every scrape through a large
+    model. Postgres for metadata/diffs, object storage for raw HTML.
+
+    In the coding half, a WebScraperEngine with fetch / clean / hash /
+    process_url is enough to start. Then add diff + classifier if time.
+  diagram: |
+    flowchart TD
+      Sched[Scheduler / job queue] --> Scraper[Scraper engine]
+      Scraper --> Sites[Competitor sites]
+      Scraper --> Diff[Diff and filter]
+      Diff -->|unchanged hash| Stop[Stop]
+      Diff -->|meaningful delta| AI[Two-tier AI]
+      AI --> Alerts[Alerts and store]
+  pitfalls:
+    - Over-designing class hierarchies instead of writing a working slice
+    - Hashing raw HTML (layout noise) instead of cleaned text
+    - Sending every scrape to a large model
+    - Storing full HTML blobs in the relational table
+occurrences:
+  - company: retell
+    round: onsite
+    year: 2026
+    contributor: self
+    evidence: live-prompt
+    notes: One round; LLD framing with a coded scrape-clean-hash slice
+sources:
+  - kind: notes
+    path: interview Q's/retell/S notes.pdf
+    role: commentary
+  - kind: pdf
+    path: interview Q's/retell/competitor_web_monitoring_ai_intelligence_interview_summary.pdf
+    role: solution
+related:
+  - genai-json-schema
+  - genai-accuracy-latency-cost
+  - amz-lp-genai-usage
+updated_at: 2026-09-11

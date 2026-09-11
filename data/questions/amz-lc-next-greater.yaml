@@ -46,6 +46,9 @@ leetcode:
   id: 496
   title: Next Greater Element I
   relationship: exact
+follow_ups:
+  - text: "O(nums1.length + nums2.length) solution"
+    kind: asked
 occurrences:
   - company: amazon
     contributor: online
@@ -55,4 +58,4 @@ sources:
     path: extras/zonline discord/LC qs.txt
     role: prompt
 notes: Official LeetCode statement filled from public problem data. Discord row was title-only.
-updated_at: 2026-08-31
+updated_at: 2026-09-11

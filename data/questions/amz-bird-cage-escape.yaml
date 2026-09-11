@@ -1,0 +1,98 @@
+id: amz-bird-cage-escape
+title: Bird cage escape
+type: dsa
+tags:
+  - amazon
+  - onsite
+  - grid
+topics:
+  - geometry/grid
+  - graph
+difficulty: medium
+status: extracted
+confidence: high
+evidence: live-prompt
+prompt: |
+  You are given an m × n grid representing a bird cage, where a cell
+  containing 'X' is a wall, '0' is the bird, and '.' is an empty cell.
+
+  The bird can move one cell at a time (up, down, left, right) through
+  empty cells only. Determine whether the bird can escape through the
+  grid boundary (i.e., the first row, last row, first column, or last
+  column). Return true if the bird can escape, false otherwise.
+starter: |
+  from collections import deque
+
+  def canBirdEscape(grid: list[list[str]]) -> bool:
+      pass
+follow_ups:
+  - text: Huge grid — mutate visited cells to 'X' in place instead of a visited set
+    kind: scale
+  - text: Multiple birds — multi-source BFS
+    kind: variant
+  - text: Return the starting coordinates of the bird that escaped first
+    kind: variant
+solution:
+  approach: |
+    Find the bird, BFS (or DFS) through '.' cells. If the start cell is
+    already on the border, return True. Reaching any border cell is an
+    escape. Four-direction moves only.
+  complexity:
+    time: O(m * n)
+    space: O(m * n)
+  code_language: python
+  code: |
+    from collections import deque
+
+    def canBirdEscape(grid):
+        if not grid or not grid[0]:
+            return False
+        m, n = len(grid), len(grid[0])
+        start = None
+        for r in range(m):
+            for c in range(n):
+                if grid[r][c] == "0":
+                    start = (r, c)
+                    break
+            if start:
+                break
+        if not start:
+            return False
+        sr, sc = start
+        if sr in (0, m - 1) or sc in (0, n - 1):
+            return True
+        q = deque([(sr, sc)])
+        seen = {(sr, sc)}
+        while q:
+            r, c = q.popleft()
+            for dr, dc in ((-1, 0), (1, 0), (0, -1), (0, 1)):
+                nr, nc = r + dr, c + dc
+                if 0 <= nr < m and 0 <= nc < n and grid[nr][nc] == "." and (nr, nc) not in seen:
+                    if nr in (0, m - 1) or nc in (0, n - 1):
+                        return True
+                    seen.add((nr, nc))
+                    q.append((nr, nc))
+        return False
+  pitfalls:
+    - Live cell for the bird is '0' (zero), not letter O
+    - Starting on the border is already escaped
+    - Cannot walk through 'X'
+occurrences:
+  - company: amazon
+    role: sde-new-grad
+    round: onsite
+    year: 2026
+    contributor: self
+    evidence: live-prompt
+    notes: Day 2 coding, paired with shortest friend connection
+sources:
+  - kind: image
+    path: "interview Q's/Amazon/new grad 2026/S/day 2/Screenshot 2026-09-03 at 10.20.57 AM.png"
+    role: prompt
+  - kind: pdf
+    path: "interview Q's/Amazon/new grad 2026/S/day 2/3_4_interview_summary_bird_cage_and_shortest_friend_connection.pdf"
+    role: solution
+related:
+  - amz-number-of-islands
+  - amz-shortest-friend-connection
+updated_at: 2026-09-11

@@ -49,7 +49,8 @@ const qs = JSON.parse(
 );
 const pool = applyFilters(qs, { company: ["amazon"], type: ["debug"] });
 const drill = shuffle(pool.map((q) => q.id)).slice(0, 2);
-if (drill.length !== 2 || drill.some((id) => !["amz-wallet-debug", "amz-moviedb-debug", "amz-vibeshop-csv"].includes(id))) {
+const amazonDebug = ["amz-wallet-debug", "amz-moviedb-debug", "amz-vibeshop-csv", "django-issues-endpoint"];
+if (drill.length !== 2 || drill.some((id) => !amazonDebug.includes(id))) {
   console.error("drill pool", drill);
   process.exit(1);
 }

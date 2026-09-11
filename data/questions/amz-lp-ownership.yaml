@@ -11,6 +11,19 @@ status: extracted
 confidence: medium
 evidence: discord-title
 prompt: Tell me about a project you owned. Tell me about something outside your responsibilities. Tell me about a time you took ownership.
+follow_ups:
+  - text: "Which area of the workflow were you working on?"
+    kind: asked
+  - text: "Did you do the work yourself or with a team?"
+    kind: asked
+  - text: "What was the team and the main obstacle?"
+    kind: asked
+  - text: "How did you coordinate the timeline? Was there a deadline?"
+    kind: asked
+  - text: "On a short timeline, how did you decide what was critical vs not?"
+    kind: asked
+  - text: "What was the end result — quantify the impact?"
+    kind: asked
 occurrences:
   - company: amazon
     round: onsite
@@ -27,6 +40,13 @@ occurrences:
     contributor: friend
     evidence: live-prompt
     notes: friend onsite — something significant outside your area of responsibility
+  - company: amazon
+    role: sde-new-grad
+    round: onsite
+    year: 2026
+    contributor: self
+    evidence: live-prompt
+    notes: Day 2 interview 2 — something significant outside your area of responsibility; follow-ups on workflow area, team vs solo, obstacle, timeline, how you picked what was critical
 sources:
   - kind: discord
     path: extras/zonline discord/LP 1.txt
@@ -43,4 +63,10 @@ sources:
   - kind: image
     path: "interview Q's/Amazon/animesh samir/WhatsApp Image 2026-08-30 at 14.38.50.jpeg"
     role: prompt
-updated_at: 2026-08-31
+  - kind: pdf
+    path: "interview Q's/Amazon/new grad 2026/S/day 2/S Amazon notes_2 3 4.pdf"
+    role: prompt
+related:
+  - amz-lp-comfort-zone
+  - amz-lp-tight-deadline
+updated_at: 2026-09-11

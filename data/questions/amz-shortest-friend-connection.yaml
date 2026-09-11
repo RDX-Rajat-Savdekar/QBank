@@ -1,0 +1,122 @@
+id: amz-shortest-friend-connection
+title: Shortest friend connection
+type: dsa
+tags:
+  - amazon
+  - onsite
+  - graph
+topics:
+  - graph
+difficulty: medium
+leetcode:
+  id: 1971
+  title: Find if Path Exists in Graph
+  slug: find-if-path-exists-in-graph
+  relationship: similar
+status: extracted
+confidence: high
+evidence: live-prompt
+prompt: |
+  SHORTEST FRIEND CONNECTION
+
+  You are given n users (labeled 0 to n-1) and a list of bidirectional
+  friendships where each friendship is represented as [u1, u2].
+
+  Given two users, return the shortest chain of friends connecting them,
+  or an empty list if no connection exists.
+
+  Example 1:
+    n = 5, friendships = [[0,1], [1,2], [2,3], [0,4], [4,3]]
+    shortestConnection(0, 3) → [0, 4, 3]
+      (not [0, 1, 2, 3] — that's longer)
+    shortestConnection(0, 1) → [0, 1]
+
+  Example 2:
+    n = 4, friendships = [[0,1], [2,3]]
+    shortestConnection(0, 3) → []  (no connection)
+
+  Constraints:
+    1 <= n <= 10^4
+    0 <= u1, u2 < n
+    No self-loops or duplicate edges
+    Return the path including both endpoints
+    If start == end, return [start]
+examples:
+  - input: "n=5, friendships=[[0,1],[1,2],[2,3],[0,4],[4,3]], start=0, end=3"
+    output: "[0, 4, 3]"
+  - input: "n=4, friendships=[[0,1],[2,3]], start=0, end=3"
+    output: "[]"
+constraints: |
+  1 <= n <= 10^4
+  0 <= u1, u2 < n
+  No self-loops or duplicate edges.
+starter: |
+  from collections import defaultdict, deque
+
+  def shortestConnection(n: int, friendships: list[list[int]], start: int, end: int) -> list[int]:
+      pass
+follow_ups:
+  - text: Large N / deep path — bidirectional BFS
+    kind: scale
+  - text: Parent map instead of storing a full path on every queue node
+    kind: scale
+solution:
+  approach: |
+    Undirected unweighted shortest path. Build an adjacency list, BFS
+    from start, reconstruct via parent pointers. Bidirectional BFS if
+    they push on N and depth.
+  complexity:
+    time: O(V + E)
+    space: O(V + E)
+  code_language: python
+  code: |
+    from collections import defaultdict, deque
+
+    def shortestConnection(n, friendships, start, end):
+        if start == end:
+            return [start]
+        adj = defaultdict(list)
+        for u, v in friendships:
+            adj[u].append(v)
+            adj[v].append(u)
+        parent = {start: None}
+        q = deque([start])
+        while q:
+            curr = q.popleft()
+            for neighbor in adj[curr]:
+                if neighbor in parent:
+                    continue
+                parent[neighbor] = curr
+                if neighbor == end:
+                    path = []
+                    node = end
+                    while node is not None:
+                        path.append(node)
+                        node = parent[node]
+                    return path[::-1]
+                q.append(neighbor)
+        return []
+  pitfalls:
+    - Friendships are bidirectional
+    - Must return the node list, not just a boolean
+    - Longer path is wrong even if it connects
+occurrences:
+  - company: amazon
+    role: sde-new-grad
+    round: onsite
+    year: 2026
+    contributor: self
+    evidence: live-prompt
+    notes: Day 2 coding, paired with bird cage escape
+sources:
+  - kind: image
+    path: "interview Q's/Amazon/new grad 2026/S/day 2/Screenshot 2026-09-03 at 9.20.16 AM.png"
+    role: prompt
+  - kind: pdf
+    path: "interview Q's/Amazon/new grad 2026/S/day 2/3_4_interview_summary_bird_cage_and_shortest_friend_connection.pdf"
+    role: solution
+related:
+  - amz-lc-friends-paths
+  - amz-category-path
+  - amz-bird-cage-escape
+updated_at: 2026-09-11

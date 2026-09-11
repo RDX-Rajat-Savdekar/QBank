@@ -4,19 +4,61 @@ type: dsa
 tags:
   - amazon
   - discord
-topics: []
-difficulty: unknown
-status: raw
-confidence: low
-evidence: discord-title
-prompt: First Unique Character from Stream.
+  - reddit
+topics:
+  - hashing
+  - strings
+difficulty: medium
+leetcode:
+  id: 387
+  title: First Unique Character in a String
+  slug: first-unique-character-in-a-string
+  relationship: similar
+status: extracted
+confidence: high
+evidence: reddit
+prompt: |
+  Given an arbitrary length input stream of characters, return the first
+  unique character that does not repeat anywhere in the stream.
+
+  abcdabc → d
+  aabbcdd → c
+examples:
+  - input: abcdabc
+    output: d
+  - input: aabbcdd
+    output: c
+follow_ups:
+  - text: Time complexity
+    kind: complexity
+  - text: Improvements (online / streaming vs two-pass)
+    kind: variant
+solution:
+  approach: |
+    Count frequencies then scan for the first char with count 1. For a
+    true stream, keep a queue of candidates plus a count/seen map and
+    evict from the front when a character repeats.
+  complexity:
+    time: O(n)
+    space: O(alphabet)
 occurrences:
   - company: amazon
     contributor: online
     evidence: discord-title
+  - company: amazon
+    role: sde-1
+    round: onsite
+    year: 2026
+    contributor: online
+    evidence: reddit
+    notes: AWS Berlin new-grad loop, round 3 second coding problem
 sources:
   - kind: discord
     path: extras/zonline discord/LC qs.txt
     role: prompt
-notes: Title-only Discord row. Prompt is the listed title plus any listed follow-up. Do not invent a full statement.
-updated_at: 2026-08-31
+  - kind: reddit
+    path: interview Q's/Amazon/new grad 2026/reddit/reddit-Amazon-exp.rtf
+    role: prompt
+related:
+  - amz-lc-first-one-time-visitor
+updated_at: 2026-09-11

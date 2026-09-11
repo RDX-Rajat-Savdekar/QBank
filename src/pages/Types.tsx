@@ -2,6 +2,11 @@ import { Link } from "react-router-dom";
 import { questions, typePages } from "@/lib/content";
 
 export function Types() {
+  const pages = [...typePages].sort((a, b) => {
+    if (a.id === "followup") return -1;
+    if (b.id === "followup") return 1;
+    return a.title.localeCompare(b.title);
+  });
   return (
     <div className="space-y-4">
       <header className="space-y-2">
@@ -9,8 +14,11 @@ export function Types() {
         <h1 className="text-3xl font-semibold tracking-tight">Types</h1>
       </header>
       <ul className="grid gap-3 sm:grid-cols-2">
-        {typePages.map((t) => {
-          const n = questions.filter((q) => q.type === t.id).length;
+        {pages.map((t) => {
+          const n =
+            t.id === "followup"
+              ? questions.filter((q) => q.hasFollowup).length
+              : questions.filter((q) => q.type === t.id).length;
           return (
             <li key={t.id}>
               <Link

@@ -14,7 +14,10 @@ export function getFacetOptions() {
   }
   return {
     company: companies.map((c) => c.slug).sort(),
-    type: typePages.map((t) => t.id).sort(),
+    type: typePages
+      .filter((t) => t.id !== "followup")
+      .map((t) => t.id)
+      .sort(),
     topic: [...topics].sort(),
     round: [...rounds].sort(),
     year: [...years].sort(),

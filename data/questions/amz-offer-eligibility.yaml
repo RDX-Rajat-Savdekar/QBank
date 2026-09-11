@@ -1,0 +1,121 @@
+id: amz-offer-eligibility
+title: Offer eligibility evaluator
+type: lld
+tags:
+  - amazon
+  - onsite
+  - lld
+topics:
+  - design-api
+difficulty: medium
+status: extracted
+confidence: high
+evidence: live-prompt
+prompt: |
+  OFFER ELIGIBILITY
+
+  We show customers promotional offers. A customer is ELIGIBLE for an
+  offer only if they satisfy EVERY rule configured on that offer. Rules
+  are independent of one another, and a rule the offer does not
+  configure is simply not checked.
+
+  Rules to start with:
+    - Age range: the offer may set a minAge and/or a maxAge; the
+      customer's age must fall within whatever bounds are set.
+    - Blocked regions: the offer may set a set of region codes; the
+      customer's region must not be one of them.
+    - Expiration: the offer may set an expiration time; the customer is
+      eligible only if the offer has not expired as of the evaluation
+      time (passed in to evaluate).
+
+  Implement evaluate(...) so it returns whether the customer is eligible
+  and, when they are not, which rule(s) failed and why.
+
+  Live Java stubs:
+    record Customer(Integer age, String region) {}
+    record Offer(Integer minAge, Integer maxAge, Set<String> blockedRegions, Instant expiresAt) {}
+
+    boolean evaluate(Customer customer, Offer offer, Instant asOf)
+      // A bare boolean cannot say which rule failed and why — change
+      // this signature as you see fit.
+
+  Any Customer field may be null (absent). A null Offer rule field means
+  that rule is not configured.
+starter: |
+  from dataclasses import dataclass
+  from datetime import datetime
+  from typing import Optional
+
+  @dataclass
+  class Customer:
+      age: Optional[int] = None
+      region: Optional[str] = None
+
+  @dataclass
+  class Offer:
+      min_age: Optional[int] = None
+      max_age: Optional[int] = None
+      blocked_regions: Optional[set[str]] = None
+      expires_at: Optional[datetime] = None
+
+  class OfferEligibilityEvaluator:
+      def evaluate(self, customer: Customer, offer: Offer, as_of: datetime):
+          pass
+follow_ups:
+  - text: Prime membership rule (fail if non-Prime; conditional if unverified)
+    kind: variant
+  - text: Missing fields as CONDITIONAL rather than FAIL (tri-state eligibility)
+    kind: variant
+  - text: Add a new rule (min cart value, first-time user) without editing the evaluator
+    kind: ocp
+solution:
+  approach: |
+    Strategy pattern: EligibilityRule ABC, one class per rule, evaluator
+    loops the configured rules. Null offer fields skip that rule. Return
+    a result object (overall + per-rule messages), not a bare boolean.
+    FAILED beats CONDITIONAL. Stateless rules are concurrency-safe.
+  complexity:
+    time: O(number of rules)
+    space: O(number of rules)
+  code_language: python
+  diagram: |
+    classDiagram
+      class OfferEligibilityEvaluator {
+        +evaluate(customer, offer, asOf)
+      }
+      class EligibilityRule {
+        <<interface>>
+        +evaluate(customer, offer, asOf)
+      }
+      OfferEligibilityEvaluator --> EligibilityRule
+      EligibilityRule <|-- AgeRule
+      EligibilityRule <|-- RegionRule
+      EligibilityRule <|-- ExpirationRule
+  pitfalls:
+    - Bare boolean cannot report which rule failed
+    - Unconfigured (null) rules must not be checked
+    - Missing customer fields — clarify fail vs conditional
+    - Expiration must use the supplied asOf, not now()
+occurrences:
+  - company: amazon
+    role: sde-new-grad
+    round: onsite
+    year: 2026
+    contributor: friend
+    evidence: live-prompt
+    notes: Live Java records; reconstructed Strategy / tri-state write-up in the PDF
+sources:
+  - kind: image
+    path: "interview Q's/Amazon/new grad 2026/F/Screenshot 2026-09-09 at 2.04.46 PM.png"
+    role: prompt
+  - kind: image
+    path: "interview Q's/Amazon/new grad 2026/F/Screenshot 2026-09-09 at 2.04.51 PM.png"
+    role: prompt
+  - kind: pdf
+    path: "interview Q's/Amazon/new grad 2026/F/Offer_Eligibility_Evaluator_System_Design (1).pdf"
+    role: solution
+related:
+  - amz-product-filter
+  - amz-cart-price-calculator
+  - amz-pizza-calculator
+updated_at: 2026-09-11

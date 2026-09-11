@@ -10,6 +10,11 @@ status: raw
 confidence: low
 evidence: discord-title
 prompt: 'Weighted lottery winners. Winners proportional to purchase amount. Return K winners. Follow-ups: unique winners only; optimize space.'
+follow_ups:
+  - text: "Unique winners only"
+    kind: asked
+  - text: "Optimize space"
+    kind: asked
 occurrences:
   - company: amazon
     contributor: online
@@ -19,4 +24,4 @@ sources:
     path: extras/zonline discord/LC qs.txt
     role: prompt
 notes: Title-only Discord row. Prompt is the listed title plus any listed follow-up. Do not invent a full statement.
-updated_at: 2026-08-31
+updated_at: 2026-09-11

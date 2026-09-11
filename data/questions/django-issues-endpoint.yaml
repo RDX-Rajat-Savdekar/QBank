@@ -1,7 +1,7 @@
 id: django-issues-endpoint
 title: Django issues endpoint
 type: debug
-tags: [practice, django]
+tags: [practice, django, amazon]
 topics: [design-api]
 difficulty: medium
 status: extracted
@@ -9,13 +9,29 @@ confidence: high
 evidence: practice-curriculum
 prompt: |
   A React + Django project-management app. `POST /api/issues` in `issue_views.py` is fully broken — returns 500 on every request, 0/6 tests passing. Fix it so issues are created correctly (per-team identifiers, validation, actual create, proper auth responses).
+
+  Amazon OA variant (reported): simulated JIRA-like issue/ticketing system.
+    - Create issue returns 502 → implement endpoint logic
+    - Creating and linking subissues not working
+    - Predefined tests reveal other required modifications
 solution:
   approach: |
     Match the test expectations: auth 401/403, validate body, allocate a per-team id, actually call create, return the serialized issue.
   links: [https://claude.ai/chat/90468c3c-a30f-4871-99a5-3e98b9568e45]
+occurrences:
+  - company: amazon
+    role: sde-1
+    round: oa
+    year: 2026
+    contributor: online
+    evidence: reddit
+    notes: AWS Berlin OA fullstack task (Python, Django)
 sources:
   - kind: 'bank'
     path: "interview Q's/claude/PROBLEM_BANK (1).md"
     ref: 'D3'
     role: 'prompt'
-updated_at: 2026-08-31
+  - kind: reddit
+    path: interview Q's/Amazon/new grad 2026/reddit/reddit-Amazon-exp.rtf
+    role: prompt
+updated_at: 2026-09-11

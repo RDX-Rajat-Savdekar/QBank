@@ -12,6 +12,9 @@ status: extracted
 confidence: medium
 evidence: discord-title
 prompt: 'Add music, remove first song, remove a specific song, shuffle playlist. Follow-up: delete all songs except songs by a specific artist.'
+follow_ups:
+  - text: "Delete all songs except songs by a specific artist"
+    kind: asked
 occurrences:
   - company: amazon
     contributor: online
@@ -23,4 +26,4 @@ sources:
   - kind: discord
     path: extras/zonline discord/LLD Qs 2.txt
     role: prompt
-updated_at: 2026-08-31
+updated_at: 2026-09-11

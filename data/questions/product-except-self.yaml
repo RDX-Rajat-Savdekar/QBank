@@ -54,10 +54,13 @@ solution:
     }
   code_language: javascript
   links: [https://claude.ai/chat/b648a7cf-cb88-40cd-961b-abe616e87363]
+follow_ups:
+  - text: "O(1) extra space (output array does not count)"
+    kind: asked
 sources:
   - kind: 'bank'
     path: "interview Q's/claude/PROBLEM_BANK (1).md"
     ref: 'A3'
     role: 'prompt'
 related: [two-sum, longest-repeating-char-replacement]
-updated_at: 2026-08-31
+updated_at: 2026-09-11

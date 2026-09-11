@@ -11,6 +11,31 @@ status: extracted
 confidence: medium
 evidence: discord-title
 prompt: How do you use AI? Which LLMs? How has AI improved productivity? How do you validate AI-generated answers? When is AI useful or not? Tell me about a time an LLM hallucinated.
+follow_ups:
+  - text: "What models were you using?"
+    kind: asked
+  - text: "How did you optimize with prompt engineering?"
+    kind: asked
+  - text: "What trade-off did you make between cost and quality?"
+    kind: asked
+  - text: "Did you have to do any fine-tuning?"
+    kind: asked
+  - text: "What interface was exposed to the customer?"
+    kind: asked
+  - text: "Was there any alternate experiment besides a UI?"
+    kind: asked
+  - text: "Did you collect user feedback or other data?"
+    kind: asked
+  - text: "A problem you faced with AI that pushed you to learn something new"
+    kind: asked
+  - text: "What safeguarding did you put in place?"
+    kind: asked
+  - text: "What about hallucinations?"
+    kind: asked
+  - text: "If you write a requirements file for agents, how do you structure it? What are the section titles?"
+    kind: asked
+  - text: "What do you do to improve the output of queries?"
+    kind: asked
 occurrences:
   - company: amazon
     round: onsite
@@ -30,6 +55,27 @@ occurrences:
     contributor: friend
     evidence: friend-report
     notes: friend report — AI for study
+  - company: amazon
+    role: sde-new-grad
+    round: hiring-manager
+    year: 2026
+    contributor: self
+    evidence: live-prompt
+    notes: Day 2 interview 4 — GenAI from past experience (models, prompt engineering, cost vs quality, fine-tuning, customer interface, experiments, user feedback) plus personal AI use that pushed learning
+  - company: amazon
+    role: sde-new-grad
+    round: onsite
+    year: 2026
+    contributor: friend
+    evidence: friend-report
+    notes: Use of AI in experience; safeguarding; hallucinations
+  - company: amazon
+    role: sde-1
+    round: genai-fluency
+    year: 2026
+    contributor: online
+    evidence: reddit
+    notes: AWS Berlin — how do you use AI, improve query output, how you structure an agent requirements file
 sources:
   - kind: discord
     path: extras/zonline discord/LP 1.txt
@@ -43,5 +89,18 @@ sources:
   - kind: notes
     path: data/companies/amazon.md
     role: prompt
+  - kind: pdf
+    path: "interview Q's/Amazon/new grad 2026/S/day 2/S Amazon notes_2 3 4.pdf"
+    role: prompt
+  - kind: image
+    path: "interview Q's/Amazon/new grad 2026/F/Screenshot 2026-09-11 at 5.16.30 AM.png"
+    role: prompt
+  - kind: reddit
+    path: interview Q's/Amazon/new grad 2026/reddit/reddit-Amazon-exp.rtf
+    role: prompt
 notes: Type genai. Do not copy genai.txt personal stories into public fields.
-updated_at: 2026-08-31
+related:
+  - amz-rule-match-defaults
+  - retell-competitor-monitor
+  - genai-json-schema
+updated_at: 2026-09-11

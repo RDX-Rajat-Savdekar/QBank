@@ -1,0 +1,37 @@
+id: amz-lp-unfair-treatment
+title: Someone treated unfairly
+type: behavioral
+tags:
+  - amazon
+  - lp
+  - behavioral
+topics: []
+difficulty: unknown
+status: extracted
+confidence: high
+evidence: friend-report
+prompt: |
+  Describe a time someone treated someone/you unfairly and what you did
+  about that. If you were a team leader and had to influence the team,
+  what would you have done to prevent that?
+follow_ups:
+  - text: "If you were a team leader and had to influence the team, what would you have done to prevent that?"
+    kind: asked
+occurrences:
+  - company: amazon
+    role: sde-new-grad
+    round: bar-raiser
+    year: 2026
+    contributor: friend
+    evidence: friend-report
+    notes: Maps to Earth's Best Employer and/or Have Backbone depending on whether the story is fairness vs speaking up
+sources:
+  - kind: notes
+    path: "interview Q's/Amazon/new grad 2026/F/Bar Raiser_F (1).txt"
+    role: prompt
+  - kind: image
+    path: "interview Q's/Amazon/new grad 2026/F/WhatsApp Image 2026-09-09 at 15.47.20.jpeg"
+    role: commentary
+related:
+  - amz-lp-team-morale
+updated_at: 2026-09-11
