@@ -1,0 +1,32 @@
+id: personal-goals
+title: How you set and monitor personal goals
+type: behavioral
+tags:
+  - behavioral
+topics: []
+difficulty: unknown
+status: extracted
+confidence: medium
+evidence: friend-report
+prompt: |
+  In your career, how do you set personal goals for yourself? Do you
+  monitor your progress?
+follow_ups:
+  - text: How do you measure progress?
+    kind: asked
+  - text: What do you do if progress feels stagnated?
+    kind: asked
+occurrences:
+  - company: unknown
+    round: onsite
+    year: 2026
+    contributor: friend
+    evidence: friend-report
+    notes: Interviewer wanted a particular method, and a direct answer. Filename prefix is G_. Company is not stated.
+sources:
+  - kind: pdf
+    path: "interview Q's/till 23 sept/G_R1 notes_behav.pdf"
+    role: prompt
+related:
+  - amz-lp-self-improvement
+updated_at: 2026-09-23

@@ -1,0 +1,26 @@
+id: oa-average-weight
+title: Average weight of the other children
+type: puzzle
+tags: [oa, mock, aptitude]
+topics: [math]
+difficulty: easy
+status: extracted
+confidence: high
+evidence: practice-curriculum
+prompt: |
+  The average weight of ten children is 68.5 kg. Sam and John weigh 70 kg each. Find the average weight of the others.
+solution:
+  approach: |
+    Total is 10 * 68.5 = 685. Remove 140. The other eight average 545 / 8 = 68.125 kg.
+occurrences:
+  - company: unknown
+    round: oa
+    year: 2026
+    contributor: friend
+    evidence: practice-curriculum
+    notes: Mock assessment. Company is not named in the write-up.
+sources:
+  - kind: notes
+    path: "interview Q's/till 23 sept/OA_Aptitude_Technical Mock Assessment Summary.md"
+    role: prompt
+updated_at: 2026-09-23

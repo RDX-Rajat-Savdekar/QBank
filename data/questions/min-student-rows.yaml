@@ -1,0 +1,56 @@
+id: min-student-rows
+title: Minimum rows for students by height
+type: dsa
+tags:
+  - oa
+topics:
+  - binary-search
+  - arrays
+difficulty: medium
+leetcode:
+  id: 300
+  title: Longest Increasing Subsequence
+  slug: longest-increasing-subsequence
+  relationship: similar
+status: extracted
+confidence: high
+evidence: friend-report
+prompt: |
+  Given an array A of student heights arriving in order, students stand in
+  rows. A student joins an existing row only if every student already in
+  that row is strictly taller than the new student. Otherwise a new row
+  is created. Return the minimum number of rows.
+examples:
+  - input: "[5, 4, 3, 6, 1]"
+    output: "2"
+    explanation: |
+      5, 4, 3, 1 share one decreasing row. 6 cannot join that row, so it opens a second row. 1 joins the first row.
+starter: |
+  def solution(A: list[int]) -> int:
+      pass
+solution:
+  approach: |
+    Keep tails sorted, where tails[i] is the shortest tail of a row so far.
+    For each height, binary-search the smallest tail strictly greater than
+    it and replace that tail. If none exists, append a new row. The answer
+    equals the length of the longest increasing subsequence.
+  complexity:
+    time: O(N log N)
+    space: O(N)
+  pitfalls:
+    - Join only a row of strictly taller students, so equal heights open a new row
+    - binarySearch for height + 1 finds the first tail strictly greater than height
+    - The row the student joins is the one whose tail is replaced, not every taller row
+occurrences:
+  - company: unknown
+    round: oa
+    year: 2026
+    tool: coderpad
+    contributor: friend
+    evidence: friend-report
+    notes: Coding summary filename prefix is G_. Company is not stated in the PDF.
+sources:
+  - kind: pdf
+    path: "interview Q's/till 23 sept/G_OA_Technical_Interview_Coding_Summary.pdf"
+    role: solution
+updated_at: 2026-09-23

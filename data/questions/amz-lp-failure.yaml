@@ -25,6 +25,12 @@ occurrences:
     contributor: self
     evidence: friend-report
     notes: 'q.md: Did something wrong and had to admit it'
+  - company: unknown
+    round: onsite
+    year: 2026
+    contributor: friend
+    evidence: friend-report
+    notes: Tell me about a time you failed to live up to the expectation. Answer the question directly.
 sources:
   - kind: discord
     path: extras/zonline discord/LP 1.txt
@@ -41,6 +47,9 @@ sources:
   - kind: notes
     path: "interview Q's/Google/q.md"
     role: prompt
+  - kind: pdf
+    path: "interview Q's/till 23 sept/G_R1 notes_behav.pdf"
+    role: prompt
 related:
   - amz-lp-genai-usage
-updated_at: 2026-08-31
+updated_at: 2026-09-23

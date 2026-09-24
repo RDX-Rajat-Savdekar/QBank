@@ -1,0 +1,31 @@
+id: oa-s3-missing-images
+title: Website loads but S3 pictures do not
+type: oa-sim
+tags: [oa, mock, aws]
+topics: []
+difficulty: medium
+status: extracted
+confidence: high
+evidence: practice-curriculum
+prompt: |
+  Several websites are hosted in different S3 buckets. Pictures live in an S3 bucket. Visitors can reach the websites but cannot see the pictures. How do you troubleshoot? Select all that apply.
+  A) The buckets are not public.
+  B) Check the security groups for the S3 buckets.
+  C) Check the ACLs for deny rules.
+  D) Add a redirect on the bucket when you select static website hosting.
+  E) Enable CORS on the S3 bucket.
+solution:
+  approach: |
+    A, C, and E. Block Public Access, an explicit ACL deny, or a missing CORS policy can hide objects from a page on another origin. S3 is not placed in a security group.
+occurrences:
+  - company: unknown
+    round: oa
+    year: 2026
+    contributor: friend
+    evidence: practice-curriculum
+    notes: Mock assessment. Company is not named in the write-up.
+sources:
+  - kind: notes
+    path: "interview Q's/till 23 sept/OA_Aptitude_Technical Mock Assessment Summary.md"
+    role: prompt
+updated_at: 2026-09-23

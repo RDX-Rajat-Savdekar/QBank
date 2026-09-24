@@ -1,0 +1,29 @@
+id: oa-data-sufficiency-y
+title: Data sufficiency for the value of y
+type: puzzle
+tags: [oa, mock, aptitude]
+topics: [math]
+difficulty: easy
+status: extracted
+confidence: high
+evidence: practice-curriculum
+prompt: |
+  What is the value of y?
+  Statement 1: the square of y is 64.
+  Statement 2: y(y - 8) = 0.
+  A) Both statements together are sufficient, and neither statement alone is sufficient.
+solution:
+  approach: |
+    A. Statement 1 allows 8 and -8. Statement 2 allows 0 and 8. Together only y = 8 remains.
+occurrences:
+  - company: unknown
+    round: oa
+    year: 2026
+    contributor: friend
+    evidence: practice-curriculum
+    notes: Mock assessment. Company is not named in the write-up.
+sources:
+  - kind: notes
+    path: "interview Q's/till 23 sept/OA_Aptitude_Technical Mock Assessment Summary.md"
+    role: prompt
+updated_at: 2026-09-23

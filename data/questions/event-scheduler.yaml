@@ -1,0 +1,69 @@
+id: event-scheduler
+title: In-memory real-time event scheduler
+type: lld
+tags:
+  - onsite
+topics:
+  - heap
+  - design-api
+  - concurrency
+difficulty: medium
+status: extracted
+confidence: high
+evidence: friend-report
+prompt: |
+  Design an in-memory event scheduler with three operations.
+
+  addEvents(timestamp, event) schedules a named event at a timestamp.
+  Multiple events may share a timestamp. Reject a duplicate of the same
+  event at the same timestamp.
+
+  cancel(timestamp, event) removes a previously scheduled event.
+
+  run_loop() is a non-returning watcher. An event is ready when
+  currentTime >= event_timestamp. Execute ready events and do not miss
+  events when the clock jumps.
+follow_ups:
+  - text: Nanosecond timestamps and a busy loop can skip exact-match lookups. Sweep every timestamp <= now, or use a min-heap, timing wheel, or sleep-until the next deadline.
+    kind: asked
+  - text: Storing event names as strings forces parsing. Accept std::function<void()> or another callback so the scheduler invokes opaque work.
+    kind: asked
+solution:
+  approach: |
+    Map timestamp to a set of events for add and cancel. Do not look up
+    events[now] exactly: a clock jump skips every timestamp in between.
+    Sweep an ordered map up to upper_bound(now), or pop a min-heap while
+    top.timestamp <= now. Track last_processed_time so each deadline is
+    handled once. Sleep until the next deadline instead of spinning.
+    Store callbacks, not event-name strings.
+  complexity:
+    time: O(log N) add/cancel with an ordered map; run is O(K log N) for K due events
+    space: O(N)
+  pitfalls:
+    - Copying the per-timestamp set on add/cancel (auto eventList = events[ts]) is O(K)
+    - Scanning an unordered_map every tick is O(N) and still racy without a mutex
+    - Exact equality with now misses events when the loop lags
+    - String event names are not a generic execution model
+  diagram: |
+    flowchart LR
+      addEvents --> store[(timestamp to callbacks)]
+      cancel --> store
+      run_loop --> store
+      run_loop --> exec[invoke due callbacks]
+occurrences:
+  - company: unknown
+    round: onsite
+    year: 2026
+    contributor: friend
+    evidence: friend-report
+    notes: Round-1 systems interview. Filename prefix is G_. Company is not stated in the PDF.
+sources:
+  - kind: pdf
+    path: "interview Q's/till 23 sept/G_Round1_Technical_Interview_Summary_Event_Scheduler.pdf"
+    role: solution
+  - kind: pdf
+    path: "interview Q's/till 23 sept/G_Technical_Interview_Summary_Event_Scheduler.pdf"
+    role: solution
+related:
+  - goog-task-scheduler
+updated_at: 2026-09-23

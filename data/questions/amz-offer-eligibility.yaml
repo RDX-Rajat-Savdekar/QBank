@@ -114,8 +114,17 @@ sources:
   - kind: pdf
     path: "interview Q's/Amazon/new grad 2026/F/Offer_Eligibility_Evaluator_System_Design (1).pdf"
     role: solution
+  - kind: pdf
+    path: "interview Q's/till 23 sept/Offer_Eligibility_Evaluator_System_Design.pdf"
+    role: solution
+  - kind: image
+    path: "interview Q's/till 23 sept/WhatsApp Image 2026-09-09 at 15.46.17 (3).jpeg"
+    role: prompt
+  - kind: image
+    path: "interview Q's/till 23 sept/WhatsApp Image 2026-09-09 at 15.46.17 (2).jpeg"
+    role: prompt
 related:
   - amz-product-filter
   - amz-cart-price-calculator
   - amz-pizza-calculator
-updated_at: 2026-09-11
+updated_at: 2026-09-23

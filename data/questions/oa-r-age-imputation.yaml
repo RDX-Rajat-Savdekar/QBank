@@ -1,0 +1,34 @@
+id: oa-r-age-imputation
+title: Impute Age where CustID is missing
+type: oa-sim
+tags: [oa, mock, ml]
+topics: []
+difficulty: easy
+status: extracted
+confidence: high
+evidence: practice-curriculum
+prompt: |
+  How would you correctly implement the imputation of missing values in the Age column corresponding to missing values of CustID with the average of the variable in R?
+  A) custDelq$Age[is.na(custDelq$CustID)] = median(custDelq$Age)
+  B) custDelq$Age[is.na(custDelq$Age)] = mean(custDelq$Age)
+  C) custDelq$Age[is.na(custDelq$Age)] = mean(custDelq$Age, na.rm = T)
+  D) custDelq$Age[is.na(custDelq$CustID)] = mean(custDelq$Age)
+  E) custDelq$Age[is.na(custDelq$CustID)] = mean(custDelq$Age, na.rm = T)
+solution:
+  approach: |
+    E. Select rows where CustID is NA, and fill Age with mean(Age, na.rm = TRUE).
+  pitfalls:
+    - The mask is missing CustID, not missing Age
+    - mean() without na.rm returns NA when Age itself has missing values
+occurrences:
+  - company: unknown
+    round: oa
+    year: 2026
+    contributor: friend
+    evidence: practice-curriculum
+    notes: Mock assessment. Company is not named in the write-up.
+sources:
+  - kind: notes
+    path: "interview Q's/till 23 sept/OA_Aptitude_Technical Mock Assessment Summary.md"
+    role: prompt
+updated_at: 2026-09-23

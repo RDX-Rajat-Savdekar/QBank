@@ -1,0 +1,56 @@
+id: inbox-2026-09-23-01
+received_at: 2026-09-23
+raw_text: |
+  Local drop: interview Q's/till 23 sept.
+  New coding and mock-OA items were written as questions.
+  Amazon screenshots and PDFs in that folder match records already banked on 2026-09-11; those files were attached as extra sources.
+status: extracted
+meta:
+  year: "2026"
+  contributor: friend
+attachments: []
+result_ids:
+  - max-sum-path-two-arrays
+  - gps-two-turns
+  - min-student-rows
+  - exam-result-buckets
+  - book-reading-evenings
+  - event-scheduler
+  - team-or-solo
+  - status-quo
+  - personal-goals
+  - oa-box-jenkins
+  - oa-r-age-imputation
+  - oa-standard-scaler
+  - oa-keras-param-count
+  - oa-image-forgery
+  - oa-rnn-use-cases
+  - oa-java-empty-allmatch
+  - oa-java-interface-abstract
+  - oa-java-access-order
+  - oa-s3-missing-images
+  - oa-ec2-reserved-mix
+  - oa-docker-restart
+  - oa-linked-list-memory-size
+  - oa-average-weight
+  - oa-data-sufficiency-y
+  - oa-facing-direction
+  - amz-bird-cage-escape
+  - amz-shortest-friend-connection
+  - amz-category-path
+  - amz-offer-eligibility
+  - amz-best-time-stock
+  - amz-lp-dive-deep
+  - amz-lp-think-differently
+  - amz-lp-team-morale
+  - amz-lp-unfair-treatment
+  - amz-lp-cultures-identities
+  - amz-lp-ownership
+  - amz-lp-tight-deadline
+  - amz-lp-genai-usage
+  - amz-lp-helping-others
+  - amz-lp-failure
+  - amz-lp-tell-me-about-yourself
+notes: |
+  Byte-identical "(1)" PDF copies were not given a second source row.
+  Company is unknown on the G_ files and the mock OA. The write-ups do not name a company.

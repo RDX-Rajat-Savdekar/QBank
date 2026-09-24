@@ -1,0 +1,30 @@
+id: oa-box-jenkins
+title: Box-Jenkins method
+type: oa-sim
+tags: [oa, mock, ml]
+topics: []
+difficulty: easy
+status: extracted
+confidence: high
+evidence: practice-curriculum
+prompt: |
+  In time series analysis, what is the Box-Jenkins method used for?
+  A) Decomposing a complex time series with cyclical components into a few underlying sinusoidal functions of particular wavelengths
+  B) Displaying the distribution of data based on a five-number summary
+  C) Estimating the probability distribution of a random variable based on observed data
+  D) Forecasting data within a time series by the application of a moving time average
+solution:
+  approach: |
+    D. Box-Jenkins is the procedure for fitting ARIMA and SARIMA models to forecast a time series.
+occurrences:
+  - company: unknown
+    round: oa
+    year: 2026
+    contributor: friend
+    evidence: practice-curriculum
+    notes: Mock assessment. Company is not named in the write-up.
+sources:
+  - kind: notes
+    path: "interview Q's/till 23 sept/OA_Aptitude_Technical Mock Assessment Summary.md"
+    role: prompt
+updated_at: 2026-09-23

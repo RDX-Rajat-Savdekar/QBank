@@ -1,0 +1,30 @@
+id: oa-keras-param-count
+title: Parameter count of a three-layer Keras model
+type: oa-sim
+tags: [oa, mock, ml]
+topics: [ml-systems]
+difficulty: easy
+status: extracted
+confidence: high
+evidence: practice-curriculum
+prompt: |
+  What are the number of parameters in the following code?
+  model.add(Dense(15, activation='relu', input_shape=(1000,)))
+  model.add(Dense(25, activation='relu'))
+  model.add(Dense(5, activation='softmax'))
+  A) 15545  B) 15550  C) 15500  D) 15015  E) 15540
+solution:
+  approach: |
+    A) 15545. Layer 1 is 1000*15+15 = 15015. Layer 2 is 15*25+25 = 400. Layer 3 is 25*5+5 = 130.
+occurrences:
+  - company: unknown
+    round: oa
+    year: 2026
+    contributor: friend
+    evidence: practice-curriculum
+    notes: Mock assessment. Company is not named in the write-up.
+sources:
+  - kind: notes
+    path: "interview Q's/till 23 sept/OA_Aptitude_Technical Mock Assessment Summary.md"
+    role: prompt
+updated_at: 2026-09-23

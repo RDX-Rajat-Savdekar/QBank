@@ -11,6 +11,9 @@ status: extracted
 confidence: medium
 evidence: discord-title
 prompt: Tell me about a peer who was struggling. How did you help? When did you decide to step in?
+follow_ups:
+  - text: Technical follow-ups. The interviewer wants the particular method you follow.
+    kind: asked
 occurrences:
   - company: amazon
     round: onsite
@@ -28,6 +31,12 @@ occurrences:
     contributor: online
     evidence: reddit
     notes: AWS Berlin — tell me about a time when you helped a colleague who was struggling
+  - company: unknown
+    round: onsite
+    year: 2026
+    contributor: friend
+    evidence: friend-report
+    notes: Tell me about a time you positively influenced one of your peers
 sources:
   - kind: discord
     path: extras/zonline discord/LP 1.txt
@@ -44,4 +53,7 @@ sources:
   - kind: reddit
     path: interview Q's/Amazon/new grad 2026/reddit/reddit-Amazon-exp.rtf
     role: prompt
-updated_at: 2026-09-11
+  - kind: pdf
+    path: "interview Q's/till 23 sept/G_R1 notes_behav.pdf"
+    role: prompt
+updated_at: 2026-09-23

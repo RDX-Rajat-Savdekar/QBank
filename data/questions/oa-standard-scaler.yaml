@@ -1,0 +1,30 @@
+id: oa-standard-scaler
+title: sklearn class for zero mean and unit variance
+type: oa-sim
+tags: [oa, mock, ml]
+topics: [ml-systems]
+difficulty: easy
+status: extracted
+confidence: high
+evidence: practice-curriculum
+prompt: |
+  Identify the sklearn class that converts features to have a mean of zero and a standard deviation of one.
+  A) Preprocessing
+  B) Normalizer
+  C) MinMaxScaler
+  D) PCA
+  E) StandardScaler
+solution:
+  approach: E. StandardScaler subtracts the mean and scales to unit variance. MinMaxScaler rescales to a range. Normalizer scales rows.
+occurrences:
+  - company: unknown
+    round: oa
+    year: 2026
+    contributor: friend
+    evidence: practice-curriculum
+    notes: Mock assessment. Company is not named in the write-up.
+sources:
+  - kind: notes
+    path: "interview Q's/till 23 sept/OA_Aptitude_Technical Mock Assessment Summary.md"
+    role: prompt
+updated_at: 2026-09-23

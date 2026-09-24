@@ -92,6 +92,9 @@ sources:
   - kind: pdf
     path: "interview Q's/Amazon/new grad 2026/S/day 2/S Amazon notes_2 3 4.pdf"
     role: prompt
+  - kind: pdf
+    path: "interview Q's/till 23 sept/S Amazon notes_2 3 4.pdf"
+    role: prompt
   - kind: image
     path: "interview Q's/Amazon/new grad 2026/F/Screenshot 2026-09-11 at 5.16.30 AM.png"
     role: prompt
@@ -103,4 +106,4 @@ related:
   - amz-rule-match-defaults
   - retell-competitor-monitor
   - genai-json-schema
-updated_at: 2026-09-11
+updated_at: 2026-09-23

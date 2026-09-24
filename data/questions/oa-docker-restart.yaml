@@ -1,0 +1,27 @@
+id: oa-docker-restart
+title: Docker restart policy for a non-zero exit
+type: oa-sim
+tags: [oa, mock, docker]
+topics: []
+difficulty: easy
+status: extracted
+confidence: high
+evidence: practice-curriculum
+prompt: |
+  Ensure Docker restarts a container if it exits with a non-zero status. Which restart policy?
+  A) restart  B) always  C) exit  D) no  E) on-failure
+solution:
+  approach: |
+    E. on-failure restarts only after a non-zero exit. always restarts regardless of the exit code.
+occurrences:
+  - company: unknown
+    round: oa
+    year: 2026
+    contributor: friend
+    evidence: practice-curriculum
+    notes: Mock assessment. Company is not named in the write-up.
+sources:
+  - kind: notes
+    path: "interview Q's/till 23 sept/OA_Aptitude_Technical Mock Assessment Summary.md"
+    role: prompt
+updated_at: 2026-09-23

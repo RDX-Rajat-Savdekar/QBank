@@ -1,0 +1,31 @@
+id: oa-rnn-use-cases
+title: When to use an RNN
+type: oa-sim
+tags: [oa, mock, ml]
+topics: [ml-systems]
+difficulty: easy
+status: extracted
+confidence: high
+evidence: practice-curriculum
+prompt: |
+  In which use cases would you opt for a recurrent neural network in TensorFlow? Select all that apply.
+  A) Video detection
+  B) Text analysis and classification
+  C) Speech recognition
+  D) Image processing
+  E) Analysis of time series data
+solution:
+  approach: |
+    A, B, C, and E. RNNs fit ordered sequences. A single static image has no time axis, so plain image processing is the option left out.
+occurrences:
+  - company: unknown
+    round: oa
+    year: 2026
+    contributor: friend
+    evidence: practice-curriculum
+    notes: Mock assessment. Company is not named in the write-up.
+sources:
+  - kind: notes
+    path: "interview Q's/till 23 sept/OA_Aptitude_Technical Mock Assessment Summary.md"
+    role: prompt
+updated_at: 2026-09-23

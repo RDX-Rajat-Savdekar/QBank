@@ -1,0 +1,31 @@
+id: oa-linked-list-memory-size
+title: Length of a singly linked list from a memory trace
+type: oa-sim
+tags: [oa, mock]
+topics: []
+difficulty: easy
+status: extracted
+confidence: high
+evidence: practice-curriculum
+prompt: |
+  A singly linked list starts at address 100x.
+  100x data 20 next 150x
+  150x data 97 next 250x
+  250x data 12 next 200x
+  200x data 34 next 450x
+  450x data 67 next null
+  What is the size of the list?
+solution:
+  approach: Five nodes. Follow next until null. The answer recorded in the mock is 5.
+occurrences:
+  - company: unknown
+    round: oa
+    year: 2026
+    contributor: friend
+    evidence: practice-curriculum
+    notes: Mock assessment. Company is not named in the write-up.
+sources:
+  - kind: notes
+    path: "interview Q's/till 23 sept/OA_Aptitude_Technical Mock Assessment Summary.md"
+    role: prompt
+updated_at: 2026-09-23

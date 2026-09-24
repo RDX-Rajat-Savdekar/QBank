@@ -1,0 +1,32 @@
+id: oa-ec2-reserved-mix
+title: Reserved instance for a 24/7 app plus daily batch
+type: oa-sim
+tags: [oa, mock, aws]
+topics: []
+difficulty: medium
+status: extracted
+confidence: medium
+evidence: practice-curriculum
+prompt: |
+  An accounting application runs 24/7 with static compute. Other batch jobs run once a day at any time. Pick the lowest-cost approach.
+  A) Purchase a Heavy Utilization Reserved Instance for the accounting application and run the batch jobs in the same instance family so the reservation discount can apply.
+  B) Light Utilization Reserved Instance (option text truncated in the source).
+  C) Medium Reserved Instance (option text truncated in the source).
+  D) Full Reserved Instance (option text truncated in the source).
+solution:
+  approach: |
+    A, as recorded in the mock summary. A heavy-utilization reservation fits a continuous workload, and the hourly discount can also cover same-family batch usage in the region.
+  pitfalls:
+    - Options B through D are abbreviated in the source. Do not treat the missing wording as known.
+occurrences:
+  - company: unknown
+    round: oa
+    year: 2026
+    contributor: friend
+    evidence: practice-curriculum
+    notes: Mock assessment. Company is not named in the write-up.
+sources:
+  - kind: notes
+    path: "interview Q's/till 23 sept/OA_Aptitude_Technical Mock Assessment Summary.md"
+    role: prompt
+updated_at: 2026-09-23

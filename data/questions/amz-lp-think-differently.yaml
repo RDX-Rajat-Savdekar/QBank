@@ -18,6 +18,8 @@ follow_ups:
     kind: asked
   - text: "Who proposed the approach, and what did you do when someone challenged it?"
     kind: asked
+  - text: "Did you propose Kafka, or did someone else research an option and then you proposed Kafka?"
+    kind: asked
 occurrences:
   - company: amazon
     role: sde-new-grad
@@ -33,7 +35,10 @@ sources:
   - kind: image
     path: "interview Q's/Amazon/new grad 2026/F/WhatsApp Image 2026-09-09 at 15.47.20.jpeg"
     role: commentary
+  - kind: notes
+    path: "interview Q's/till 23 sept/Bar Raiser_F (1).txt"
+    role: prompt
 related:
   - amz-lp-conflict
   - amz-lp-convincing
-updated_at: 2026-09-11
+updated_at: 2026-09-23

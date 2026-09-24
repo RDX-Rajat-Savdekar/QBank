@@ -65,5 +65,11 @@ sources:
   - kind: image
     path: "interview Q's/Amazon/new grad 2026/F/Screenshot 2026-09-09 at 3.17.05 PM.png"
     role: prompt
+  - kind: image
+    path: "interview Q's/till 23 sept/WhatsApp Image 2026-09-09 at 15.46.17.jpeg"
+    role: prompt
+  - kind: image
+    path: "interview Q's/till 23 sept/WhatsApp Image 2026-09-09 at 15.46.17 (1).jpeg"
+    role: prompt
 notes: Live prompt is one buy and one sell. Input dump is multi-ticker; clarify grouping before coding.
-updated_at: 2026-09-11
+updated_at: 2026-09-23

@@ -21,6 +21,12 @@ occurrences:
     contributor: self
     evidence: research
     notes: 16 LP sample list in amazon.md
+  - company: unknown
+    round: onsite
+    year: 2026
+    contributor: friend
+    evidence: friend-report
+    notes: Opening was a short background, including school and working with peers. No separate prompt beyond that.
 sources:
   - kind: discord
     path: extras/zonline discord/LP 1.txt
@@ -34,4 +40,7 @@ sources:
   - kind: notes
     path: data/companies/amazon.md
     role: prompt
-updated_at: 2026-08-31
+  - kind: pdf
+    path: "interview Q's/till 23 sept/G_R1 notes_behav.pdf"
+    role: commentary
+updated_at: 2026-09-23

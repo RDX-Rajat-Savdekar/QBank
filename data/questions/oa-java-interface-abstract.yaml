@@ -1,0 +1,32 @@
+id: oa-java-interface-abstract
+title: Interface methods and an abstract class
+type: oa-sim
+tags: [oa, mock, java]
+topics: []
+difficulty: easy
+status: extracted
+confidence: medium
+evidence: practice-curriculum
+prompt: |
+  Choose the correct statement about this Java code.
+  public interface CanFly { void fly(); }
+  interface HasWings { public abstract Object getWingSpan(); }
+  abstract class Falcon implements CanFly, HasWings { }
+  Options include compile errors on the interface method lines, a compile error because Falcon does not implement the methods, and the code compiling without issues.
+solution:
+  approach: |
+    The code compiles. Interface methods are implicitly public abstract, so writing that explicitly is valid. An abstract class does not have to implement the interface methods.
+  pitfalls:
+    - The source summary truncates some option wording. The recorded answer is that the snippet compiles.
+occurrences:
+  - company: unknown
+    round: oa
+    year: 2026
+    contributor: friend
+    evidence: practice-curriculum
+    notes: Mock assessment. Company is not named in the write-up.
+sources:
+  - kind: notes
+    path: "interview Q's/till 23 sept/OA_Aptitude_Technical Mock Assessment Summary.md"
+    role: prompt
+updated_at: 2026-09-23

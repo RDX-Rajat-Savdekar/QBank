@@ -1,0 +1,83 @@
+id: max-sum-path-two-arrays
+title: Maximum sum path across two arrays
+type: dsa
+tags:
+  - oa
+  - mock
+topics:
+  - two-pointers
+  - arrays
+difficulty: medium
+status: extracted
+confidence: high
+evidence: practice-curriculum
+prompt: |
+  Given two sorted (or partially sorted) arrays A and B, find the maximum
+  path sum starting from either array. You can switch between arrays only
+  at common element junctions (where A[i] == B[j]). At a junction, pick the
+  maximum sum path accumulated since the last junction, add the common
+  junction element once, and reset the accumulators.
+examples:
+  - input: "A descending or ascending, B descending or ascending, with shared values"
+    output: "max path sum, counting each junction element once"
+constraints: |
+  Switch only when values are equal. If an array is descending (A[0] > A[-1]),
+  reverse it before the two-pointer scan. Empty array contributes 0.
+starter: |
+  def solve(A: list[int], B: list[int]) -> int:
+      pass
+solution:
+  approach: |
+    Two pointers. Walk the smaller current value into its running sum.
+    At a junction, add max(sum1, sum2) plus the shared value once, then
+    reset both sums. After one array ends, drain the other and add
+    max of the two leftover sums.
+  complexity:
+    time: O(N + M)
+    space: O(1)
+  code_language: python
+  code: |
+    def solve(A, B):
+        if not A and not B:
+            return 0
+        if not A:
+            return sum(B)
+        if not B:
+            return sum(A)
+        if len(A) > 1 and A[0] > A[-1]:
+            A = A[::-1]
+        if len(B) > 1 and B[0] > B[-1]:
+            B = B[::-1]
+        i = j = 0
+        sum1 = sum2 = total = 0
+        while i < len(A) and j < len(B):
+            if A[i] < B[j]:
+                sum1 += A[i]
+                i += 1
+            elif B[j] < A[i]:
+                sum2 += B[j]
+                j += 1
+            else:
+                total += max(sum1, sum2) + A[i]
+                sum1 = sum2 = 0
+                i += 1
+                j += 1
+        sum1 += sum(A[i:])
+        sum2 += sum(B[j:])
+        return total + max(sum1, sum2)
+  pitfalls:
+    - Count the junction element once, not in both running sums
+    - Descending inputs need a reverse before the left-to-right scan
+    - The tail after the last junction still contributes max(sum1, sum2)
+occurrences:
+  - company: unknown
+    round: oa
+    year: 2026
+    contributor: friend
+    evidence: practice-curriculum
+    notes: Mock OA summary. Company not named in the write-up.
+sources:
+  - kind: notes
+    path: "interview Q's/till 23 sept/OA_Aptitude_Technical Mock Assessment Summary.md"
+    role: prompt
+updated_at: 2026-09-23

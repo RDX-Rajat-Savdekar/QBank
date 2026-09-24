@@ -1,0 +1,49 @@
+id: book-reading-evenings
+title: Minimum evenings to finish a book
+type: dsa
+tags:
+  - oa
+topics:
+  - greedy
+  - arrays
+difficulty: easy
+status: extracted
+confidence: high
+evidence: friend-report
+prompt: |
+  A book has M chapters. chapters[i] is the reading time of chapter i.
+  evenings[j] is the time available on evening j. A whole chapter must be
+  finished in one evening, chapters are read in order, and Alex reads as
+  many consecutive chapters as fit in the current evening. Return the
+  1-based index of the evening that finishes the book, or -1 if the book
+  cannot be finished.
+examples:
+  - input: "chapters=[3, 2, 1], evenings=[2, 5, 3, 3]"
+    output: "3"
+starter: |
+  def solution(chapters: list[int], evenings: list[int]) -> int:
+      pass
+solution:
+  approach: |
+    Walk evenings left to right. While the next chapter fits in the time
+    left tonight, read it. When chapters are exhausted, return that
+    evening's 1-based index. If evenings run out, return -1.
+  complexity:
+    time: O(M + N)
+    space: O(1)
+  pitfalls:
+    - Chapters cannot be split or reordered
+    - Unused time does not carry to the next evening
+    - Return -1 when the remaining evenings cannot fit the next chapter
+occurrences:
+  - company: unknown
+    round: oa
+    year: 2026
+    contributor: friend
+    evidence: friend-report
+    notes: Coding summary filename prefix is G_. Company is not stated in the PDF.
+sources:
+  - kind: pdf
+    path: "interview Q's/till 23 sept/G_OA_Technical_Interview_Coding_Summary.pdf"
+    role: solution
+updated_at: 2026-09-23

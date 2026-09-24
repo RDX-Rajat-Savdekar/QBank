@@ -1,0 +1,38 @@
+id: team-or-solo
+title: Work with a team or by yourself
+type: behavioral
+tags:
+  - behavioral
+topics: []
+difficulty: unknown
+status: extracted
+confidence: medium
+evidence: friend-report
+prompt: |
+  While working on a project, if you were given the opportunity to work
+  with a team or by yourself, what would you choose?
+follow_ups:
+  - text: You started alone. Why did collaboration become necessary?
+    kind: asked
+  - text: Why did the other side rely on you instead of taking it to production themselves?
+    kind: asked
+  - text: Was the value UI/UX, a scalable system, or something else?
+    kind: asked
+  - text: Describe the backend you built and how you made it scalable.
+    kind: asked
+  - text: Quantify "significantly". What kind of growth was it?
+    kind: asked
+  - text: Any coordination challenges with multiple people? Saying no is acceptable.
+    kind: asked
+occurrences:
+  - company: unknown
+    round: onsite
+    year: 2026
+    contributor: friend
+    evidence: friend-report
+    notes: Round-1 behavioral notes. Filename prefix is G_. Company is not stated.
+sources:
+  - kind: pdf
+    path: "interview Q's/till 23 sept/G_R1 notes_behav.pdf"
+    role: prompt
+updated_at: 2026-09-23

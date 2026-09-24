@@ -1,0 +1,43 @@
+id: exam-result-buckets
+title: Categorize exam results into three buckets
+type: dsa
+tags:
+  - oa
+topics:
+  - arrays
+difficulty: easy
+status: extracted
+confidence: high
+evidence: friend-report
+prompt: |
+  Given exam scores for N students, return counts
+  [failed, passedWithoutHonors, passedWithHonors].
+
+  Failed: score < 50. Passed without honors: 50 <= score <= 80.
+  Passed with honors: score > 80.
+examples:
+  - input: "[50, 80, 81, 99, 30, 77, 67]"
+    output: "[1, 4, 2]"
+starter: |
+  def solution(A: list[int]) -> list[int]:
+      pass
+solution:
+  approach: One pass, three counters. 50 and 80 are without honors. Above 80 is honors.
+  complexity:
+    time: O(N)
+    space: O(1)
+  pitfalls:
+    - 50 and 80 are passed without honors, not failed and not honors
+    - Return the three counts in that order, not the scores
+occurrences:
+  - company: unknown
+    round: oa
+    year: 2026
+    contributor: friend
+    evidence: friend-report
+    notes: Coding summary filename prefix is G_. Company is not stated in the PDF.
+sources:
+  - kind: pdf
+    path: "interview Q's/till 23 sept/G_OA_Technical_Interview_Coding_Summary.pdf"
+    role: solution
+updated_at: 2026-09-23

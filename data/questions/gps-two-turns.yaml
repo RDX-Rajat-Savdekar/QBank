@@ -1,0 +1,45 @@
+id: gps-two-turns
+title: Path with at most two turns
+type: dsa
+tags:
+  - oa
+  - mock
+topics:
+  - geometry/grid
+  - graph
+difficulty: medium
+status: extracted
+confidence: high
+evidence: practice-curriculum
+prompt: |
+  Find if a path exists from start 'Q' to end 'W' making no more than two
+  turns in a grid. 'o' is empty space and 'x' is a blockage. Return
+  "DRIVE!" if such a path exists, otherwise "DON'T DRIVE!".
+starter: |
+  def solve(grid) -> str:
+      pass
+solution:
+  approach: |
+    BFS on (row, col, direction, turns). A move that keeps the same
+    direction does not increment turns. A move that changes direction
+    costs one turn and is discarded when turns would exceed 2. The first
+    step off 'Q' starts at 0 turns.
+  complexity:
+    time: O(R * C * 4 * 3)
+    space: O(R * C * 4)
+  pitfalls:
+    - State must include direction, or a turn limit cannot be enforced
+    - Turning into a wall still counts if you only check bounds after the turn
+    - Start and end on the same cell is already "DRIVE!"
+occurrences:
+  - company: unknown
+    round: oa
+    year: 2026
+    contributor: friend
+    evidence: practice-curriculum
+    notes: Mock OA summary. Company not named in the write-up.
+sources:
+  - kind: notes
+    path: "interview Q's/till 23 sept/OA_Aptitude_Technical Mock Assessment Summary.md"
+    role: prompt
+updated_at: 2026-09-23

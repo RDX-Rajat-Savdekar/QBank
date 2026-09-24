@@ -1,0 +1,33 @@
+id: oa-java-empty-allmatch
+title: allMatch on an empty Java stream
+type: oa-sim
+tags: [oa, mock, java]
+topics: []
+difficulty: easy
+status: extracted
+confidence: high
+evidence: practice-curriculum
+prompt: |
+  How will this Java code behave?
+  Stream<String> s1 = Stream.of("123", "234", "345");
+  boolean match = s1.filter(s -> s.length() > 4).allMatch(s -> s.contains("0"));
+  System.out.print(match);
+  A) Compilation error
+  B) Runtime error
+  C) prints true
+  D) prints false
+solution:
+  approach: |
+    C. Every string has length 3, so the filter yields an empty stream. allMatch on an empty stream is vacuously true.
+occurrences:
+  - company: unknown
+    round: oa
+    year: 2026
+    contributor: friend
+    evidence: practice-curriculum
+    notes: Mock assessment. Company is not named in the write-up.
+sources:
+  - kind: notes
+    path: "interview Q's/till 23 sept/OA_Aptitude_Technical Mock Assessment Summary.md"
+    role: prompt
+updated_at: 2026-09-23

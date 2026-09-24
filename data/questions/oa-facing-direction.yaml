@@ -1,0 +1,27 @@
+id: oa-facing-direction
+title: Direction after a sequence of turns
+type: puzzle
+tags: [oa, mock, aptitude]
+topics: []
+difficulty: easy
+status: extracted
+confidence: high
+evidence: practice-curriculum
+prompt: |
+  Suraj runs 25 m east, turns right and runs 15 m, turns right and runs 14 m, turns right and runs 10 m, turns left and runs 17 m, then turns right and runs 11 m. Which direction is he facing?
+solution:
+  approach: |
+    Start facing east. Right, right, right, left, right lands on north.
+    East, south, west, north, west, north.
+occurrences:
+  - company: unknown
+    round: oa
+    year: 2026
+    contributor: friend
+    evidence: practice-curriculum
+    notes: Mock assessment. Company is not named in the write-up.
+sources:
+  - kind: notes
+    path: "interview Q's/till 23 sept/OA_Aptitude_Technical Mock Assessment Summary.md"
+    role: prompt
+updated_at: 2026-09-23

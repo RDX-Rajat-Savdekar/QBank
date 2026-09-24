@@ -1,0 +1,26 @@
+id: oa-java-access-order
+title: Java access modifiers from most to least restrictive
+type: oa-sim
+tags: [oa, mock, java]
+topics: []
+difficulty: easy
+status: extracted
+confidence: high
+evidence: practice-curriculum
+prompt: |
+  Rearrange the access modifiers from most restrictive to least restrictive.
+solution:
+  approach: |
+    private, then no modifier (package-private), then protected, then public.
+occurrences:
+  - company: unknown
+    round: oa
+    year: 2026
+    contributor: friend
+    evidence: practice-curriculum
+    notes: Mock assessment. Company is not named in the write-up.
+sources:
+  - kind: notes
+    path: "interview Q's/till 23 sept/OA_Aptitude_Technical Mock Assessment Summary.md"
+    role: prompt
+updated_at: 2026-09-23

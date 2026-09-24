@@ -47,6 +47,9 @@ sources:
   - kind: notes
     path: "interview Q's/Amazon/new grad 2026/F/Bar Raiser_F (1).txt"
     role: prompt
+  - kind: notes
+    path: "interview Q's/till 23 sept/Bar Raiser_F (1).txt"
+    role: prompt
 related:
   - amz-lp-unfair-treatment
-updated_at: 2026-09-11
+updated_at: 2026-09-23
