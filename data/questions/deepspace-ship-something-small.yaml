@@ -1,0 +1,121 @@
+id: deepspace-ship-something-small
+title: Build exercise — ship something small on DeepSpace
+type: takehome
+tags:
+  - deepspace
+  - takehome
+  - full-stack
+topics:
+  - design-api
+difficulty: unknown
+status: extracted
+confidence: high
+evidence: friend-report
+prompt: |
+  Build and deploy a full-stack app on DeepSpace. Your idea, your call.
+  A focused, finished project is stronger than a large, incomplete one.
+
+  Choose a scope you can finish well within the five-day submission window.
+  Judgment and explanation matter as much as feature count. If something
+  remains unfinished, say what you would do next.
+
+  Build an interactive app with enough technical depth to demonstrate your
+  understanding of DeepSpace. Use integrations where they improve the product
+  or user experience; there is no minimum integration count. Explain your
+  choices and tradeoffs, including why you left out features or integrations
+  that would not add value.
+
+  A simple app such as a basic habit tracker is usually not enough unless it
+  adds something meaningfully new. StoryNest, ThreadHunt, and RunningMap are
+  examples of stronger projects — study them for the bar, then make the idea
+  your own.
+
+  A coding agent may be used: DeepSpace wants to see how you direct it,
+  verify its work, and take over when needed.
+
+  Start here:
+    - npx deepspace : scaffold
+    - npx deepspace deploy : ship to <name>.app.space
+    - Docs: docs.deep.space
+    - Agent skill: github.com/deepdotspace/deepspace-skill
+    - Examples: github.com/deepdotspace (read one or two, then build your own)
+
+  Submit in the portal: the live URL, the repository, and a short note
+  covering what you built, which DeepSpace integrations you used, the main
+  tradeoff you made, what the agent did, and what you verified yourself.
+
+  A helpful project bar: use at least three DeepSpace integrations
+  (a basic habit tracker is usually not enough unless meaningfully new;
+  StoryNest / ThreadHunt / RunningMap show the bar).
+
+  After review, selected applicants get a scheduling link for a live coding
+  session in the portal — no other service needed to continue.
+
+  Ownership: the exercise is evaluation-only. You own the submission;
+  DeepSpace will not ship, sell, publish, or incorporate your code, design,
+  copy, or concept without a separate written agreement. Do not use
+  confidential information from a current/former employer, school, or client.
+
+  What they look for (build): sensible five-day scope; deployed result works
+  on its important path with unfinished edges explained honestly; technical
+  depth through working product flows plus which integrations were
+  useful (or why more would not help); understandable code, protected
+  secrets, platform primitives used instead of reimplemented without reason;
+  writeup states the main tradeoff, what the agent did, and what the
+  applicant verified/changed. Originality/commercial value is NOT scored.
+  Move to live coding when the submission shows sound judgment, a working
+  core, and real understanding of DeepSpace — not project size or hours.
+
+  Live coding session: can explain and modify the submitted work; reads
+  errors, forms a hypothesis, tests it; thinks aloud, asks useful questions;
+  directs AI tools deliberately and verifies output; responds constructively
+  to review.
+examples: []
+constraints: |
+  Five-day submission window (observed deadline: Monday, October 5, 2026 at
+  11:59 PM Eastern Time). Submission requires deployed app URL + repository
+  + writeup. Role applied for: full-time — systems, experiments,
+  partnerships, and content helping developers discover, understand, and
+  adopt DeepSpace.
+starter: |
+  npx deepspace        # scaffold
+  npx deepspace deploy # ship to <name>.app.space
+  # Docs: docs.deep.space
+  # Agent skill: github.com/deepdotspace/deepspace-skill
+  # Examples: github.com/deepdotspace
+follow_ups: []
+solution:
+  approach: |
+    Pick one narrow idea finishable in five days; scaffold with the DeepSpace
+    CLI/skill; build one working core path with 3+ integrations that earn
+    their place; deploy to <name>.app.space; submit URL + repo + a writeup
+    naming the tradeoff, the agent's contribution, and what was personally
+    verified. Leave unfinished edges out and describe them honestly.
+  pitfalls:
+    - Shipping a large incomplete app instead of a small finished one
+    - A plain habit-tracker clone with nothing meaningfully new
+    - Adding integrations for count rather than value (and not justifying cuts)
+    - Secrets in the repo; reimplementing platform primitives without reason
+    - No writeup on tradeoff / agent-vs-human split / personal verification
+occurrences:
+  - company: deepspace
+    round: takehome
+    year: 2026
+    contributor: friend
+    evidence: friend-report
+    notes: careers.deep.space/task portal screenshots; five-day build then
+      portal-scheduled live coding session on the submission
+sources:
+  - kind: image
+    path: add to qbank 3 nov/deepspace build/Screenshot 2026-10-05 at 6.02.01 PM.png
+    role: prompt
+  - kind: image
+    path: add to qbank 3 nov/deepspace build/Screenshot 2026-10-05 at 6.02.04 PM.png
+    role: prompt
+  - kind: image
+    path: add to qbank 3 nov/deepspace build/Screenshot 2026-10-05 at 6.02.08 PM.png
+    role: prompt
+  - kind: image
+    path: add to qbank 3 nov/deepspace build/Screenshot 2026-10-05 at 6.02.11 PM.png
+    role: prompt
+updated_at: 2026-11-03

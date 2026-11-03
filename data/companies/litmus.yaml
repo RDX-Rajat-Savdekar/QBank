@@ -1,0 +1,8 @@
+name: Litmus
+aliases: [composio]
+levels: []
+loop: [takehome]
+signals: []
+tools: [litmus]
+resources: []
+notes_md: litmus.md

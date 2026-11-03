@@ -1,0 +1,62 @@
+id: capital-one-min-in-range
+title: Lowest value strictly inside a range
+type: dsa
+tags:
+  - capital-one
+  - oa-practice
+topics:
+  - arrays
+difficulty: easy
+status: extracted
+confidence: high
+evidence: friend-report
+prompt: |
+  You are given an array of positive integers `numbers` and a range
+  `nRange = [a, b]` with `a <= b`. Return the smallest value in `numbers`
+  that lies strictly between the endpoints, i.e. `a < numbers[i] < b`.
+  If there is no such value, return 0.
+
+  Constraints: 1 <= numbers.length <= 100, 1 <= numbers[i] <= 100,
+  1 <= a <= b <= 100.
+examples:
+  - input: numbers = [11, 4, 23, 9, 10], nRange = [5, 12]
+    output: "9"
+    explanation: 11, 9 and 10 are strictly inside (5, 12); the minimum is 9.
+  - input: numbers = [1, 3, 2], nRange = [1, 1]
+    output: "0"
+    explanation: Nothing can lie strictly between equal endpoints.
+solution:
+  approach: |
+    Single pass with a running minimum. Start `best` at a sentinel no real
+    answer can reach (e.g. Integer.MAX_VALUE); update it for each element
+    strictly inside the open interval; return 0 if it never moves.
+  complexity:
+    time: O(n), one pass over the array
+    space: O(1)
+  code: |
+    int solution(int[] numbers, int[] nRange) {
+        int lo = nRange[0], hi = nRange[1];
+        int best = Integer.MAX_VALUE;
+        for (int x : numbers) {
+            if (x > lo && x < hi && x < best) {
+                best = x;
+            }
+        }
+        return best == Integer.MAX_VALUE ? 0 : best;
+    }
+  code_language: java
+  pitfalls:
+    - Using >= / <= and counting the endpoints
+    - Initialising best to 0, so x < best is never true
+occurrences:
+  - company: capital-one
+    round: oa
+    year: 2026
+    contributor: friend
+    evidence: friend-report
+    notes: Reconstructed from a Java practice-solutions PDF shared by a friend
+sources:
+  - kind: pdf
+    path: add to qbank 3 nov/capital one oa/capital_one_oa_Java_Practice_Solutions.pdf
+    role: prompt
+updated_at: 2026-11-03

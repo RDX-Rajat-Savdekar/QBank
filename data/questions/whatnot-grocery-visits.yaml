@@ -1,0 +1,98 @@
+id: whatnot-grocery-visits
+title: Grocery department visits saved
+type: dsa
+tags: [whatnot]
+topics: [hashing]
+difficulty: easy
+status: extracted
+confidence: high
+evidence: live-prompt
+prompt: |
+  You are going on a camping trip and need to buy groceries. To spend less
+  time in the store, buy everything you need from one department before
+  moving to the next, instead of walking the shopping list in order.
+
+  Given an unsorted list of products with their departments, and a shopping
+  list, return how many department visits you eliminate by grouping.
+
+  A visit is a run of consecutive items from the same department. The
+  grouped route visits each required department once.
+examples:
+  - input: |
+      products = [["Cheese", "Dairy"], ["Carrots", "Produce"], ["Potatoes", "Produce"],
+                  ["Canned Tuna", "Pantry"], ["Romaine Lettuce", "Produce"],
+                  ["Chocolate Milk", "Dairy"], ["Flour", "Pantry"],
+                  ["Iceberg Lettuce", "Produce"], ["Coffee", "Pantry"],
+                  ["Pasta", "Pantry"], ["Milk", "Dairy"], ["Blueberries", "Produce"],
+                  ["Pasta Sauce", "Pantry"]]
+      list1 = ["Blueberries", "Milk", "Coffee", "Flour", "Cheese", "Carrots"]
+    output: "2"
+    explanation: |
+      In order: Produce, Dairy, Pantry, Pantry, Dairy, Produce is 5 visits.
+      Grouped: Produce, Pantry, Dairy is 3 visits. 5 - 3 = 2.
+  - input: 'list2 = ["Blueberries", "Carrots", "Coffee", "Milk", "Flour", "Cheese"]'
+    output: "2"
+  - input: 'list3 = ["Blueberries", "Carrots", "Romaine Lettuce", "Iceberg Lettuce"]'
+    output: "0"
+  - input: 'list4 = ["Milk", "Flour", "Chocolate Milk", "Pasta Sauce"]'
+    output: "2"
+  - input: 'list5 = ["Cheese", "Potatoes", "Blueberries", "Canned Tuna"]'
+    output: "0"
+constraints: |
+  n is the number of products. The pad's tests call shopping(products, list).
+starter: |
+  def shopping(products, shopping_list):
+      pass
+solution:
+  approach: |
+    Map product to department. Walk the list and count a visit whenever
+    the department changes, including the first item. The grouped route
+    visits each distinct department on the list once. Return the difference.
+    An empty list saves nothing.
+  complexity:
+    time: O(n)
+    space: O(n)
+  code_language: python
+  code: |
+    def shopping(products, shopping_list):
+        if not shopping_list:
+            return 0
+        department = {item: dept for item, dept in products}
+        original = 0
+        previous = None
+        for product in shopping_list:
+            dept = department[product]
+            if dept != previous:
+                original += 1
+                previous = dept
+        optimized = len({department[product] for product in shopping_list})
+        return original - optimized
+  pitfalls:
+    - The first item is a visit
+    - Consecutive items in the same department are one visit
+    - Savings is original visits minus the number of distinct departments, not the number of items
+occurrences:
+  - company: whatnot
+    round: unknown
+    year: 2026
+    contributor: self
+    evidence: live-prompt
+    notes: Live coding pad. Round is not named. Company is the folder label.
+sources:
+  - kind: pdf
+    path: "extra 3/to add to qbank/whatnot/Technical Interview Summary - Grocery Optimization & Carpool Simulation.pdf"
+    role: solution
+  - kind: image
+    path: "extra 3/to add to qbank/whatnot/Screenshot 2026-10-02 at 5.32.16 PM.png"
+    role: prompt
+  - kind: image
+    path: "extra 3/to add to qbank/whatnot/Screenshot 2026-10-02 at 5.32.43 PM.png"
+    role: prompt
+  - kind: image
+    path: "extra 3/to add to qbank/whatnot/Screenshot 2026-10-02 at 5.33.39 PM.png"
+    role: prompt
+  - kind: image
+    path: "extra 3/to add to qbank/whatnot/Screenshot 2026-10-02 at 5.33.51 PM.png"
+    role: prompt
+related: [whatnot-carpool]
+updated_at: 2026-10-05

@@ -1,0 +1,90 @@
+id: cb-optimistic-writers
+title: Optimistic writers
+type: dsa
+tags: [coderbyte, oa]
+topics: [hashing]
+difficulty: medium
+status: extracted
+confidence: high
+evidence: live-prompt
+prompt: |
+  A CRM record maps field names to string values. Many clients edit the
+  same record. Each write is processed in order. Write i (1-based) is
+  (field, value, base), where base is the timestamp of the client's last
+  read of that field. base = 0 means the client read the field before any
+  successful write.
+
+  Let last(field) be the 1-based index of the latest successful write to
+  that field, or 0 if it has never been written.
+
+  - If last(field) <= base, the write applies: status "ok", the field
+    becomes value, and last(field) becomes i.
+  - If last(field) > base, the write is rejected: status "conflict".
+    The stored value and last(field) stay as they are.
+
+  Return a list of strings:
+  1. "ok" or "conflict" for each write, in order
+  2. the number of fields present at the end
+  3. "field value" for each field, sorted by field name
+
+  The prompt's illustration is a record name=Walmart, tier=Enterprise,
+  city=Bentonville, state=Arkansas, and a client who tries to set tier
+  to Standard after someone else has already set it to Business.
+constraints: |
+  Field names and values are non-empty strings. Numeric bounds in the
+  write-up's text layer were stripped. The editor function is the unit
+  under test; do not change the pytest.main call.
+starter: |
+  def solve(writes):
+      pass
+solution:
+  approach: |
+    Keep the last successful write index and the current value per field.
+    Accept a write when that index is still <= the client's base. Then
+    emit the statuses, the field count, and the sorted "field value" lines.
+  complexity:
+    time: O(n log n)
+    space: O(n)
+  code_language: python
+  code: |
+    def solve(writes):
+        last = {}
+        record = {}
+        results = []
+        for i, (field, value, base) in enumerate(writes, start=1):
+            if last.get(field, 0) <= base:
+                results.append("ok")
+                record[field] = value
+                last[field] = i
+            else:
+                results.append("conflict")
+        results.append(str(len(record)))
+        for field in sorted(record):
+            results.append(f"{field} {record[field]}")
+        return results
+  pitfalls:
+    - A rejected write must not move last(field) or the stored value
+    - Timestamps are 1-based write indexes, not wall-clock times
+    - base 0 only matches a field that has never been successfully written
+    - Sort the final field lines; the status prefix stays in write order
+occurrences:
+  - company: coderbyte
+    round: oa
+    year: 2026
+    tool: coderbyte
+    contributor: self
+    evidence: live-prompt
+    notes: First problem in the timed Coderbyte assessment. Separate from the Abridge guide.
+sources:
+  - kind: pdf
+    path: "extra 3/to add to qbank/coderbyte_Detailed Assessment Breakdown.pdf"
+    role: prompt
+  - kind: code
+    path: "extra 3/to add to qbank/coder byte.zip"
+    role: solution
+notes: |
+  The zip is phone screenshots of the editor. One draft appended "conflic"
+  and had an unterminated f-string, so the tests never ran. The code above
+  follows the written rules, not that draft.
+related: [cb-snapshot-budget, cb-jobs-techs]
+updated_at: 2026-10-05

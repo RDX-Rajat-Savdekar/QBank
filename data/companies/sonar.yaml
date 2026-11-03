@@ -1,0 +1,8 @@
+name: Sonar
+aliases: [sonarsource]
+levels: []
+loop: [oa, onsite]
+signals: []
+tools: [Codility]
+resources: []
+notes_md: sonar.md

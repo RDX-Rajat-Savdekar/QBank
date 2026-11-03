@@ -1,0 +1,115 @@
+id: tt-largest-perfect-x
+title: Largest perfect X in a binary matrix
+type: dsa
+tags: [tiktok, codesignal, oa]
+topics: [geometry/grid]
+difficulty: medium
+status: extracted
+confidence: high
+evidence: live-prompt
+prompt: |
+  You are given a matrix of 0s and 1s. An X-shape has a center cell and
+  four diagonal rays of equal length. It is perfect when every cell on
+  that X is 1.
+
+  A lone 1 is a perfect X of size 1. Size 2 means the center plus one
+  step along each diagonal, and so on.
+
+  Return `[row, col]` of the center of the largest perfect X. On a tie,
+  take the smallest row, then the smallest column. Indexing starts at 0.
+  The matrix contains at least one 1.
+
+  A solution no worse than O(matrix.length^2 * matrix[0].length^2) fits
+  the time limit.
+examples:
+  - input: |
+      matrix = [[1, 0, 1, 0, 0, 0, 1],
+                [0, 1, 0, 1, 0, 1, 0],
+                [1, 0, 1, 0, 1, 0, 0],
+                [0, 1, 0, 1, 0, 1, 0],
+                [1, 0, 1, 0, 0, 0, 1]]
+    output: "[2, 4]"
+    explanation: "Fifteen size-1 Xs. Four size-2 Xs at [1, 1], [2, 2], [2, 4], and [3, 1]. One size-3 X at [2, 4]."
+  - input: |
+      matrix = [[1, 0, 1, 0, 0, 0, 1],
+                [0, 1, 0, 1, 0, 1, 0],
+                [1, 0, 1, 0, 0, 0, 0],
+                [0, 1, 0, 1, 0, 1, 0],
+                [1, 0, 1, 0, 0, 0, 1]]
+    output: "[1, 1]"
+    explanation: "Three size-2 Xs at [1, 1], [2, 2], and [3, 1], and nothing larger. Lowest row wins."
+constraints: |
+  - 1 <= matrix.length <= 500
+  - 1 <= matrix[i].length <= 500
+  - 0 <= matrix[i][j] <= 1
+  - At least one 1
+  - Python 3, 4 seconds, 1 GB
+starter: |
+  def solution(matrix):
+      pass
+solution:
+  approach: |
+    Every 1 is a size-1 X. From each 1, grow the radius while all four
+    diagonal cells at that radius are in bounds and equal to 1. The
+    radius that still fits, counting the center as size 1, is the size.
+    Scan in row-major order and keep a center only when its size is
+    strictly larger, so ties keep the earlier row and column.
+  complexity:
+    time: O(R * C * min(R, C))
+    space: O(1)
+  code_language: python
+  code: |
+    def solution(matrix):
+        rows, cols = len(matrix), len(matrix[0])
+        best_size, best = 0, [-1, -1]
+        for r in range(rows):
+            for c in range(cols):
+                if matrix[r][c] == 0:
+                    continue
+                k = 0
+                while True:
+                    if r - k < 0 or r + k >= rows or c - k < 0 or c + k >= cols:
+                        break
+                    if (
+                        matrix[r - k][c - k] == 1
+                        and matrix[r - k][c + k] == 1
+                        and matrix[r + k][c - k] == 1
+                        and matrix[r + k][c + k] == 1
+                    ):
+                        k += 1
+                    else:
+                        break
+                if k > best_size:
+                    best_size = k
+                    best = [r, c]
+        return best
+  pitfalls:
+    - Size 1 is the center cell itself; do not require a ray before counting it
+    - Equal sizes keep the smallest row, then the smallest column
+    - All four diagonals must match; one missing arm ends the expansion
+occurrences:
+  - company: tiktok
+    round: oa
+    year: 2026
+    tool: codesignal
+    contributor: self
+    evidence: live-prompt
+    notes: CodeSignal practice set in the TikTok OA folder.
+sources:
+  - kind: pdf
+    path: "extra 3/to add to qbank/tiktok oa/Technical_Interview_Summary_4_Practice_Questions.pdf"
+    role: solution
+  - kind: image
+    path: "extra 3/to add to qbank/tiktok oa/photos/Screenshot 2026-09-28 at 3.11.51 PM.png"
+    role: prompt
+  - kind: image
+    path: "extra 3/to add to qbank/tiktok oa/photos/Screenshot 2026-09-28 at 3.11.57 PM.png"
+    role: prompt
+  - kind: image
+    path: "extra 3/to add to qbank/tiktok oa/photos/Screenshot 2026-09-28 at 3.12.06 PM.png"
+    role: prompt
+  - kind: image
+    path: "extra 3/to add to qbank/tiktok oa/photos/Screenshot 2026-09-28 at 3.12.12 PM.png"
+    role: prompt
+related: [tt-crystal-fields, tt-interleave-first-last]
+updated_at: 2026-10-05

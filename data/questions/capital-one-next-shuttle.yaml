@@ -1,0 +1,73 @@
+id: capital-one-next-shuttle
+title: Wait time for the next shuttle
+type: dsa
+tags:
+  - capital-one
+  - oa-practice
+topics:
+  - strings
+difficulty: easy
+status: extracted
+confidence: high
+evidence: friend-report
+prompt: |
+  A shuttle arrives at the times in `shuttle_times` (24-hour HH:MM strings,
+  in chronological order). Given `current_time`, return how long you must
+  wait for the next shuttle as an HH:MM string. A shuttle arriving exactly
+  at the current time still counts (the wait is "00:00"). If every shuttle
+  has already left, return "-1".
+
+  Constraints: 3 <= shuttle_times.length <= 100.
+examples:
+  - input: shuttle_times = ["12:30", "14:00", "19:55"], current_time = "14:30"
+    output: "05:25"
+  - input: shuttle_times = ["12:30", "14:00", "19:55"], current_time = "20:00"
+    output: "-1"
+    explanation: All shuttles have left.
+  - input: shuttle_times = ["12:30", "14:00", "19:55"], current_time = "14:00"
+    output: "00:00"
+    explanation: The 14:00 shuttle is catchable right now.
+solution:
+  approach: |
+    Convert HH:MM to minutes since midnight (HH*60 + MM), scan the already
+    sorted schedule for the first arrival >= now, and format
+    wait / 60 and wait % 60 zero-padded. Return "-1" if none qualifies.
+  complexity:
+    time: O(n), one pass over the schedule
+    space: O(1)
+  code: |
+    String solution(String[] shuttle_times, String current_time) {
+        int now = toMinutes(current_time);
+        for (String t : shuttle_times) {
+            int arrival = toMinutes(t);
+            if (arrival >= now) {
+                int wait = arrival - now;
+                return String.format("%02d:%02d", wait / 60, wait % 60);
+            }
+        }
+        return "-1";
+    }
+
+    int toMinutes(String time) {
+        int h = Integer.parseInt(time.substring(0, 2));
+        int m = Integer.parseInt(time.substring(3, 5));
+        return h * 60 + m;
+    }
+  code_language: java
+  pitfalls:
+    - Subtracting hours and minutes separately without a borrow
+      (e.g. 14:50 to 15:10); minutes-since-midnight avoids this
+    - Using > instead of >= and missing a shuttle arriving right now
+    - Forgetting zero padding in the HH:MM output
+occurrences:
+  - company: capital-one
+    round: oa
+    year: 2026
+    contributor: friend
+    evidence: friend-report
+    notes: Reconstructed from a Java practice-solutions PDF shared by a friend
+sources:
+  - kind: pdf
+    path: add to qbank 3 nov/capital one oa/capital_one_oa_Java_Practice_Solutions.pdf
+    role: prompt
+updated_at: 2026-11-03

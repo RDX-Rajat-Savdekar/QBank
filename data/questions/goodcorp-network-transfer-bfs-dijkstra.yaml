@@ -1,0 +1,132 @@
+id: goodcorp-network-transfer-bfs-dijkstra
+title: Network data transfer avoiding a corrupted node (BFS + Dijkstra)
+type: dsa
+tags:
+  - goodcorp
+  - bfs
+  - dijkstra
+topics:
+  - graph
+  - heap
+difficulty: medium
+status: extracted
+confidence: high
+evidence: friend-report
+prompt: |
+  GoodCorp runs a data network modeled as an undirected, weighted graph
+  ({node: [(neighbor, weight), ...]}, non-negative weights, integer node
+  IDs), and one node has been corrupted. Never route data through the
+  corrupted node.
+
+  Part 1 (reachability): given source, destination, and corrupted node,
+  return True if data can travel from source to destination without
+  passing through the corrupted node, else False.
+
+  Part 2 (minimal cost): given source and corrupted node, return a dict
+  mapping every reachable, non-corrupted node to its minimal total edge
+  weight from the source.
+examples:
+  - input: edges 1-2:4, 2-3:2, 1-4:1, 4-5:3, 5-6:2, 6-7:1, 7-9:5, 7-11:6, 9-11:2, 9-10:4, 8-10:2, 10-12:3; source 2, dest 9, corrupted 7
+    output: "False (every path to 9 crosses node 7)"
+  - input: same graph; source 2, dest 6, corrupted 7
+    output: "True via 2, 1, 4, 5, 6"
+  - input: same graph; Part 2 with source 2, corrupted 7
+    output: "{2: 0, 3: 2, 1: 4, 4: 5, 5: 8, 6: 10} (nodes 7-12 absent)"
+constraints: |
+  Edges undirected (stored both ways). Weights non-negative. If source
+  or destination is corrupted, or source not in graph: False (Part 1) /
+  {} (Part 2). Source == destination: True (Part 1). If negative weights
+  were possible, Dijkstra breaks — use Bellman-Ford.
+starter: |
+  from collections import deque
+  import heapq
+
+
+  def can_transfer_data(graph, source, destination, corrupted):
+      pass
+
+
+  def get_min_costs(graph, source, corrupted):
+      pass
+follow_ups:
+  - text: Why BFS fails on weighted Part 2 — it finalizes on first discovery (min hops, not min cost); A->B direct 10 vs A->C->B 1+1=2
+    kind: concept
+  - text: Why the stale check in Dijkstra — heapq has no decrease-key, so outdated entries stay and must be skipped
+    kind: concept
+  - text: Weights only 0 or 1 — use 0-1 BFS with a deque, O(V + E)
+    kind: variant
+  - text: Destination also needed in Part 2 — read dist.get(destination), or stop early when the destination is popped
+    kind: variant
+  - text: Disconnected graph — unreachable nodes simply absent from the result
+    kind: edge
+solution:
+  approach: |
+    Part 1: BFS with a deque + visited set; never enqueue the corrupted
+    node; mark visited when queued (not popped). Part 2: Dijkstra with a
+    min-heap of (cost, node) and a dist dict; skip stale heap entries
+    (cost > dist[node]); relax non-corrupted neighbors. Dijkstra is
+    correct because with non-negative weights the cheapest heap pop is
+    final.
+  complexity:
+    time: Part 1 O(V + E); Part 2 O((V + E) log V)
+    space: Part 1 O(V); Part 2 O(V + E)
+  code: |
+    from collections import deque
+    import heapq
+
+
+    def can_transfer_data(graph, source, destination, corrupted):
+        if source == corrupted or destination == corrupted:
+            return False
+        if source not in graph:
+            return False
+        if source == destination:
+            return True
+        queue = deque([source])
+        visited = {source}
+        while queue:
+            current = queue.popleft()
+            if current == destination:
+                return True
+            for neighbor, _ in graph.get(current, []):
+                if neighbor != corrupted and neighbor not in visited:
+                    visited.add(neighbor)
+                    queue.append(neighbor)
+        return False
+
+
+    def get_min_costs(graph, source, corrupted):
+        if source == corrupted or source not in graph:
+            return {}
+        dist = {source: 0}
+        heap = [(0, source)]
+        while heap:
+            cost, node = heapq.heappop(heap)
+            if cost > dist.get(node, float("inf")):
+                continue
+            for neighbor, weight in graph.get(node, []):
+                if neighbor == corrupted:
+                    continue
+                new_cost = cost + weight
+                if new_cost < dist.get(neighbor, float("inf")):
+                    dist[neighbor] = new_cost
+                    heapq.heappush(heap, (new_cost, neighbor))
+        return dist
+  code_language: python
+  pitfalls:
+    - Marking BFS nodes visited when popped (queues duplicates) instead of when queued
+    - Forgetting to store each undirected edge in both directions
+    - Using list.pop(0) instead of deque.popleft(), turning BFS into O(V^2)
+    - Omitting the Dijkstra stale-entry check after pushing duplicate heap entries
+occurrences:
+  - company: goodcorp
+    round: onsite
+    year: 2026
+    contributor: friend
+    evidence: friend-report
+    notes: Two-part interview (BFS reachability + Dijkstra min-cost) with corrupted-node constraint
+sources:
+  - kind: pdf
+    path: add to qbank 3 nov/v_g_intern/V_G_Intern_2_GoodCorp Network Data Transfer Reachability and Minimal Cost (BFS and Dijkstra).pdf
+    role: solution
+updated_at: 2026-11-03

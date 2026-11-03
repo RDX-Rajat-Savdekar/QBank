@@ -1,0 +1,76 @@
+id: tt-interleave-first-last
+title: Interleave first and last elements
+type: dsa
+tags: [tiktok, codesignal, oa]
+topics: [arrays, two-pointers]
+difficulty: easy
+status: extracted
+confidence: high
+evidence: live-prompt
+prompt: |
+  Given an array of integers `numbers`, construct a new array:
+
+  - the first element is the first element of `numbers`
+  - the second element is the last element of `numbers`
+  - the third element is the second element of `numbers`
+  - the fourth element is the second-to-last element of `numbers`
+  - continue until the new array contains every element
+
+  You are not expected to provide the most optimal solution, but a solution
+  no worse than O(numbers.length^2) fits the time limit.
+examples:
+  - input: "numbers = [0, 4, 3, 2, 1]"
+    output: "[0, 1, 4, 2, 3]"
+    explanation: "numbers[0], numbers[4], numbers[1], numbers[3], numbers[2]"
+  - input: "numbers = [-5, 4, 0, 3, 2, 2]"
+    output: "[-5, 2, 4, 2, 0, 3]"
+    explanation: "numbers[0], numbers[5], numbers[1], numbers[4], numbers[2], numbers[3]"
+constraints: |
+  - 3 <= numbers.length <= 1000
+  - -1000 <= numbers[i] <= 1000
+  - Python 3, 4 seconds, 1 GB
+starter: |
+  def solution(numbers):
+      pass
+solution:
+  approach: |
+    Two pointers. Append from the front, then from the back, while the
+    front pointer has not passed the back pointer. The middle element of
+    an odd-length array is written once.
+  complexity:
+    time: O(n)
+    space: O(n)
+  code_language: python
+  code: |
+    def solution(numbers):
+        answer = []
+        lo, hi = 0, len(numbers) - 1
+        while lo <= hi:
+            answer.append(numbers[lo])
+            lo += 1
+            if lo <= hi:
+                answer.append(numbers[hi])
+                hi -= 1
+        return answer
+  pitfalls:
+    - An odd-length middle element is taken once
+occurrences:
+  - company: tiktok
+    round: oa
+    year: 2026
+    tool: codesignal
+    contributor: self
+    evidence: live-prompt
+    notes: CodeSignal practice set in the TikTok OA folder.
+sources:
+  - kind: pdf
+    path: "extra 3/to add to qbank/tiktok oa/Technical_Interview_Summary_4_Practice_Questions.pdf"
+    role: solution
+  - kind: image
+    path: "extra 3/to add to qbank/tiktok oa/photos/Screenshot 2026-09-28 at 2.47.28 PM.png"
+    role: prompt
+  - kind: image
+    path: "extra 3/to add to qbank/tiktok oa/photos/Screenshot 2026-09-28 at 2.47.38 PM.png"
+    role: prompt
+related: [tt-sensor-readings, tt-largest-perfect-x, tt-crystal-fields]
+updated_at: 2026-10-05

@@ -1,0 +1,126 @@
+id: goog-package-transfer-wait
+title: Package transfer across flights — reachability and minimum waiting
+type: dsa
+tags:
+  - google
+  - intern
+  - temporal-graph
+topics:
+  - graph
+difficulty: medium
+status: extracted
+confidence: high
+evidence: friend-report
+prompt: |
+  Given an origin airport, a destination airport, and a list of flights,
+  determine whether a package at the origin can reach the destination. A
+  flight is [departure airport, arrival airport, departure time, arrival
+  time]. The time the package leaves an airport must be greater than or
+  equal to the time it arrived there. The package is at the origin at
+  time 0.
+
+  Part A (reachability): return True/False for whether the destination
+  can be reached.
+
+  Part B (follow-up, minimum waiting): return the least total time the
+  package spends waiting in airports on a valid route, or -1 if
+  unreachable. Waiting at the origin from time 0 counts; waiting at the
+  destination after landing does not. Return 0 if origin equals
+  destination.
+examples:
+  - input: origin SFO, dest LAX, flights [["SFO","SEA",2,4],["SEA","LAX",4,7]]
+    output: "Part A: True (zero-wait connection at 4 allowed since leave >= arrive)"
+  - input: same flights, Part B
+    output: "2 (wait 2 at SFO, 0 at SEA)"
+  - input: origin SFO, dest LAX, flights [["SFO","LAX",1,9],["SFO","SEA",5,6],["SEA","LAX",6,8]], Part B
+    output: "1 (direct flight wins despite later arrival — earliest arrival is NOT optimal for waiting)"
+constraints: |
+  Flights are not sorted; do not modify the input. Times are
+  non-negative ints; arrive > depart strictly. Leaving at exactly the
+  arrival time is allowed (leave >= arrive). No flights / no route:
+  False (Part A), -1 (Part B). Origin == destination: True (Part A),
+  0 (Part B).
+starter: |
+  def package(origin_airport: str, dest_airport: str, flights: list[list]) -> bool:
+      """Returns True if a package at origin_airport at time 0 can reach dest_airport."""
+      pass
+follow_ups:
+  - text: Minimum layover of k — check earliest[src] + k <= depart; decide whether the buffer applies at the origin
+    kind: variant
+  - text: "Package starts at time T — seed earliest {origin: T} (Part A); seed best_at[origin] = -T (Part B)"
+    kind: variant
+  - text: Return the actual route — store a parent pointer per update, walk back and reverse
+    kind: variant
+  - text: Maximum layover L (Part B) — breaks the single running minimum; use a sliding-window minimum (monotonic deque) per airport
+    kind: scale
+  - text: Billions of flights — external sort by time, stream the sweep, keep only best_at and in-flight costs
+    kind: scale
+solution:
+  approach: |
+    Part A: earliest-arrival in departure order. Sort a copy of flights
+    by departure; keep earliest[airport]; relax destinations where
+    earliest[src] <= depart. Earlier arrival is never worse for
+    reachability, so one pass suffices. Part B: earliest arrival is NOT
+    optimal (arriving earlier can mean waiting longer), so optimize cost
+    per flight with DP in time order: cost[j] = depart_j + min over
+    predecessor flights i of (cost[i] - arrive_i). Maintain
+    best_at[airport] = min(cost[i] - arrive_i) incrementally with an
+    event sweep (arrival events sort before departure events on ties),
+    seeded best_at = {origin: 0} so origin wait falls out of the formula.
+  complexity:
+    time: O(F log F) both parts (F = flights)
+    space: O(F + A) (A = airports)
+  code: |
+    def package_a(origin_airport, dest_airport, flights):
+        if origin_airport == dest_airport:
+            return True
+        earliest = {origin_airport: 0}
+        for src, dst, depart, arrive in sorted(flights, key=lambda f: f[2]):
+            if src in earliest and earliest[src] <= depart:
+                if dst not in earliest or arrive < earliest[dst]:
+                    earliest[dst] = arrive
+        return dest_airport in earliest
+
+
+    def package_b(origin_airport, dest_airport, flights):
+        if origin_airport == dest_airport:
+            return 0
+        events = []
+        for i, (_, _, depart, arrive) in enumerate(flights):
+            events.append((depart, 1, i))
+            events.append((arrive, 0, i))
+        events.sort()
+        best_at = {origin_airport: 0}
+        cost = [None] * len(flights)
+        answer = float("inf")
+        for _, kind, i in events:
+            src, dst, depart, arrive = flights[i]
+            if kind == 1:
+                if src in best_at:
+                    cost[i] = depart + best_at[src]
+            elif cost[i] is not None:
+                if dst == dest_airport:
+                    answer = min(answer, cost[i])
+                value = cost[i] - arrive
+                if dst not in best_at or value < best_at[dst]:
+                    best_at[dst] = value
+        return -1 if answer == float("inf") else answer
+  code_language: python
+  pitfalls:
+    - Writing < instead of <= in the catchable-flight check breaks the zero-wait connection case
+    - Processing departures before arrivals on equal times (arrival events must sort first)
+    - Counting wait at the destination after landing in Part B
+    - Reusing Part A's earliest-arrival state for Part B (earlier arrival can mean longer wait)
+occurrences:
+  - company: google
+    role: intern
+    round: phone
+    year: 2026
+    contributor: friend
+    evidence: friend-report
+    notes: Mock interview (Python, Google-style virtual); Part A reachability plus Part B minimum-waiting follow-up, verified against brute-force route search
+sources:
+  - kind: pdf
+    path: add to qbank 3 nov/K google intern 2027/Google_Mock_Interview_Summary_Package_Transfer.pdf
+    role: solution
+updated_at: 2026-11-03

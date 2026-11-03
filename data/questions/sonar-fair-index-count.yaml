@@ -1,0 +1,116 @@
+id: sonar-fair-index-count
+title: Fair index count over two arrays
+type: oa-sim
+tags:
+  - sonar
+  - oa
+  - prefix-sums
+topics:
+  - arrays
+difficulty: medium
+status: extracted
+confidence: high
+evidence: friend-report
+prompt: |
+  You are given two arrays A and B consisting of N integers each.
+
+  Index K is named fair if the four sums A[0] + ... + A[K-1],
+  A[K] + ... + A[N-1], B[0] + ... + B[K-1] and B[K] + ... + B[N-1]
+  are all equal. In other words, K is the index where the two arrays,
+  A and B, can be split (into two non-empty arrays each) in such a way
+  that the sums of the resulting arrays' elements are equal.
+
+  For example, given arrays A = [0, 4, -1, 0, 3] and B = [0, -2, 5, 0, 3],
+  index K = 3 is fair. The sums of the four subarrays are all equal:
+  0 + 4 + (-1) = 3; 0 + 3 = 3; 0 + (-2) + 5 = 3 and 0 + 3 = 3.
+  On the other hand, index K = 2 is not fair; the sums of the subarrays are:
+  0 + 4 = 4; (-1) + 0 + 3 = 2; 0 + (-2) = -2 and 5 + 0 + 3 = 8.
+
+  Write a function:
+
+    def solution(A, B)
+
+  which, given two arrays of integers A and B, returns the total
+  number of fair indexes.
+examples:
+  - input: A = [0, 4, -1, 0, 3], B = [0, -2, 5, 0, 3]
+    output: "2"
+    explanation: The fair indexes are 3 and 4. In both cases the subarray sums are equal to 3.
+  - input: A = [2, -2, -3, 3], B = [0, 0, 4, -4]
+    output: "1"
+    explanation: The only fair index is 2. Index 4 is not fair as the subarrays containing indexes from K to N - 1 would be empty.
+  - input: A = [4, -1, 0, 3], B = [-2, 6, 0, 4]
+    output: "0"
+    explanation: There are no fair indexes.
+  - input: A = [3, 2, 6], B = [4, 1, 6]
+    output: "0"
+  - input: A = [1, 4, 2, -2, 5], B = [7, -2, -2, 2, 5]
+    output: "2"
+    explanation: The fair indexes are 2 and 4.
+constraints: |
+  N is an integer within the range [2..100,000];
+  each element of arrays A and B is an integer within the range
+  [-1,000,000,000..1,000,000,000].
+starter: |
+  def solution(A, B):
+      # Implement your solution here
+      pass
+solution:
+  approach: |
+    Compute total_a = sum(A) and total_b = sum(B). Walk split points
+    K = 1..N-1 maintaining running prefix sums sum_a, sum_b. Split K is
+    fair iff sum_a == sum_b (left halves agree, hence right halves agree
+    too) and sum_a * 2 == total_a and sum_b * 2 == total_b (each left half
+    equals its right half).
+  complexity:
+    time: O(N) — one pass for the totals, one pass over split points
+    space: O(1) — constant extra space
+  code: |
+    def solution(A, B):
+        total_a = sum(A)
+        total_b = sum(B)
+
+        fair_count = 0
+        sum_a = 0
+        sum_b = 0
+
+        for i in range(len(A) - 1):
+            sum_a += A[i]
+            sum_b += B[i]
+            if sum_a == sum_b and sum_a * 2 == total_a and sum_b * 2 == total_b:
+                fair_count += 1
+
+        return fair_count
+  code_language: python
+  pitfalls:
+    - "Off-by-one on the split range: K must satisfy 1 <= K < N so both halves are non-empty"
+    - Checking only sum_a == sum_b without verifying each half equals its own remainder
+    - O(N^2) re-slicing/summing at each split instead of running prefix sums
+occurrences:
+  - company: sonar
+    round: oa
+    year: 2026
+    tool: Codility
+    contributor: friend
+    evidence: friend-report
+    notes: Sonar OA on Codility (Python 3), Task 1 of 2, seen 11 Oct 2026
+sources:
+  - kind: image
+    path: "add to qbank 3 nov/sonar/oa sonar/Screenshot 2026-10-11 at 12.44.30 PM.png"
+    role: prompt
+  - kind: image
+    path: "add to qbank 3 nov/sonar/oa sonar/Screenshot 2026-10-11 at 12.45.07 PM.png"
+    role: prompt
+  - kind: image
+    path: "add to qbank 3 nov/sonar/oa sonar/Screenshot 2026-10-11 at 12.45.30 PM.png"
+    role: prompt
+  - kind: image
+    path: "add to qbank 3 nov/sonar/oa sonar/Screenshot 2026-10-11 at 12.45.50 PM.png"
+    role: prompt
+  - kind: image
+    path: "add to qbank 3 nov/sonar/oa sonar/Screenshot 2026-10-11 at 12.46.06 PM.png"
+    role: prompt
+  - kind: notes
+    path: "add to qbank 3 nov/sonar/oa sonar/sonar_interview_assessment_summary.md"
+    role: solution
+updated_at: 2026-11-03

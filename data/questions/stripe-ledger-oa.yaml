@@ -1,0 +1,245 @@
+id: stripe-ledger-oa
+title: Financial Account Ledger (Stripe Treasury OA)
+type: oa-sim
+tags:
+  - stripe
+  - oa
+  - ledger
+  - simulation
+topics:
+  - hashing
+  - math
+difficulty: medium
+status: extracted
+confidence: high
+evidence: friend-report
+prompt: |
+  Implement process_ledger(commands). It processes funding requests for
+  financial accounts and returns a comma-separated string of balance
+  results, one per BALANCE command, in input order. 4 parts unlock one at
+  a time and build on each other; tests from earlier parts keep running
+  against the final code. HackerRank, Python 3, 60 minutes.
+
+  Commands:
+    INIT <account_id> <starting_balance> — creates an account. Balance is
+      in minor units and settles immediately. (Also seen as
+      INIT <account_id> USD <starting_balance>.)
+    FUND <ts> <account_id> <method> <amount> — adds amount through method.
+      If the account doesn't exist, ignore the command.
+    BALANCE <ts> <account_id> — reports the settled balance: starting
+      balance plus every earlier accepted fund whose settlement day is at
+      most the BALANCE's day.
+
+  Input guarantees: 1 <= n <= 1000. Commands are well-formed and use only
+  command types introduced by the part being tested. Account IDs are
+  non-empty and contain no spaces. All INIT commands come before every
+  timestamped command. If an account is INIT'd more than once, only the
+  first INIT counts. Starting balances are non-negative; funding amounts
+  are positive. Every amount and intermediate balance fits in a signed
+  64-bit integer. Parts 1-2 use whole-day timestamps (1). Parts 3-4 use
+  day,hour (1,16). The final solution must accept both; a timestamp with
+  no comma means that day at hour 0.
+
+  Part 1 — Funding with Settlement: funds count toward the balance only
+  once settled. Commands are in chronological order; same-day commands are
+  processed in input order. Every day is a weekday. Day 1 is Monday.
+    WIRE settles the submission day. ACH settles one day after submission.
+
+  Part 2 — Business Day Settlement: settlement respects business days; a
+  third method appears. In each 7-day cycle, days 6 and 7 are Saturday and
+  Sunday: day d is a weekend if d % 7 == 6 or d % 7 == 0.
+    WIRE settles on the submission day; a weekend submission settles the
+      following Monday.
+    ACH settles one business day after submission; a weekend submission is
+      treated as submitted on the following Monday.
+    STABLECOIN settles on the submission day, including weekends.
+
+  Part 3 — Cutoff Times: timestamps become <day>,<hour> with hour 0-23.
+  Commands are in strict chronological order, no two share a timestamp. A
+  BALANCE reports the state at its exact timestamp: a fund only affects
+  commands after it.
+    WIRE cutoff 17, ACH cutoff 20, STABLECOIN no cutoff.
+    WIRE/ACH submitted before the cutoff counts as submitted that day;
+      at or after the cutoff counts as submitted on the next business day.
+    A weekend WIRE/ACH counts as submitted the following Monday,
+      regardless of hour. STABLECOIN ignores cutoffs and weekends.
+    Apply the Part 2 settlement rules to this effective submission day.
+    Settlement is by calendar day, not hour: a fund settling on day d is
+      visible to any later BALANCE on day d, regardless of hour, but never
+      to a command before the FUND itself.
+
+  Part 4 — Funding Limits: ACH requests have per-account limits against
+  the effective submission day (after Part 3 cutoff/weekend rules):
+    Daily: 5,000,000 minor units per effective business day.
+    Weekly: 10,000,000 minor units per week (days 1-7 week 1, 8-14 week 2...).
+  If an ACH request would make either limit exceed its maximum, reject the
+  entire request. A rejected request never settles and doesn't count toward
+  either limit. WIRE and STABLECOIN are not limited.
+examples:
+  - input: |
+      INIT acct_1 10000
+      FUND 1 acct_1 WIRE 5000
+      FUND 1 acct_1 ACH 3000
+      BALANCE 1 acct_1
+      BALANCE 2 acct_1
+    output: 15000,18000
+    explanation: WIRE settles day 1, ACH settles day 2 (Part 1).
+  - input: |
+      INIT acct_1 0
+      FUND 5 acct_1 WIRE 5000
+      BALANCE 5 acct_1
+      FUND 6 acct_1 STABLECOIN 1000
+      BALANCE 6 acct_1
+      FUND 6 acct_1 ACH 2000
+      BALANCE 8 acct_1
+      BALANCE 9 acct_1
+    output: 5000,6000,6000,8000
+    explanation: Sat STABLECOIN settles day 6; Sat ACH treated as Mon (day 8), settles Tue (day 9) (Part 2).
+  - input: |
+      INIT acct_1 0
+      FUND 1,16 acct_1 WIRE 5000
+      FUND 1,17 acct_1 WIRE 3000
+      BALANCE 1,18 acct_1
+      BALANCE 2,0 acct_1
+    output: 5000,8000
+    explanation: WIRE at 1,17 is at the 17 cutoff, so effective day 2 (Part 3).
+  - input: |
+      INIT acct_1 0
+      FUND 1,10 acct_1 ACH 5000000
+      FUND 1,11 acct_1 ACH 1000
+      FUND 1,21 acct_1 ACH 4000000
+      BALANCE 2,0 acct_1
+      BALANCE 3,0 acct_1
+      FUND 3,10 acct_1 ACH 2000000
+      BALANCE 4,0 acct_1
+    output: 5000000,9000000,9000000
+    explanation: Second fund rejected (daily limit); last fund rejected (weekly limit) (Part 4).
+constraints: n <= 1000; whole-day timestamps in Parts 1-2, day,hour in Parts 3-4; final solution accepts both
+starter: |
+  def process_ledger(commands):
+      # Write your code here
+follow_ups:
+  - text: Add a new method (e.g. RTP - instant, 24/7, per-transaction cap)
+    kind: variant
+  - text: Handle holidays (is_business_day over a holiday set, not just weekends)
+    kind: variant
+  - text: Commands arriving out of order (sort by timestamp, input order for ties)
+    kind: scale
+  - text: Scale BALANCE queries (prefix sums per account or Fenwick tree)
+    kind: scale
+solution:
+  approach: |
+    Every FUND goes through three steps: (1) effective submission day via
+    weekend + cutoff rules, (2) all-or-nothing limit check against the
+    effective day, (3) settlement day = effective day + method lag in
+    business days; store (settlement_day, amount) on the account. BALANCE
+    on day d sums starting balance + stored settlements with
+    settle_day <= d. Processing in input order gives Part 3's "never
+    affects an earlier command" rule for free. Bare-day timestamps parse to
+    hour 0 (before every cutoff) so Parts 1-2 tests keep passing.
+  complexity:
+    time: O(n^2) worst case (each BALANCE sums stored settlements); n <= 1000
+    space: O(n) stored settlements
+  code: |
+    from collections import defaultdict
+
+    SETTLEMENT_LAG = {"WIRE": 0, "ACH": 1, "STABLECOIN": 0}
+    CUTOFF_HOUR = {"WIRE": 17, "ACH": 20}
+    LIMITS = {"ACH": [("daily", 5_000_000, lambda d: d),
+                      ("weekly", 10_000_000, lambda d: (d - 1) // 7)]}
+
+    def is_weekend(day):
+        return day % 7 in (6, 0)
+
+    def next_business_day(day):
+        day += 1
+        while is_weekend(day):
+            day += 1
+        return day
+
+    def parse_timestamp(token):
+        day, _, hour = token.partition(",")
+        return int(day), (int(hour) if hour else 0)
+
+    def effective_day(method, day, hour):
+        if method == "STABLECOIN":
+            return day
+        if is_weekend(day) or hour >= CUTOFF_HOUR[method]:
+            return next_business_day(day)
+        return day
+
+    def settlement_day(method, eff_day):
+        if method == "STABLECOIN":
+            return eff_day
+        for _ in range(SETTLEMENT_LAG[method]):
+            eff_day = next_business_day(eff_day)
+        return eff_day
+
+    def try_use_limits(usage, account, method, eff_day, amount):
+        keys = [(account, name, period(eff_day), cap)
+                for name, cap, period in LIMITS.get(method, [])]
+        if any(usage[key[:3]] + amount > key[3] for key in keys):
+            return False
+        for key in keys:
+            usage[key[:3]] += amount
+        return True
+
+    def process_ledger(commands):
+        starting = {}
+        settlements = defaultdict(list)
+        limit_usage = defaultdict(int)
+        results = []
+        for command in commands:
+            parts = command.split()
+            op = parts[0]
+            if op == "INIT":
+                starting.setdefault(parts[1], int(parts[-1]))
+            elif op == "FUND":
+                _, ts, account, method, amount = parts
+                if account not in starting:
+                    continue
+                day, hour = parse_timestamp(ts)
+                amount = int(amount)
+                eff = effective_day(method, day, hour)
+                if not try_use_limits(limit_usage, account, method, eff, amount):
+                    continue
+                settlements[account].append((settlement_day(method, eff), amount))
+            elif op == "BALANCE":
+                _, ts, account = parts
+                if account not in starting:
+                    continue
+                day, _ = parse_timestamp(ts)
+                results.append(starting[account] + sum(a for d, a in settlements[account] if d <= day))
+        return ",".join(map(str, results))
+  code_language: python
+  pitfalls:
+    - Cutoff is "at or after" (hour >= cutoff); the Part 3 example tests WIRE at exactly 17
+    - Limits use exceed semantics - exactly 5,000,000 is accepted; bucket by effective day, not raw day
+    - Rejected requests must not count toward any limit - check all limits first, record usage only on accept
+    - First INIT wins (setdefault); INIT balance is the last token (INIT acct_1 USD 100)
+    - FUND to unknown account is ignored
+    - Integers for money (minor units), never floats
+occurrences:
+  - company: stripe
+    round: oa
+    year: 2026
+    tool: hackerrank
+    contributor: friend
+    evidence: friend-report
+    notes: Real OA screenshots Oct 2026; 60 min, Python 3, 4 progressive parts
+sources:
+  - kind: image
+    path: add to qbank 3 nov/stripe oa/ss/WhatsApp Image 2026-10-05 at 16.17.42.jpeg
+    role: prompt
+  - kind: image
+    path: add to qbank 3 nov/stripe oa/ss/WhatsApp Image 2026-10-05 at 16.17.42 (2).jpeg
+    role: prompt
+  - kind: image
+    path: add to qbank 3 nov/stripe oa/ss/WhatsApp Image 2026-10-05 at 16.17.43 (4).jpeg
+    role: prompt
+  - kind: pdf
+    path: add to qbank 3 nov/stripe oa/Stripe_OA_Ledger_Practice_Guide.pdf
+    role: solution
+related:
+  - stripe-ledger-practice
+updated_at: 2026-11-03

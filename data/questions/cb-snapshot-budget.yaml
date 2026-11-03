@@ -1,0 +1,87 @@
+id: cb-snapshot-budget
+title: Snapshot budget on a version tree
+type: dsa
+tags: [coderbyte, oa]
+topics: [tree, greedy]
+difficulty: hard
+status: extracted
+confidence: medium
+evidence: live-prompt
+prompt: |
+  A version-control history is a rooted tree. Version 0 is the empty
+  baseline and is always stored. There are n other versions. Every
+  version other than 0 has exactly one parent, and parent indexes are
+  smaller than child indexes, so version numbers are already a
+  topological order.
+
+  To reconstruct version v, replay edits from v's nearest stored
+  ancestor. The cost is the number of edges from v up to that ancestor,
+  or 0 if v itself is stored.
+
+  Given a cost limit T, store the fewest extra snapshots (versions 1..n)
+  so every version has reconstruction cost <= T.
+
+  Input is n, T, and parents. parents has length n. The text extract
+  does not show whether parents[i] is the parent of version i+1 or of
+  version i. Return one integer, the number of extra snapshots.
+constraints: |
+  Numeric bounds in the write-up's text layer were stripped. Parent
+  relationship is a tree into version 0. Hidden tests include a chain
+  with T = 1.
+starter: |
+  def solve(n, T, parents):
+      pass
+solution:
+  approach: |
+    A snapshot covers that version and descendants within T edges. It
+    does not cover ancestors. Walk versions from n down to 1. Track how
+    far below the current version the deepest still-uncovered version
+    sits. When that distance is T, this version must be stored, and its
+    subtree no longer asks the parent for a snapshot. Otherwise push
+    distance + 1 up to the parent. Version 0 is already stored, so a
+    demand of at most T-1 on a child of the root is already covered.
+  complexity:
+    time: O(n)
+    space: O(n)
+  code_language: python
+  code: |
+    def solve(n, T, parents):
+        # Assumes parents[i] is the parent of version i + 1.
+        parent = [0] * (n + 1)
+        for version, p in enumerate(parents, start=1):
+            parent[version] = p
+        need = [0] * (n + 1)
+        snapshots = 0
+        for version in range(n, 0, -1):
+            if need[version] == T:
+                snapshots += 1
+                continue
+            p = parent[version]
+            if p > 0:
+                need[p] = max(need[p], need[version] + 1)
+        return snapshots
+  pitfalls:
+    - Storing a child does not cover the parent; do not push demand through a snapshot
+    - A first draft that reset depth to 0 and still added 1 for the parent failed test_chain_t1 (expected 4, got 2)
+    - Confirm the parents index before trusting the starter. The PDF's index was unreadable
+occurrences:
+  - company: coderbyte
+    round: oa
+    year: 2026
+    tool: coderbyte
+    contributor: self
+    evidence: live-prompt
+    notes: Second problem in the timed Coderbyte assessment. The editor draft did not pass.
+sources:
+  - kind: pdf
+    path: "extra 3/to add to qbank/coderbyte_Detailed Assessment Breakdown.pdf"
+    role: prompt
+  - kind: code
+    path: "extra 3/to add to qbank/coder byte.zip"
+    role: commentary
+notes: |
+  Extraction confidence is medium because the parent-index sentence and
+  the numeric constraints did not survive the PDF text layer. The chain
+  test name and the 4-vs-2 failure are from the editor screenshot.
+related: [cb-optimistic-writers, cb-jobs-techs]
+updated_at: 2026-10-05

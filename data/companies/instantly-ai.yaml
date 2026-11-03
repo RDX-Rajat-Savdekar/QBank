@@ -1,0 +1,8 @@
+name: Instantly AI
+aliases: [instantly-ai, instantly]
+levels: []
+loop: [phone, takehome, onsite]
+signals: []
+tools: []
+resources: []
+notes_md: instantly-ai.md

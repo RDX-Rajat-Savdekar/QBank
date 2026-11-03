@@ -1,0 +1,104 @@
+id: amgen-rag-systems
+title: RAG pipeline end-to-end — ingestion, retrieval, eval and infra
+type: genai
+tags:
+  - amgen
+  - genai
+  - rag
+topics:
+  - rag
+  - ml-systems
+difficulty: medium
+status: extracted
+confidence: medium
+evidence: friend-report
+prompt: |
+  R1 covered an end-to-end RAG system plus one behavioral STAR story.
+  Restated from a shared interview-summary doc (not a verbatim transcript).
+
+  RAG ingestion (Confluence docs to vector DB):
+  - Extraction: loader (e.g. LangChain ConfluenceLoader) authenticates to
+    source APIs and pulls raw content plus metadata (URLs, titles, timestamps).
+  - Chunking: split large docs into coherent units (Markdown headers or
+    Recursive Character Text Splitting) to fit LLM context limits.
+  - Embedding: chunks pass through an embedding model
+    (e.g. text-embedding-3-small) into dense float vectors.
+  - Indexing: vectors plus raw text and metadata (access roles, domain
+    filters) persisted to a Vector DB (ChromaDB/Qdrant) indexed with
+    HNSW for fast similarity retrieval.
+
+  Live query path: Master Agent routes the query through the same embedding
+  model, runs Top-K cosine nearest-neighbor search, re-ranks/filters with a
+  second-stage model (Cross-Encoder or LLM judge), injects top snippets into
+  the system prompt, and generates a grounded answer.
+
+  Retrieval quality: first-layer bi-encoder search is fast but lossy
+  (near-identical codes like R01 vs R03 collide; topic match != answer
+  match; 500-word chunks wash out details), so a Cross-Encoder / judge LLM
+  reads query + chunk together for precision, with a fallback message when
+  top relevance is below threshold (e.g. < 0.6).
+
+  Chunking details: RCTS falls back through separators ["\n\n", "\n", " ", ""];
+  tables are handled via header-injected row chunks, table summarization +
+  raw retrieval, or JSON/key-value conversion. Chunk table columns:
+  chunk_id (UUID PK), document_id (FK), embedding (vector), content (text),
+  chunk_index (sequence), governance_meta (headings, access roles, URL, version).
+
+  Infra: ChromaDB needs explicit string IDs such as
+  "{document_id}_chunk_{index}". Single-host via docker-compose with a
+  persistent volume; cloud via ECS/Fargate or Cloud Run; Kubernetes with a
+  StatefulSet + PVC for the vector index. LangChain extraction =
+  authenticate, CQL queries with pagination, BeautifulSoup parse into
+  Document objects preserving metadata.
+
+  Behavioral (STAR): Java/Spring Boot microservice ingesting trade feeds
+  (SWIFT, XML, CSV), parsing Trade ID / Counterparty / Notional / ISIN,
+  asset-class-based transformation, validation plus REST retry for zero
+  message loss, achieving EOD reconciliation parity across two downstream
+  systems.
+follow_ups:
+  - text: Why is a second-layer re-ranker required on top of vector search?
+    kind: concept
+  - text: How does an LLM-as-a-judge score retrieval relevance and faithfulness?
+    kind: concept
+  - text: How do you chunk large Confluence tables without corrupting LLM context?
+    kind: variant
+  - text: Essential columns of a production chunking table and their purpose
+    kind: concept
+  - text: How are RAG services hosted with Docker from single-host to Kubernetes?
+    kind: scale
+  - text: Upcoming R2 is DSA + JS knowledge (no content captured)
+    kind: meta
+solution:
+  approach: |
+    Ingestion: extract with metadata, RCTS chunking, embed, HNSW index.
+    Query: same-model embed, Top-K cosine, cross-encoder re-rank, threshold
+    fallback, grounded generation. Tables via header-injected rows or
+    summarize-then-fetch-raw. Composite chunk IDs enable context-window
+    expansion via adjacent indices. Deploy stateless app + stateful vector
+    store with persistent volumes.
+  complexity:
+    time: Retrieval dominated by ANN Top-K plus a bounded re-rank pass
+    space: One dense vector per chunk plus raw text and metadata
+  pitfalls:
+    - Hashing or searching raw HTML instead of cleaned text
+    - Sending every candidate chunk to an expensive judge model
+    - Single-zero or leading-zero style ID mishandling in eval harnesses
+    - Storing raw blobs in the relational table instead of object storage
+occurrences:
+  - company: amgen
+    round: unknown
+    year: 2026
+    contributor: friend
+    evidence: friend-report
+    notes: R1 (format unspecified). R2 reported as DSA + JS knowledge (graph
+      traversals, DP, sliding window, closures, event loop, polyfills);
+      no R2 content captured.
+sources:
+  - kind: pdf
+    path: add to qbank 3 nov/amgen r1/Amgen Software Engineering & RAG Systems Interview Summary - October 2026.pdf
+    role: prompt
+notes: Summary doc shared by a friend, not a verbatim live prompt; code-level
+  details (thresholds, model names) are as stated in the doc. R2 (DSA + JS)
+  had no capturable content, so no separate file was created.
+updated_at: 2026-11-03

@@ -1,0 +1,152 @@
+id: goaly-kvstore-ttl-lru
+title: In-memory KV store with TTL expiration and LRU eviction
+type: lld
+tags:
+  - goaly
+  - kv-store
+  - ttl
+  - lru
+topics:
+  - hashing
+  - heap
+  - design-api
+difficulty: medium
+status: extracted
+confidence: high
+evidence: live-prompt
+prompt: |
+  Build an in-memory key-value store in three parts.
+
+  Part 1 — TTL: extend the API with put(key, value, ttl). A key must no
+  longer be visible after its TTL expires (ttl in seconds; use
+  time.time()). get() must never return an expired value. Discuss time
+  and space complexity.
+
+  Part 2 — Efficient cleanup: expired keys should eventually be removed
+  from memory even if nobody calls get() on them. Add cleanup(), which
+  removes expired keys but must NOT scan the entire store every time.
+  Explain which additional data structure you would use.
+
+  Part 3 — Capacity and LRU eviction: support KVStore(capacity=1000).
+  When capacity is reached on put(), first purge expired keys, then
+  evict the least recently used non-expired key. Targets: get O(1)
+  average (excluding expiration cleanup), LRU update O(1), expiration
+  management O(log n) where necessary. Explain the invariants your data
+  structures maintain.
+examples:
+  - input: put("a", 1, ttl=10); get("a") before 10s
+    output: "1"
+  - input: put("a", 1, ttl=10); advance 10s; get("a")
+    output: None (key expired and lazily removed)
+  - input: capacity=2; put(a); put(b); get(a); put(c)
+    output: b evicted (a was recently used), c inserted
+constraints: |
+  put/get/delete average O(1); cleanup O(k log n) where k is the number
+  of expired/stale heap entries popped; space O(n). Overwriting a key
+  must update its expiry without breaking the heap invariant (stale heap
+  entries tolerated via timestamp verification). On put at capacity:
+  cleanup() first, then evict LRU non-expired key.
+starter: |
+  class KVStore:
+      def put(self, key, value, ttl):
+          pass
+
+      def get(self, key):
+          pass
+
+      def delete(self, key):
+          pass
+follow_ups:
+  - text: Ghost entries — put() on an existing key leaves a stale (expiry, key) tuple in the min-heap since arbitrary deletion is O(n); verify heap_expiry == store[key] expiry on pop and skip stale entries
+    kind: correctness
+  - text: Continuous automatic cleanup without blocking clients — background daemon thread calling cleanup() on an interval
+    kind: scale
+  - text: Thread safety for multi-threaded use — guard state with threading.RLock (reentrant so put() can call cleanup())
+    kind: concurrency
+  - text: Build LRU from scratch without OrderedDict — hash map plus doubly-linked list with head/tail dummies, detach-and-append-to-tail on access
+    kind: variant
+solution:
+  approach: |
+    Part 1: dict key -> (value, expiry_time = time.time() + ttl); lazy
+    expiration check on get(). Part 2: min-heap of (expiry_time, key);
+    cleanup() pops while heap top is expired, deleting keys whose heap
+    timestamp matches the store timestamp. Part 3: OrderedDict for
+    O(1) LRU (left = LRU, right = MRU, move_to_end on access,
+    popitem(last=False) to evict) plus the expiry heap; put() runs
+    cleanup() first, then evicts LRU if still full.
+  complexity:
+    time: get O(1) avg; put O(log n); cleanup O(k log n)
+    space: O(n)
+  code: |
+    import heapq
+    import time
+    from collections import OrderedDict
+    from typing import Any, Optional
+
+
+    class KVStore:
+        def __init__(self, capacity: int):
+            self.capacity = capacity
+            self.store: OrderedDict = OrderedDict()
+            self.expiry_heap: list = []
+
+        def put(self, key: Any, value: Any, ttl: float) -> None:
+            expiry_time = time.time() + ttl
+            if key in self.store:
+                self.store[key] = (value, expiry_time)
+                self.store.move_to_end(key)
+                heapq.heappush(self.expiry_heap, (expiry_time, key))
+                return
+            self.cleanup()
+            if len(self.store) >= self.capacity:
+                self.store.popitem(last=False)
+            self.store[key] = (value, expiry_time)
+            heapq.heappush(self.expiry_heap, (expiry_time, key))
+
+        def get(self, key: Any) -> Optional[Any]:
+            if key not in self.store:
+                return None
+            value, expiry_time = self.store[key]
+            if time.time() >= expiry_time:
+                self.delete(key)
+                return None
+            self.store.move_to_end(key)
+            return value
+
+        def delete(self, key: Any) -> None:
+            if key in self.store:
+                del self.store[key]
+
+        def cleanup(self) -> int:
+            now = time.time()
+            cleaned = 0
+            while self.expiry_heap and self.expiry_heap[0][0] <= now:
+                heap_expiry, key = heapq.heappop(self.expiry_heap)
+                if key in self.store and self.store[key][1] == heap_expiry:
+                    del self.store[key]
+                    cleaned += 1
+            return cleaned
+  code_language: python
+  pitfalls:
+    - Returning the (value, expiry) tuple from get() instead of unpacking to the scalar value
+    - Using < instead of <= in the expiry comparison inconsistently between get() and cleanup()
+    - Trying to delete arbitrary entries from the heap on overwrite (O(n)) instead of tolerating stale entries
+    - Evicting before running cleanup(), wasting a live slot on an expired key
+occurrences:
+  - company: goaly
+    round: onsite
+    year: 2026
+    contributor: friend
+    evidence: live-prompt
+    notes: Three-part live coding interview (TTL, cleanup, LRU); FakeClock-based test harness with 13/13 tests
+sources:
+  - kind: image
+    path: add to qbank 3 nov/goaly interview/untitled folder/Screenshot 2026-10-13 at 4.02.51 PM.png
+    role: prompt
+  - kind: image
+    path: add to qbank 3 nov/goaly interview/untitled folder/Screenshot 2026-10-13 at 4.03.35 PM.png
+    role: prompt
+  - kind: pdf
+    path: add to qbank 3 nov/goaly interview/KVStore Interview Guide.pdf
+    role: solution
+updated_at: 2026-11-03

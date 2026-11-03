@@ -1,0 +1,99 @@
+id: instantly-ai-flatten-one-level
+title: Trace and fix one-level array flatten (foo)
+type: debug
+tags:
+  - instantly-ai
+  - javascript
+topics:
+  - arrays
+difficulty: easy
+status: extracted
+confidence: high
+evidence: friend-report
+prompt: |
+  Look at this piece of code and reason through it together with the
+  interviewer (live code-review style, round 1 after the intro):
+
+    function foo(arr) {
+      const result = [];
+      for (const item of arr) {
+        if (Array.isArray(item)) {
+          for (const inner of item) {
+            result.push(inner);
+          }
+        } else {
+          result.push(item);
+        }
+      }
+      return result;
+    }
+
+  Discussion questions:
+  - Walk through the output for [1, [2, 3], 4, [5]].
+  - What happens with a doubly nested array like [1, [2, [3]]]?
+  - How would you flatten to arbitrary depth?
+  - Edge cases: what does it return for an empty array? What happens with an
+    empty sub-array, like [1, [], 2]?
+examples:
+  - input: "[1, [2, 3], 4, [5]]"
+    output: "[1, 2, 3, 4, 5]"
+    explanation: One level of nesting is flattened.
+  - input: "[1, [2, [3]]]"
+    output: "[1, 2, [3]] — inner [3] is pushed as-is, not flattened"
+  - input: "[]"
+    output: "[]"
+  - input: "[1, [], 2]"
+    output: "[1, 2]"
+constraints: |
+  Only one level of nesting is flattened; deeper nesting is preserved as arrays.
+follow_ups:
+  - text: Rewrite foo to flatten to arbitrary depth (recursive or stack-based).
+    kind: variant
+  - text: How would you flatten only to a given depth (like Array.prototype.flat(depth))?
+    kind: variant
+solution:
+  approach: |
+    foo does a single-level flatten: non-array items are pushed as-is, array
+    items have their immediate elements pushed. [1, [2, 3], 4, [5]] gives
+    [1, 2, 3, 4, 5]. [1, [2, [3]]] gives [1, 2, [3]] because the inner [3] is
+    an element of the sub-array and is pushed without recursion. [] gives [];
+    [1, [], 2] gives [1, 2]. For arbitrary depth, recurse when Array.isArray
+    (or use arr.flat(Infinity)): push recurse(inner) contents into result.
+  complexity:
+    time: O(n) in total elements visited per level handled
+    space: O(n) for the result
+  code: |
+    function fooDeep(arr) {
+      const result = [];
+      for (const item of arr) {
+        if (Array.isArray(item)) {
+          result.push(...fooDeep(item));
+        } else {
+          result.push(item);
+        }
+      }
+      return result;
+    }
+  code_language: javascript
+  pitfalls:
+    - Assuming the snippet fully flattens deeply nested arrays
+    - Forgetting the empty-array and empty-sub-array edge cases
+    - Recursive solution without a base case / stack-depth consideration
+occurrences:
+  - company: instantly-ai
+    round: phone
+    year: 2026
+    contributor: friend
+    evidence: friend-report
+    notes: Round 1 intro plus live code review; followed by a 48-hour take-home case study (round 2) and onsite case study (round 3)
+sources:
+  - kind: pdf
+    path: add to qbank 3 nov/A_instantly_ai/Intantly_ai_note.pdf
+    role: commentary
+  - kind: image
+    path: add to qbank 3 nov/A_instantly_ai/Screenshot 2026-11-02 at 11.10.33 AM.png
+    role: prompt
+  - kind: image
+    path: add to qbank 3 nov/A_instantly_ai/Screenshot 2026-11-02 at 11.10.37 AM.png
+    role: prompt
+updated_at: 2026-11-03

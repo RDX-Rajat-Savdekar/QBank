@@ -1,0 +1,96 @@
+id: sonar-three-letter-palindromes
+title: Maximum number of 3-letter palindromes
+type: oa-sim
+tags:
+  - sonar
+  - oa
+  - greedy
+  - counting
+topics:
+  - strings
+  - hashing
+difficulty: medium
+status: extracted
+confidence: high
+evidence: friend-report
+prompt: |
+  A string is a palindrome if it reads the same backward as forward.
+  For example, "madam" and "racecar" are palindromes, but "milk" is not.
+
+  Write a function:
+
+    def solution(S)
+
+  that, given a string S made of N letters, returns the maximum number
+  of three-letter palindromes you can build using letters from S.
+  You can use each letter from S once.
+
+  A 3-letter palindrome needs two identical outer letters and any one
+  middle letter (e.g. "aba", "aca").
+examples:
+  - input: S = "aaaabc"
+    output: "2"
+    explanation: Examples of three-letter palindromes you can build simultaneously are "aba" and "aca".
+  - input: S = "xyvzwy"
+    output: "1"
+  - input: S = "dd"
+    output: "0"
+    explanation: You cannot build any three-letter palindrome.
+  - input: S = "fknfkn"
+    output: "2"
+constraints: |
+  N is an integer within the range [1..50,000];
+  string S is made only of lowercase letters (a-z).
+starter: |
+  def solution(S):
+      # Implement your solution here
+      pass
+solution:
+  approach: |
+    Count character frequencies. Total pairs P = sum(count // 2) and
+    leftover singles R = N - 2P. Each pair needs one middle letter. If
+    R >= P, every pair is completed and the answer is P. Otherwise R
+    pairs take the R singles, and the remaining P - R pairs must supply
+    their own middles: 3 pairs (6 letters) regroup into 2 palindromes,
+    contributing floor(2 * (P - R) / 3). Answer: R + (2 * (P - R)) // 3.
+  complexity:
+    time: O(N) — single frequency pass; alphabet bounded by 26
+    space: O(1) — frequency map of at most 26 letters
+  code: |
+    from collections import Counter
+
+    def solution(S):
+        counts = Counter(S)
+        pairs = sum(count // 2 for count in counts.values())
+        rem_singles = len(S) - 2 * pairs
+        if rem_singles >= pairs:
+            return pairs
+        excess_pairs = pairs - rem_singles
+        return rem_singles + (excess_pairs * 2) // 3
+  code_language: python
+  pitfalls:
+    - Assuming every pair always yields one palindrome (ignores the middle-letter requirement)
+    - Burning leftover singles suboptimally instead of reserving them as middles first
+    - Missing the regroup case where excess pairs trade 3 pairs for 2 palindromes
+occurrences:
+  - company: sonar
+    round: oa
+    year: 2026
+    tool: Codility
+    contributor: friend
+    evidence: friend-report
+    notes: Sonar OA on Codility (Python 3), Task 2 of 2, seen 11 Oct 2026
+sources:
+  - kind: image
+    path: "add to qbank 3 nov/sonar/oa sonar/Screenshot 2026-10-11 at 12.54.47 PM.png"
+    role: prompt
+  - kind: image
+    path: "add to qbank 3 nov/sonar/oa sonar/Screenshot 2026-10-11 at 12.54.51 PM.png"
+    role: prompt
+  - kind: image
+    path: "add to qbank 3 nov/sonar/oa sonar/Screenshot 2026-10-11 at 12.56.33 PM.png"
+    role: prompt
+  - kind: notes
+    path: "add to qbank 3 nov/sonar/oa sonar/sonar_interview_assessment_summary.md"
+    role: solution
+updated_at: 2026-11-03

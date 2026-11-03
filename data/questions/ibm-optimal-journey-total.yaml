@@ -1,0 +1,109 @@
+id: ibm-optimal-journey-total
+title: Optimal journey total with prime-ending-in-3 jumps
+type: dsa
+tags:
+  - ibm
+  - oa
+  - dp
+topics:
+  - dp
+  - math
+difficulty: medium
+status: extracted
+confidence: high
+evidence: live-prompt
+prompt: |
+  A traveler moves through cities represented by an array of integers, where
+  each integer indicates the money spent (negative) or earned (positive) in
+  that city per day. The journey starts at city 0 and ends at city (n-1).
+  The traveler can move to either an adjacent city or a city that is p steps
+  away, where p is any prime number ending in 3 (3, 13, 23, 43, 53, ...).
+
+  Determine the maximum money the traveler can have at the end of the journey.
+  The answer always includes cities[0] and cities[n-1] (start and end are fixed);
+  moves are forward only (i -> i+1 or i -> i+p).
+
+  Complete the function optimalJourneyTotal in the editor with the following parameter:
+    int cities[n]: cities[i] represents the amount of money earned or spent in the ith city.
+  Returns:
+    int: the maximum amount of money at the end of the journey
+examples:
+  - input: cities = [0, 100, 200, -500, -100, -150, -50]
+    output: "100"
+    explanation: "0 -> 1 (+100 = 100) -> 2 (+200 = 300) -> 5 via jump of 3 (+(-150) = 150) -> 6 (+(-50) = 100). 3 is the only prime ending in 3 within range."
+  - input: "n = 5, cities = [0, -20, 80, -40, -10]"
+    output: "10"
+    explanation: "Walk through all cities in sequence: 0 - 20 + 80 - 40 - 10 = 10."
+  - input: "n = 5, cities = [0, -10, -10, -2, -3]"
+    output: "-5"
+    explanation: "Jump 0 -> 3 (skip both -10s), then 3 -> 4: 0 - 2 - 3 = -5."
+constraints: |
+  1 <= n <= 10^4
+  -10^4 <= cities[i] <= 10^4
+  cities[0] = 0
+starter: |
+  #
+  # Complete the 'optimalJourneyTotal' function below.
+  #
+  # The function is expected to return an INTEGER.
+  # The function accepts INTEGER_ARRAY cities as parameter.
+  #
+  def optimalJourneyTotal(cities):
+      # Write your code here
+solution:
+  approach: |
+    Dynamic programming. Let dp[i] = maximum money on arrival at city i.
+    City i can be reached from i-1 or from i-p for every prime p ending in 3
+    with p <= i: dp[i] = cities[i] + max(dp[i-1], dp[i-p] for each valid jump p).
+    Answer is dp[n-1]. Generate candidate jumps with range(3, n, 10) filtered
+    by a trial-division primality test (every number ending in 3 equals 3 + 10k).
+  complexity:
+    time: O(n * k), k = number of primes ending in 3 below n
+    space: O(n) for the dp array plus O(k) for the jump list
+  code: |
+    def is_prime(x):
+        if x < 2:
+            return False
+        i = 2
+        while i * i <= x:
+            if x % i == 0:
+                return False
+            i += 1
+        return True
+
+    def optimalJourneyTotal(cities):
+        n = len(cities)
+        jumps = [p for p in range(3, n, 10) if is_prime(p)]
+        dp = [float('-inf')] * n
+        dp[0] = cities[0]
+        for i in range(1, n):
+            best = dp[i - 1]
+            for p in jumps:
+                if p > i:
+                    break
+                best = max(best, dp[i - p])
+            dp[i] = best + cities[i]
+        return dp[n - 1]
+  code_language: python
+  pitfalls:
+    - Typo in the inner-loop guard (if p > 1 instead of if p > i) silently disables all jumps and degenerates to the plain adjacent walk
+    - Forgetting that jumps are sorted, so the loop can break once p > i
+    - When a DP returns the no-choice answer (here the total sum), check whether the transition loop ever executes
+occurrences:
+  - company: ibm
+    round: oa
+    year: 2026
+    contributor: friend
+    evidence: live-prompt
+    notes: HackerRank OA Q1 (standalone coding). First submission passed 3/13 after the p>i typo; fixed version passes samples.
+sources:
+  - kind: pdf
+    path: add to qbank 3 nov/ibm_oa_ai/ibm_oa_debug-no-ai_interview_summary.pdf
+    role: solution
+  - kind: image
+    path: add to qbank 3 nov/ibm_oa_ai/Screenshot 2026-10-28 at 4.49.24 PM.png
+    role: prompt
+  - kind: image
+    path: add to qbank 3 nov/ibm_oa_ai/Screenshot 2026-10-28 at 4.49.46 PM.png
+    role: prompt
+updated_at: 2026-11-03

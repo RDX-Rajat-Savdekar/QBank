@@ -1,0 +1,94 @@
+id: litmus-dependency-graph
+title: Toolkit dependency graph
+type: takehome
+tags: [litmus, composio, genai]
+topics: [graph]
+difficulty: hard
+status: extracted
+confidence: high
+evidence: live-prompt
+prompt: |
+  Write a program that reads a Composio toolkit catalog and writes a
+  dependency graph. A node is a tool an agent can call. An edge means
+  the producer can supply an id the consumer cannot start without, so
+  the producer has to run first.
+
+  Output `dependency_graph.json`:
+
+  nodes are `{id, service}`. Edges are `{from, to, label}`. `from` is
+  the producer, `to` is the consumer, and `label` is the consumer's
+  field name. The producer may call that same id `number`.
+
+  The two README examples on the GitHub catalog:
+
+  - GITHUB_LIST_REPOSITORY_ISSUES -> GITHUB_CREATE_AN_ISSUE_COMMENT / issue_number
+  - GITHUB_LIST_PULL_REQUESTS -> GITHUB_MERGE_A_PULL_REQUEST / pull_number
+
+  Contract from the skeleton:
+
+  - Do not hardcode one toolkit's edges. Node ids come from the catalog
+    you are handed. A different catalog must produce a different graph.
+  - The catalog path is the last CLI argument.
+  - Write `dependency_graph.json` in the working directory.
+  - A model call is encouraged (`OPENAI_API_KEY`, `OPENAI_BASE_URL`,
+    an id like `openai/gpt-4o`). A thrown model call must still write
+    the rule graph.
+  - Real slugs and zero edges scores about 0. `npm run selfcheck` only
+    checks that ids are real slugs and that at least one edge exists.
+
+  A dependency is an id another tool can produce. It is not `owner`,
+  `repo`, `body`, a bare `id`, or a bare `sha`. A tool that already
+  requires an id and only echoes it is not a producer. The same suffix
+  on a different object is not an edge (a gist comment id is not an
+  issue comment id).
+
+  GitHub (893 tools) was the practice catalog. The graded catalog may
+  be a different toolkit. Time box and point weights were not stated.
+follow_ups:
+  - text: Explain the overall approach in two minutes, as if to a teammate. Camera on, screen recording on, submitted files still open.
+    kind: spoken
+  - text: Anything you might have missed, or wanted to mention, in those two minutes.
+    kind: spoken
+solution:
+  approach: |
+    Rules own the joins the schema can prove. Walk outputs, including
+    refs and arrays, down to leaves. Walk required inputs, including
+    required arrays nested inside objects. Keep id-like required names.
+    Join a producer leaf to a consumer field when they are the same
+    resource and the same kind of id, with a few aliases (webhook/hook,
+    pull/pull_request). Drop echoes and cross-object joins. Label the
+    edge with the consumer's field. Call the model only for id fields
+    the rules still cannot match, and drop any slug that fails the same
+    checks. On the GitHub catalog the dense same-name join was 3,463
+    edges; after those cuts a rules-only graph was 893 nodes and 1,447
+    edges, with both README edges still present.
+  pitfalls:
+    - selfcheck stays green on a wrong graph
+    - A same-name cartesian product maximizes recall and destroys precision
+    - Requiring every slug token to match deletes the README issue-comment edge
+    - A model error that skips the file write fails the run even when the rules were right
+    - tsx has to be available on the install line the grader runs, not only as a devDependency
+occurrences:
+  - company: litmus
+    round: takehome
+    year: 2026
+    tool: litmus
+    contributor: self
+    evidence: live-prompt
+    notes: Composio is the catalog domain. Litmus is the assessment host.
+sources:
+  - kind: notes
+    path: "extra 3/to add to qbank/Litmus-test-EVAL-DEBRIEF.md"
+    role: prompt
+  - kind: image
+    path: "extra 3/to add to qbank/Screenshot 2026-09-29 at 8.53.24 AM.png"
+    role: commentary
+  - kind: image
+    path: "extra 3/to add to qbank/Screenshot 2026-09-29 at 8.53.32 AM.png"
+    role: commentary
+notes: |
+  The two graph screenshots are the dense join and the later cut
+  (893 tools, 1447 links). Point weights, the graded catalog, and the
+  time limit are unknown. The spoken prompts are from the session, not
+  from a written spec in the repo.
+updated_at: 2026-10-05

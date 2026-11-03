@@ -1,0 +1,70 @@
+id: cb-jobs-techs
+title: Jobs within a technician's Manhattan reach
+type: dsa
+tags: [coderbyte, oa]
+topics: [geometry/grid, binary-search]
+difficulty: hard
+status: extracted
+confidence: medium
+evidence: live-prompt
+prompt: |
+  Route plumbing technicians to open jobs.
+
+  Each technician has a name, a position (x, y), and a driving reach.
+  Each job has a job_id and a position (x, y). Technician T can service
+  job J when the Manhattan distance is within T's reach:
+
+  |tx - jx| + |ty - jy| <= reach.
+
+  Return every valid [job_id, technician_name] pair. Order does not matter.
+
+  A pairwise check times out. A fixed grid also fails when reach is very
+  large, because the candidate cell range becomes the whole map. The
+  illustrated case: job 1 can be reached by Alice, job 2 by Bob, and Cara
+  can reach neither.
+constraints: |
+  Numeric bounds in the write-up's text layer were stripped. The editor
+  fragment calls a function ending in job_pairs. A grid with cell size
+  500 timed out around 2900 ms.
+starter: |
+  def technician_job_pairs(technicians, jobs):
+      pass
+solution:
+  approach: |
+    Rotate into Chebyshev coordinates, u = x + y and v = x - y. Manhattan
+    distance <= reach becomes an axis-aligned box: |u1 - u2| <= reach and
+    |v1 - v2| <= reach. Sort jobs by u and binary-search the u window for
+    each technician, then keep jobs whose v is also inside the window.
+
+    A linear scan of a huge u window is still too slow. The grid draft
+    failed for the same reason: a large reach touches too many cells.
+    The second index has to answer "v in range" inside the u window,
+    not walk every job in it.
+  complexity:
+    time: O((n + m) log n) with a range index on v; a plain scan of each window is not enough
+    space: O(n)
+  pitfalls:
+    - Manhattan, then the rotated box. A Euclidean check is a different problem
+    - Fixed-size buckets time out when reach is large
+    - One technician can match many jobs, and one job can match many technicians
+    - The screenshot's comparison was cut off mid-expression; do not copy it
+occurrences:
+  - company: coderbyte
+    round: oa
+    year: 2026
+    tool: coderbyte
+    contributor: self
+    evidence: live-prompt
+    notes: Third problem in the timed Coderbyte assessment. The grid draft timed out.
+sources:
+  - kind: pdf
+    path: "extra 3/to add to qbank/coderbyte_Detailed Assessment Breakdown.pdf"
+    role: prompt
+  - kind: code
+    path: "extra 3/to add to qbank/coder byte.zip"
+    role: commentary
+notes: |
+  Numeric constraints and the exact function name were not fully readable.
+  The name technician_job_pairs matches the visible ending job_pairs.
+related: [cb-optimistic-writers, cb-snapshot-budget]
+updated_at: 2026-10-05

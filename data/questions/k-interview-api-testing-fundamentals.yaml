@@ -1,0 +1,89 @@
+id: k-interview-api-testing-fundamentals
+title: API testing and security fundamentals (QE interview)
+type: debug
+tags:
+  - k-interview
+  - api-testing
+  - quality-engineering
+topics: []
+difficulty: medium
+status: extracted
+confidence: medium
+evidence: friend-report
+prompt: |
+  QE technical interview Q&A on API testing, HTTP errors, auth, incident
+  reporting, and test-suite triage (same loop as the Insightboard automation
+  task; candidate's-choice stack discussion):
+
+  1. How does a GET API accept variables in query parameters, and is it
+     secure? (e.g. /api/v1/users?id=123&status=active)
+  2. How do you validate a Bearer [REDACTED] during API testing?
+  3. Why does GET /allusers fail with 404 Not Found, and how do you fix it?
+  4. Why does the request fail with 401 Unauthorized after fixing the URL
+     path, and what is the resolution?
+  5. What is the difference between 401 Unauthorized and 404 Not Found?
+  6. Why does the request fail with 403 Forbidden, and what is the resolution?
+  7. Why does the request fail with 500 Internal Server Error, and what is
+     the resolution?
+  8. How do you report a 500 error incident to developers?
+  9. How do you test a successful GET API response (200 OK) without a POST
+     endpoint?
+  10. What database automation libraries are standard across tech stacks?
+  11. What should automation engineers keep in mind regarding DB connections?
+  12. How do you investigate when 100 out of 1000 regression tests suddenly
+      fail?
+  13. How do you notify the team about a critical regression failure?
+solution:
+  approach: |
+    1. Query params follow `?` as key-value pairs parsed by the backend;
+    encrypted in transit over HTTPS/TLS but insecure for sensitive data
+    (passwords, tokens, PII) — full URLs persist in browser history, proxy
+    logs, server access records, and referrer headers.
+    2. JWT: verify header/payload/signature integrity against the algorithm
+    (RS256/HS256); assert claims (iss, aud, sub, exp, nbf) and expiry; confirm
+    RBAC on protected routes; negative-test malformed/expired/revoked and
+    alg:none tokens (expect 401).
+    3. 404 = routing failure (typo, wrong verb, missing env prefix, gateway
+    route); fix by verifying the path against docs and gateway mappings.
+    4. 401 = route exists but identity invalid (missing/malformed
+    Authorization header, expired token, secret mismatch); fix header format,
+    fresh token, aligned secrets.
+    5. 401: route exists, credentials rejected. 404: no route found at all.
+    6. 403 = authenticated but not authorized (RBAC roles, OAuth scopes,
+    tenant isolation); elevate permissions/scopes or adjust policies.
+    7. 500 = unhandled server exception (DB unreachable, ORM error, null
+    formatting); inspect backend logs (Sentry/Datadog), verify DB, add
+    try/catch handling.
+    8. Incident: summary with timestamp, repro steps (auth, request, observed
+    500), expected (200 + user list) vs actual, and a request for log/stack
+    review around the timestamp.
+    9. Without POST: vary query params (filter/sort/pagination), validate
+    schema and field types, check mandatory fields, assert status codes and
+    caching headers (If-None-Match/304).
+    10. Java: JDBC/JDBI/Spring JDBC; Python: SQLAlchemy/psycopg2/PyMySQL;
+    TS: Knex/Prisma/TypeORM; .NET: Dapper/EF Core.
+    11. DB: connection pools (HikariCP/SQLAlchemy), isolated test schemas
+    with rollback/cleanup, secrets in env/secret managers, least-privilege
+    users, explicit connection/query timeouts.
+    12. Mass failures: check env/DB/mocks first, find the common denominator
+    (shared util, auth middleware, schema change), git-bisect the breaking
+    change, file P0 with traces.
+    13. Notify: emergency channel alert, pinned status thread, P0 ticket with
+    traces, DM lead if release is blocked.
+  pitfalls:
+    - Putting tokens or PII in GET query parameters
+    - Confusing 401 (bad identity) with 403 (insufficient permission)
+    - Debugging 100 failures one-by-one instead of finding the common denominator
+    - Hardcoding DB credentials or running tests against shared schemas
+occurrences:
+  - company: k-interview
+    round: takehome
+    year: 2026
+    contributor: friend
+    evidence: friend-report
+    notes: Knowledge-round companion to the Insightboard automation task in the same interview
+sources:
+  - kind: pdf
+    path: add to qbank 3 nov/k_interview/interview_Technical Interview Summary & Playwright Guide.pdf
+    role: solution
+updated_at: 2026-11-03

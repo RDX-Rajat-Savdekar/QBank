@@ -1,0 +1,78 @@
+id: capital-one-k-identical-pairs
+title: Sections with at least k identical pairs
+type: dsa
+tags:
+  - capital-one
+  - oa-practice
+topics:
+  - arrays
+  - sliding-window
+difficulty: medium
+status: extracted
+confidence: high
+evidence: friend-report
+prompt: |
+  Fruits are laid out on a belt as an integer array `fruits`. Count the
+  number of contiguous sections (subarrays) in which you can form at least
+  k pairs of identical fruits, where each fruit can be in at most one pair.
+  A value appearing c times contributes c / 2 pairs (integer division).
+
+  Constraints: 2 <= fruits.length <= 2000, 0 <= fruits[i] <= 10^4,
+  1 <= k <= fruits.length / 2.
+examples:
+  - input: fruits = [0, 1, 0, 1, 0], k = 2
+    output: "3"
+    explanation: Valid sections are [0..3], [0..4] and [1..4].
+  - input: fruits = [2, 2, 2, 2, 2, 2], k = 3
+    output: "1"
+    explanation: Only the whole array holds 3 pairs.
+  - input: fruits = [1, 3, 3, 1], k = 1
+    output: "4"
+solution:
+  approach: |
+    Two pointers with a running pair total. Adding a fruit raises its count
+    by 1 and the total by exactly 1 when the new count is even; removing a
+    fruit lowers the total by 1 when its count was even. For each left,
+    extend right to the shortest valid window [left, right-1]; every longer
+    end is valid too, adding n - right + 1. Stop when the window to the end
+    of the array is invalid, since no later start can succeed.
+  complexity:
+    time: O(n), each pointer moves at most n times
+    space: O(V) for the value-frequency array
+  code: |
+    int solution(int[] fruits, int k) {
+        int n = fruits.length;
+        int[] cnt = new int[10001];
+        int pairs = 0, right = 0, ans = 0;
+        for (int left = 0; left < n; left++) {
+            while (right < n && pairs < k) {
+                cnt[fruits[right]]++;
+                if (cnt[fruits[right]] % 2 == 0) pairs++;
+                right++;
+            }
+            if (pairs < k) break;
+            ans += n - right + 1;
+            if (cnt[fruits[left]] % 2 == 0) pairs--;
+            cnt[fruits[left]]--;
+        }
+        return ans;
+    }
+  code_language: java
+  pitfalls:
+    - Counting every equal pair (i, j) instead of disjoint pairs
+    - "Off-by-one: after the loop right is one past the last included index,
+      so valid ends number n - right + 1, not n - right"
+    - Forgetting to update the pair total when removing the left fruit
+occurrences:
+  - company: capital-one
+    round: oa
+    year: 2026
+    contributor: friend
+    evidence: friend-report
+    notes: Reconstructed from a Java practice-solutions PDF shared by a friend;
+      PDF states the solution was checked against brute force on random arrays
+sources:
+  - kind: pdf
+    path: add to qbank 3 nov/capital one oa/capital_one_oa_Java_Practice_Solutions.pdf
+    role: prompt
+updated_at: 2026-11-03

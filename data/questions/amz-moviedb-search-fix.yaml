@@ -1,0 +1,86 @@
+id: amz-moviedb-search-fix
+title: MovieDB Django search endpoint fix
+type: debug
+tags:
+  - amazon
+  - oa
+  - django
+topics:
+  - design-api
+difficulty: medium
+status: extracted
+confidence: medium
+evidence: friend-report
+prompt: |
+  MovieDB is an online app to explore movies, submit ratings and share
+  reviews. The search feature is broken on the backend — fix it.
+
+  Expected API behavior: GET /api/movies/search (auth not required).
+  Purpose: search movies by text query plus optional advanced filters.
+  Query parameters, all optional:
+  q (text query), type ("title", "celebs" or "all", default "all"),
+  minRating / maxRating (decimals, e.g. 7.5 / 9.0), genre (single or
+  comma-separated, e.g. "Action" or "Action,Adventure"), year (e.g. 2010),
+  minYear / maxYear, director (case-insensitive partial match),
+  writer (case-insensitive partial match).
+
+  Success (200) returns a JSON list of movies, e.g. The Dark Knight with
+  keys _id, title, year (2008), duration ("2h 32m"), rating (9.0),
+  popularity (95), genre (["Action", "Crime", "Drama"]), description,
+  director ("Christopher Nolan"), writers, stars, type ("movie"),
+  status ("published"), createdAt / updatedAt.
+
+  Observed failures in the candidate's run: test_find_movies_by_title,
+  test_find_movies_by_celebrity and test_search_all_fields return HTTP 500
+  instead of 200; test_filter_by_genre fails on sort order
+  (assert 8.8 >= 8.9); test_filter_by_rating_and_year fails on sort order
+  (assert 9.0 >= 9.2) — results are not sorted by rating descending.
+  The view builds a queryset with title__icontains for type=title,
+  Q(stars|director|writers__icontains) for type=celebs, serializes each
+  movie to a dict, and returns JsonResponse(movies, safe=False, 200),
+  with a 500 fallback on exception.
+examples:
+  - input: GET /api/movies/search?q=robert&type=celebs
+    output: Movies where "robert" appears in any celeb name field
+    explanation: Example 1 from the README — celebrity search is case-insensitive.
+solution:
+  approach: |
+    Fix the search() view so every documented filter branch works without
+    raising: guard q/type parsing, apply title vs celebs vs all-field
+    branching, combine rating/year/genre/director/writer filters, and order
+    results by rating descending before serializing. Keep the 500 fallback
+    only for genuine server errors.
+  pitfalls:
+    - Unhandled exception in a filter branch surfacing as HTTP 500
+    - Missing rating-descending sort breaking genre/rating filter tests
+    - Case-sensitive matching where the spec requires case-insensitive
+    - Dropping zero-count / empty-filter edge cases from the response
+occurrences:
+  - company: amazon
+    round: oa
+    year: 2026
+    contributor: friend
+    evidence: friend-report
+    notes: Distinct from the MovieDB recommendations-debug task already banked
+      as amz-moviedb-debug; this OA pairs the search fix with
+      getMinInconvenience (amz-min-inconvenience)
+sources:
+  - kind: image
+    path: add to qbank 3 nov/s amz oa/WhatsApp Image 2026-10-21 at 21.10.32.jpeg
+    role: prompt
+  - kind: image
+    path: add to qbank 3 nov/s amz oa/WhatsApp Image 2026-10-21 at 21.10.33.jpeg
+    role: prompt
+  - kind: image
+    path: add to qbank 3 nov/s amz oa/WhatsApp Image 2026-10-21 at 22.00.10.jpeg
+    role: solution
+  - kind: image
+    path: add to qbank 3 nov/s amz oa/WhatsApp Image 2026-10-21 at 22.05.24.jpeg
+    role: commentary
+related:
+  - amz-moviedb-debug
+  - amz-min-inconvenience
+notes: README tail (further examples, pagination/sort spec) and some code
+  regions were cut off in the screenshots; sort-descending inferred from the
+  failing rating-order assertions.
+updated_at: 2026-11-03

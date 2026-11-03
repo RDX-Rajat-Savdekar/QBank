@@ -1,0 +1,92 @@
+id: goog-domain-tree-scoring
+title: Domain tree scoring — leaf scores with parent sums
+type: dsa
+tags:
+  - google
+  - intern
+  - strings
+topics:
+  - hashing
+  - tree
+difficulty: medium
+status: extracted
+confidence: high
+evidence: friend-report
+prompt: |
+  Input: a dictionary mapping domain names to integer scores. Output: a
+  dictionary containing only leaf domains, each mapped to its tree
+  score: its own score plus the scores of all its parent domains
+  (e.g. mail.test.com -> test.com -> com). A leaf is a domain with no
+  subdomain in the input (no other input domain ends with '.' + it). A
+  parent is formed by stripping the leftmost label (whole labels only);
+  a parent missing from the input counts 0. Return a new dict; do not
+  modify the input. Scores may be negative.
+examples:
+  - input: '{"test.mydomain.com": 10, "mail.test.mydomain.com": 15, "test.com": -10, "com": 20, "mydomain.com": 5, "www.mydomain.com": 10, "mail.test.com": 10, "www.test.com": -5}'
+    output: '{"mail.test.mydomain.com": 50, "www.mydomain.com": 35, "mail.test.com": 20, "www.test.com": 5}'
+    explanation: mail.test.mydomain.com = 15 + 10 + 5 + 20 = 50; test.mydomain.com and test.com look related but are not (whole-label parents only)
+  - input: "{}"
+    output: "{}"
+  - input: '{"com": 5}'
+    output: '{"com": 5}'
+starter: |
+  def main(scores: dict[str, int]) -> dict[str, int]:
+      """Finds the tree score of every leaf domain."""
+      pass
+follow_ups:
+  - text: Terabytes of data — partition by TLD (by last two labels for skewed 'com'), broadcast the ~1000 single-label scores; or sort by reversed labels and stream with an O(depth) ancestor stack (cost moves to external sort)
+    kind: scale
+  - text: "Feature pivot — subtree sum for every domain: add each score into itself and all parents' running totals, or build a label trie and do one post-order DFS"
+    kind: variant
+  - text: Many inputs / updates — compute leaf structure once from names, then each score dict costs only the sums; a single score change by delta only affects leaves beneath it
+    kind: variant
+solution:
+  approach: |
+    Two passes. A domain's name already encodes its parents: split on
+    dots, parents are the suffix joins. Pass 1: add every parent of every
+    domain to a has_subdomain set; anything not in it is a leaf. Pass 2:
+    for each leaf, sum scores.get(name, 0) over itself and its parents.
+    Split on labels (never endswith), so bigtest.com is never treated as
+    a child of test.com. Domain names cap at 253 chars, so label counts
+    are effectively constant — linear in n.
+  complexity:
+    time: O(n * k * L), effectively O(n)
+    space: O(n * k * L)
+  code: |
+    def _self_and_parents(domain: str) -> list[str]:
+        """Returns the domain followed by each of its parent domains."""
+        labels = domain.split(".")
+        return [".".join(labels[i:]) for i in range(len(labels))]
+
+
+    def main(scores: dict[str, int]) -> dict[str, int]:
+        """Finds the tree score of every leaf domain."""
+        has_subdomain: set[str] = set()
+        for domain in scores:
+            has_subdomain.update(_self_and_parents(domain)[1:])
+
+        leaf_scores: dict[str, int] = {}
+        for domain in scores:
+            if domain in has_subdomain:
+                continue
+            leaf_scores[domain] = sum(
+                scores.get(name, 0) for name in _self_and_parents(domain))
+        return leaf_scores
+  code_language: python
+  pitfalls:
+    - Misreading 'leaf' (spec wording is backwards vs the example) — clarify leaf = no subdomain under it in input
+    - Using endswith('.' + name) or substring matching instead of whole-label parents (test.mydomain.com vs test.com trap)
+    - Mutating the input dict instead of returning a new one
+occurrences:
+  - company: google
+    role: intern
+    round: phone
+    year: 2026
+    contributor: friend
+    evidence: friend-report
+    notes: Mock interview (Python, Google-style virtual); candidate caught the backwards 'leaf' wording against the example
+sources:
+  - kind: pdf
+    path: add to qbank 3 nov/K google intern 2027/mock_interview_domain_tree_scoring.pdf
+    role: solution
+updated_at: 2026-11-03

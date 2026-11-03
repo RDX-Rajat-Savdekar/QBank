@@ -1,0 +1,8 @@
+name: Mediverse
+aliases: [mediverse-media]
+levels: []
+loop: [takehome]
+signals: []
+tools: [unity, xr-interaction-toolkit]
+resources: []
+notes_md: mediverse.md

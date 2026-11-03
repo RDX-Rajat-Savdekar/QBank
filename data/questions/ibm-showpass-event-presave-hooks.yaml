@@ -1,0 +1,121 @@
+id: ibm-showpass-event-presave-hooks
+title: ShowPass event pre-save hooks (status transitions and date validation)
+type: debug
+tags:
+  - ibm
+  - oa
+  - django
+  - debugging
+topics:
+  - design-api
+difficulty: medium
+status: extracted
+confidence: high
+evidence: live-prompt
+prompt: |
+  The ShowPass event ticketing platform supports creating and managing venues
+  with venue sections, event lifecycles (draft, published, on sale, sold out,
+  completed, cancelled), ticket purchases with seat inventory tracking, orders,
+  payments, and promo codes. The Event model currently has no validation at all.
+
+  Using pre-save hooks (a Django model save() override at the model layer, so
+  the rules cannot be bypassed by direct saves), enforce:
+
+  1. Status transitions — only for existing records being updated, not newly
+     created ones. Allowed transitions:
+       draft -> published
+       published -> on_sale, cancelled
+       on_sale -> sold_out, completed, cancelled
+       sold_out -> on_sale, completed, cancelled
+       completed -> (terminal, nothing allowed)
+       cancelled -> (terminal, nothing allowed)
+     Reject anything else with a ValidationError containing
+     "Invalid status transition" (include original and attempted status).
+     The instance must expose _original_status (status as loaded/created).
+
+  2. end_date must be strictly after start_date on create and update, else
+     ValidationError "end_date must be after start_date".
+
+  3. New events only: start_date in the past is rejected with ValidationError
+     "start_date must be in the future".
+
+  Tests call Event.objects.create(...) and event.save() directly (9 tests in
+  tests/task9): draft->completed raises; draft->published ok; terminal states
+  reject any transition; on_sale->sold_out ok; create with end<start raises;
+  create with past start raises; valid create ok; draft->cancelled raises.
+solution:
+  approach: |
+    Module-level EVENT_STATUS_TRANSITIONS map; Event.__init__ stores
+    self._original_status = self.status (Django calls __init__ both when
+    constructing and when loading rows from the DB, so the attribute always
+    exists). Override save(): use self._state.adding (not pk is None) to
+    detect new records; check transitions only for existing records whose
+    status changed; check end_date strictly after start_date; check past
+    start_date for new records only; raise ValidationError before
+    super().save() so invalid data never reaches the DB; reset
+    _original_status after a successful save as the new baseline.
+  complexity:
+    time: O(1) per save
+    space: O(1)
+  code: |
+    from django.core.exceptions import ValidationError
+    from django.utils import timezone
+
+    EVENT_STATUS_TRANSITIONS = {
+        'draft': ['published'],
+        'published': ['on_sale', 'cancelled'],
+        'on_sale': ['sold_out', 'completed', 'cancelled'],
+        'sold_out': ['on_sale', 'completed', 'cancelled'],
+        'completed': [],
+        'cancelled': [],
+    }
+
+    # Inside class Event, after __str__:
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._original_status = self.status
+
+    def save(self, *args, **kwargs):
+        is_new = self._state.adding
+        if not is_new and self.status != self._original_status:
+            allowed = EVENT_STATUS_TRANSITIONS.get(self._original_status, [])
+            if self.status not in allowed:
+                raise ValidationError(
+                    f"Invalid status transition from '{self._original_status}' to '{self.status}'"
+                )
+        if self.start_date and self.end_date and self.end_date <= self.start_date:
+            raise ValidationError("end_date must be after start_date")
+        if is_new and self.start_date and self.start_date < timezone.now():
+            raise ValidationError("start_date must be in the future")
+        super().save(*args, **kwargs)
+        self._original_status = self.status
+  code_language: python
+  pitfalls:
+    - Wrote Django signals first; project convention and spec require a save() override
+    - Spec claimed buggy hooks already existed; the model had no hooks at all — grep before assuming
+    - Tests use objects.create() and direct .save(), so serializer/view-level validation is bypassed; logic must live at the model layer
+    - Use self._state.adding, not pk is None, to detect new records
+    - Use timezone-aware django.utils.timezone.now(); naive datetime.now() raises TypeError on comparison under USE_TZ
+    - Error strings must match test regexes exactly (watch spacing/casing)
+    - Validation must run before super().save(); reset _original_status only after a successful save
+occurrences:
+  - company: ibm
+    round: oa
+    year: 2026
+    contributor: friend
+    evidence: live-prompt
+    notes: HackerRank OA Q2 (Django repo debugging, /projects/challenge). 9/9 integration tests pass after fix.
+sources:
+  - kind: pdf
+    path: add to qbank 3 nov/ibm_oa_ai/ibm_oa_debug-no-ai_interview_summary.pdf
+    role: solution
+  - kind: image
+    path: add to qbank 3 nov/ibm_oa_ai/Screenshot 2026-10-28 at 4.18.59 PM.png
+    role: prompt
+  - kind: image
+    path: add to qbank 3 nov/ibm_oa_ai/Screenshot 2026-10-28 at 5.08.21 PM.png
+    role: commentary
+  - kind: image
+    path: add to qbank 3 nov/ibm_oa_ai/Screenshot 2026-10-28 at 5.00.53 PM.png
+    role: commentary
+updated_at: 2026-11-03

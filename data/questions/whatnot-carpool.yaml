@@ -1,0 +1,118 @@
+id: whatnot-carpool
+title: Campground carpool
+type: dsa
+tags: [whatnot]
+topics: [graph]
+difficulty: medium
+status: extracted
+confidence: high
+evidence: live-prompt
+prompt: |
+  You and your friends are driving to a Campground. Only two of you have
+  cars. Routes are linear: each location leads to exactly one next
+  location, with no loops. Both cars leave their starting locations at
+  the same time. The first car to pass someone's location picks them up.
+  If both cars arrive at the same time, that person can go in either car.
+
+  Roads are directed triples [origin, destination, minutes].
+
+  Given the roads, the two starting locations, and [name, home] pairs,
+  return who is in each car on arrival at the Campground. Car order in
+  the result does not matter. Within a car, the samples list people in
+  the order that car picks them up.
+examples:
+  - input: |
+      roads = [
+        ["Bridgewater", "Caledonia", "30"],
+        ["Caledonia", "New Grafton", "15"],
+        ["New Grafton", "Campground", "5"],
+        ["Milton", "New Grafton", "30"],
+        ["Liverpool", "Milton", "10"],
+      ]
+      starts = ["Bridgewater", "Liverpool"]
+      people = [
+        ["Jessie", "Bridgewater"],
+        ["Travis", "Caledonia"],
+        ["Jeremy", "New Grafton"],
+        ["Katie", "Liverpool"],
+      ]
+    output: '[["Jessie", "Travis"], ["Katie", "Jeremy"]]'
+    explanation: |
+      Bridgewater car: Bridgewater at 0 (Jessie), Caledonia at 30 (Travis),
+      New Grafton at 45, Campground at 50.
+      Liverpool car: Liverpool at 0 (Katie), Milton at 10, New Grafton at 40
+      (Jeremy, earlier than 45), Campground at 45.
+  - input: |
+      Same roads, except Milton -> New Grafton takes 40 minutes.
+    output: '[["Jessie", "Travis", "Jeremy"], ["Katie"]]'
+    explanation: "Jeremy is now at New Grafton at minute 50 on the Liverpool car and minute 45 on the Bridgewater car."
+constraints: |
+  n is the number of roads. Durations are given as strings. The destination
+  location is named Campground. The pad's tests call carpool(roads, starts, people).
+starter: |
+  def carpool(roads, starts, people):
+      pass
+solution:
+  approach: |
+    Each location has one outgoing road, so follow each car from its start
+    and record the arrival time at every location on that path, including
+    the start at time 0. Assign each person to the car with the smaller
+    arrival time at their home. Equal times may go to either car. The
+    sample implementation breaks the tie toward the first car, then lists
+    each car in pickup order.
+  complexity:
+    time: O(n + p)
+    space: O(n + p)
+  code_language: python
+  code: |
+    def carpool(roads, starts, people):
+        graph = {origin: (dest, int(duration)) for origin, dest, duration in roads}
+        car_times = [{}, {}]
+        for car_idx, start in enumerate(starts):
+            loc, time = start, 0
+            car_times[car_idx][loc] = time
+            while loc in graph and loc != "Campground":
+                nxt, duration = graph[loc]
+                time += duration
+                loc = nxt
+                car_times[car_idx][loc] = time
+        boarded = [[], []]
+        for person, home in people:
+            t0 = car_times[0].get(home, float("inf"))
+            t1 = car_times[1].get(home, float("inf"))
+            if t0 <= t1:
+                boarded[0].append((t0, person))
+            else:
+                boarded[1].append((t1, person))
+        return [[person for _, person in sorted(car)] for car in boarded]
+  pitfalls:
+    - A person at a start is picked up at time 0 by that car
+    - Same arrival time is allowed in either car; tests accept both orders of cars
+    - Within a car, list people by pickup time, not by the order of the people array
+    - Durations in the pad are strings
+    - Follow the chain until Campground; do not run a general shortest path
+occurrences:
+  - company: whatnot
+    round: unknown
+    year: 2026
+    contributor: self
+    evidence: live-prompt
+    notes: Live coding pad. Round is not named. Company is the folder label.
+sources:
+  - kind: pdf
+    path: "extra 3/to add to qbank/whatnot/Technical Interview Summary - Grocery Optimization & Carpool Simulation.pdf"
+    role: solution
+  - kind: image
+    path: "extra 3/to add to qbank/whatnot/Screenshot 2026-10-02 at 6.10.38 PM.png"
+    role: prompt
+  - kind: image
+    path: "extra 3/to add to qbank/whatnot/Screenshot 2026-10-02 at 6.10.09 PM.png"
+    role: prompt
+  - kind: image
+    path: "extra 3/to add to qbank/whatnot/Screenshot 2026-10-02 at 6.10.21 PM.png"
+    role: prompt
+  - kind: image
+    path: "extra 3/to add to qbank/whatnot/Screenshot 2026-10-02 at 6.10.16 PM.png"
+    role: prompt
+related: [whatnot-grocery-visits]
+updated_at: 2026-10-05

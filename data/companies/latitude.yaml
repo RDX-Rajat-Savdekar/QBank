@@ -1,0 +1,8 @@
+name: Latitude
+aliases: [latitude-ai]
+levels: []
+loop: [onsite]
+signals: []
+tools: []
+resources: []
+notes_md: latitude.md

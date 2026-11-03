@@ -1,0 +1,74 @@
+id: tt-sensor-readings
+title: Correct sensor readings with consecutive duplicate digits
+type: dsa
+tags: [tiktok, codesignal, oa]
+topics: [strings]
+difficulty: easy
+status: extracted
+confidence: high
+evidence: live-prompt
+prompt: |
+  Sensors occasionally emit readings with consecutive duplicate digits.
+  Given a string `sensorReadings` of space-separated numbers, find each
+  number that contains at least two identical digits in a row. Replace
+  each such number with the sum of its digits. Leave every other number
+  unchanged. Return the numbers separated by spaces, in the original order.
+
+  A solution no worse than O(sensorReadings.length * maxLength^2) fits
+  the time limit. Each reading has at most 9 digits.
+examples:
+  - input: 'sensorReadings = "123 4558 787"'
+    output: '"123 22 787"'
+    explanation: "4558 has consecutive 5s; 4+5+5+8 = 22. 787 has two 7s that are not consecutive."
+  - input: 'sensorReadings = "123456789"'
+    output: '"123456789"'
+    explanation: No consecutive duplicate digits.
+constraints: |
+  - 1 <= sensorReadings.length <= 10000
+  - Each token is a number of at most 9 digits
+  - Python 3, 4 seconds, 1 GB
+starter: |
+  def solution(sensorReadings: str) -> str:
+      pass
+solution:
+  approach: |
+    Split on spaces. A reading is dirty when any two adjacent characters
+    match. Replace a dirty reading with the sum of its digits. Join the
+    tokens with spaces.
+  complexity:
+    time: O(n)
+    space: O(n)
+  code_language: python
+  code: |
+    def solution(sensorReadings):
+        result = []
+        for reading in sensorReadings.split(" "):
+            dirty = any(reading[i] == reading[i + 1] for i in range(len(reading) - 1))
+            if dirty:
+                result.append(str(sum(int(d) for d in reading)))
+            else:
+                result.append(reading)
+        return " ".join(result)
+  pitfalls:
+    - Duplicate digits that are not adjacent stay as-is (787)
+    - Sum the digits; do not drop the duplicate digit only
+occurrences:
+  - company: tiktok
+    round: oa
+    year: 2026
+    tool: codesignal
+    contributor: self
+    evidence: live-prompt
+    notes: CodeSignal practice set in the TikTok OA folder.
+sources:
+  - kind: pdf
+    path: "extra 3/to add to qbank/tiktok oa/Technical_Interview_Summary_4_Practice_Questions.pdf"
+    role: solution
+  - kind: image
+    path: "extra 3/to add to qbank/tiktok oa/photos/Screenshot 2026-09-28 at 2.58.05 PM.png"
+    role: prompt
+  - kind: image
+    path: "extra 3/to add to qbank/tiktok oa/photos/Screenshot 2026-09-28 at 2.58.11 PM.png"
+    role: prompt
+related: [tt-interleave-first-last, tt-largest-perfect-x, tt-crystal-fields]
+updated_at: 2026-10-05

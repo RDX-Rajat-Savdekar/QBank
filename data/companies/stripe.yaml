@@ -1,0 +1,8 @@
+name: Stripe
+aliases: [stripe-treasury]
+levels: []
+loop: [oa]
+signals: [ledger-simulation, settlement-timing, cutoff-windows, funding-limits]
+tools: [hackerrank]
+resources: []
+notes_md: stripe.md

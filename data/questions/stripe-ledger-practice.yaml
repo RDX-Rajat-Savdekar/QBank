@@ -1,0 +1,93 @@
+id: stripe-ledger-practice
+title: Financial Account Ledger practice guide (Stripe Treasury OA prep)
+type: oa-sim
+tags:
+  - stripe
+  - oa
+  - ledger
+  - simulation
+  - practice-curriculum
+topics:
+  - hashing
+  - math
+difficulty: medium
+status: extracted
+confidence: high
+evidence: practice-curriculum
+prompt: |
+  Practice curriculum for the Stripe Treasury Financial Account Ledger OA
+  (process_ledger, HackerRank, Python 3, 60 min, 4 progressive parts).
+  Same problem shape as stripe-ledger-oa: INIT / FUND / BALANCE commands,
+  WIRE (lag 0, cutoff 17), ACH (lag 1 business day, cutoff 20),
+  STABLECOIN (same-day, no cutoff, weekends OK), weekend rule
+  (day % 7 in {6, 0} with day 1 = Monday), day,hour timestamps from Part 3,
+  ACH daily 5,000,000 / weekly 10,000,000 all-or-nothing limits in Part 4.
+
+  The guide adds, beyond the OA statement: a three-step FUND pipeline
+  (effective day -> limit check -> settlement day), custom stdin test
+  inputs per part, extra edge cases, common-bug checklist, OA strategy,
+  and production follow-ups.
+examples:
+  - input: |
+      INIT a 0
+      FUND 5,18 a WIRE 7
+      BALANCE 7,23 a
+      BALANCE 8,0 a
+    output: 0,7
+    explanation: Late Friday wire resolves to Monday (extra edge case from guide).
+  - input: |
+      INIT a 0
+      FUND 5 a ACH 7
+      BALANCE 7 a
+      BALANCE 8 a
+    output: 0,7
+    explanation: Friday ACH settles Monday (extra edge case from guide).
+  - input: |
+      INIT a 10
+      INIT a 99
+      FUND 1 b WIRE 5
+      BALANCE 1 a
+    output: "10"
+    explanation: First INIT wins; unknown account ignored (extra edge case from guide).
+constraints: n <= 1000; amounts fit signed 64-bit; bare-day timestamp means hour 0
+starter: |
+  def process_ledger(commands):
+      # Write your code here
+follow_ups:
+  - text: Add RTP (instant, 24/7, per-transaction cap) via rule tables only
+    kind: variant
+  - text: Production shape - event-sourced ledger, idempotency keys, transactional limits
+    kind: scale
+solution:
+  approach: |
+    Rule tables + one function per concern: SETTLEMENT_LAG, CUTOFF_HOUR,
+    LIMITS, is_weekend / next_business_day / parse_timestamp /
+    effective_day / settlement_day / try_use_limits, then a single
+    process_ledger loop. A weekend submission and an after-cutoff
+    submission both resolve to next business day, so one branch covers
+    both. Parse timestamps once with partition(","). Submit each part
+    before reading the next; rerun earlier samples after every part.
+  complexity:
+    time: O(n^2) worst case over BALANCE scans; ~1e6 ops at n = 1000
+    space: O(n)
+  code_language: python
+  pitfalls:
+    - Tuple not unpacked in the sum (sum(a for d, a in ...) not sum(a for d in ...))
+    - Forgot the settlements append line after the limit check (BALANCE returns starting balance only)
+    - token.parition typo (runtime crash, not editor-flagged)
+    - Double increment via next_business_day(day + 1); delete unused helpers
+    - Missing `from collections import defaultdict` (not in HackerRank defaults)
+occurrences:
+  - company: stripe
+    round: oa
+    year: 2026
+    contributor: friend
+    evidence: practice-curriculum
+    notes: Companion practice guide for the Oct 2026 Stripe Treasury ledger OA
+sources:
+  - kind: pdf
+    path: add to qbank 3 nov/stripe oa/Stripe_OA_Ledger_Practice_Guide.pdf
+    role: solution
+related:
+  - stripe-ledger-oa
+updated_at: 2026-11-03

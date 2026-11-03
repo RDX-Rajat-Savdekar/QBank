@@ -1,0 +1,153 @@
+id: k-interview-insightboard-qe-automation
+title: Insightboard client-selector automation (AI-assisted QE take-home)
+type: ai-assisted
+tags:
+  - k-interview
+  - playwright
+  - selenium
+  - quality-engineering
+topics: []
+difficulty: medium
+status: extracted
+confidence: medium
+evidence: friend-report
+prompt: |
+  You have access to a demo analytics dashboard ("Insightboard") used internally
+  for client feedback reporting. The dashboard contains a single-select Clients
+  dropdown in the top bar with eight clients: Test Client 1 through Test
+  Client 8. Changing the selection re-renders KPI tiles, charts, and page
+  state without a full page reload.
+
+  The dashboard shows a Teams Overview page: KPI tiles (Net Promoter Score,
+  Response Rate, Surveys Completed, Open Actions), a Satisfaction Trend chart
+  (monthly average score vs survey volume), a Sentiment Split donut
+  (Positive/Neutral/Negative), plus Responses by Team and Feedback Channels
+  sections. Example: Test Client 1 shows NPS -4; switching to Test Client 3
+  updates the NPS tile to 51.
+
+  This is not a bug-hunting exercise, and you are not expected to run your
+  code against a live environment. Level: Middle (mid-level QE / SDET),
+  candidate's choice of stack (Selenium, Selenide, Playwright, Cypress, or
+  WebdriverIO), no execution required — syntax / design focus.
+
+  Task 1 — Coding Foundation (AI not allowed): create the initial automation
+  for the client selector using your own coding knowledge.
+  - Define robust locators for the client dropdown and at least one dependent
+    element elsewhere on the page.
+  - Implement reusable interaction methods: selecting a client, reading the
+    current selection, listing available options, waiting for dependent
+    content to update.
+  - Implement at least one executable-style test that selects a client and
+    verifies the selection affected page content, not only the dropdown value.
+
+  Task 2 — AI-Assisted Automation (AI allowed): extend the solution using your
+  preferred AI coding assistant as part of your normal workflow. Be prepared
+  to explain your approach and the final solution.
+
+  Task 3 — Critical Review & Refinement: review the AI-assisted implementation
+  as if preparing a pull request. Refine it with your own engineering
+  judgement and make any changes needed before you would submit and own it.
+
+  Task 4 — Quality & Risk Strategy: consider the broader feature flow
+  Web UI > REST API > Database > External service > AI-generated
+  recommendation. You have one week before release and cannot test
+  everything. Walk through your quality strategy.
+examples:
+  - input: select "Test Client 1"
+    output: NPS tile shows "-4"
+  - input: select "Test Client 3"
+    output: NPS tile updates to "51"
+starter: |
+  public class DashboardPage {
+      private final WebDriver driver;
+
+      public DashboardPage(WebDriver driver) {
+          this.driver = driver;
+      }
+  }
+follow_ups:
+  - text: Task 2 follow-up — extend the page object with AI assistance and explain what the AI generated vs what you changed.
+    kind: variant
+  - text: Task 3 follow-up — identify weak or redundant generated code and simplify it before owning the PR.
+    kind: variant
+  - text: Task 4 follow-up — one week before release for a UI > API > DB > external-service > AI-recommendation flow; prioritize by risk and pick test layers.
+    kind: scale
+solution:
+  approach: |
+    Page-object model: locate the dropdown by stable ID (#client /
+    select.client-select) and a dependent KPI tile (#kpi-nps). Interaction
+    methods: selectClient (select by label), getCurrentSelection, getOptions,
+    and explicit synchronization that waits for a dependent tile to change
+    (Playwright: expect(tile).not_to_have_text(old); Selenium: WebDriverWait
+    with text_to_be_present_in_element). The key test asserts page content
+    changed (NPS -4 -> 51), not just the dropdown value. For Task 3, cut
+    generated boilerplate, keep explicit waits over sleeps, and keep only
+    assertions that add confidence. For Task 4, prioritize by risk: contract
+    tests at API boundaries, persistence checks, external-service mocks plus
+    failure-mode tests, human eval / golden sets for the non-deterministic AI
+    output, and a thin UI smoke; explicitly state what you will not test or
+    automate in one week.
+  code: |
+    from playwright.sync_api import Page, Locator, expect
+
+    class InsightboardPage:
+        def __init__(self, page: Page):
+            self.page = page
+            self.client_dropdown: Locator = page.locator(
+                "#client, select.client-select").first
+            self.nps_tile_value: Locator = page.locator("#kpi-nps")
+
+        def select_client(self, client_name: str) -> None:
+            initial_nps = self.nps_tile_value.text_content()
+            self.client_dropdown.select_option(label=client_name)
+            expect(self.nps_tile_value).not_to_have_text(initial_nps or "")
+
+        def get_nps_score(self) -> str:
+            return self.nps_tile_value.inner_text().strip()
+
+    def test_switch_client_updates_nps_tile(page: Page):
+        page.goto("file:///C:/Users/ketak/OneDrive/Documents/dashboard.html")
+        dashboard = InsightboardPage(page)
+        expect(page.locator("#kpi-nps")).to_have_text("-4")
+        dashboard.select_client("Test Client 3")
+        expect(page.locator("#kpi-nps")).to_have_text("51")
+  code_language: python
+  pitfalls:
+    - Asserting only the dropdown value instead of dependent page content
+    - Using sleeps instead of waiting on dependent-element state change
+    - Brittle deep-XPath locators instead of stable IDs / CSS selectors
+    - Accepting AI-generated code blindly without PR-level review
+    - Trying to automate everything with one week left instead of risk-based prioritization
+occurrences:
+  - company: k-interview
+    round: takehome
+    year: 2026
+    contributor: friend
+    evidence: friend-report
+    notes: Mid-level QE/SDET take-home; stack of candidate's choice; syntax/design focus, no live execution
+sources:
+  - kind: pdf
+    path: add to qbank 3 nov/k_interview/interview_Technical Interview Summary & Playwright Guide.pdf
+    role: solution
+  - kind: image
+    path: add to qbank 3 nov/k_interview/Screenshot 2026-11-02 at 9.45.08 AM.png
+    role: prompt
+  - kind: image
+    path: add to qbank 3 nov/k_interview/Screenshot 2026-11-02 at 9.45.11 AM.png
+    role: prompt
+  - kind: image
+    path: add to qbank 3 nov/k_interview/Screenshot 2026-11-02 at 9.45.16 AM.png
+    role: prompt
+  - kind: image
+    path: add to qbank 3 nov/k_interview/Screenshot 2026-11-02 at 9.47.59 AM.png
+    role: prompt
+  - kind: image
+    path: add to qbank 3 nov/k_interview/Screenshot 2026-11-02 at 9.48.21 AM.png
+    role: prompt
+  - kind: image
+    path: add to qbank 3 nov/k_interview/Screenshot 2026-11-02 at 9.48.32 AM.png
+    role: prompt
+  - kind: image
+    path: add to qbank 3 nov/k_interview/Screenshot 2026-11-02 at 9.50.10 AM.png
+    role: prompt
+updated_at: 2026-11-03

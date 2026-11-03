@@ -1,0 +1,86 @@
+id: rakuten-ocr-match
+title: OCR scan pair match (Codility)
+type: dsa
+tags:
+  - rakuten
+  - oa
+  - codility
+topics:
+  - strings
+difficulty: medium
+status: extracted
+confidence: medium
+evidence: friend-report
+prompt: |
+  Two passages of English letters were scanned by poor OCR software.
+  Unrecognized letters become "?" runs, and every maximal group of K
+  consecutive "?" is replaced by the decimal representation of K (no
+  leading zeros). Given OCR outputs S and T (alphanumeric strings),
+  determine whether they could be scans of the same underlying text.
+
+  Write `def solution(S, T)` returning True/False.
+
+  For example, "A2Le" and "2pL1" can both come from "AppLe" (also "AmpLe").
+  "a10" and "10a" can both come from "abbbbbbbbba" (length 11, starting
+  and ending with "a"). But "ba1" and "1Ad" cannot come from the same text
+  (second letters differ), and "3x2x" and "8" cannot (different lengths).
+
+  Assume: N, M in [1..100000]; original text lengths in [1..100000];
+  S and T are alphanumeric only; neither contains single zeros (e.g.
+  "abc0abc") nor integers with leading zeros (e.g. "abc012abc").
+examples:
+  - input: S = "A2Le", T = "2pL1"
+    output: "True"
+  - input: S = "a10", T = "10a"
+    output: "True"
+  - input: S = "ba1", T = "1Ad"
+    output: "False"
+  - input: S = "3x2x", T = "8"
+    output: "False"
+    explanation: Different implied text lengths.
+constraints: N and M up to 100000; focus on correctness, not performance.
+starter: |
+  def solution(S, T):
+      # Implement your solution here
+      pass
+follow_ups:
+  - text: Numbers consume a variable span of the other string, so greedy
+      digit matching fails — needs backtracking or DP with memoization
+    kind: trap
+  - text: Multi-digit numbers with no leading zeros simplify parsing
+    kind: variant
+solution:
+  approach: |
+    Align S and T with memoized recursion over index pairs. Letters must
+    match exactly (letter vs letter); a number on either side may consume
+    1..value characters of the other side (letters consume 1 each, numbers
+    expand), trying all splits. Any alignment consuming both strings fully
+    returns True. Equivalent: DP over (i, j) with digit-run parsing.
+  complexity:
+    time: O(N * M) states in the worst case, fine for correctness-first grading
+    space: O(N * M) memo worst case
+  pitfalls:
+    - Greedily consuming a number's full value against the other side
+    - Treating '0' as a skippable run (inputs guarantee no single zeros)
+    - Case-sensitive letter comparison (letters must match exactly)
+occurrences:
+  - company: rakuten
+    round: oa
+    year: 2026
+    contributor: friend
+    evidence: friend-report
+    notes: Only Task 1 screenshots captured; the full OA may contain more tasks
+sources:
+  - kind: image
+    path: add to qbank 3 nov/K Rakuten Oa/Screenshot 2026-10-21 at 11.05.42 PM.png
+    role: prompt
+  - kind: image
+    path: add to qbank 3 nov/K Rakuten Oa/Screenshot 2026-10-21 at 11.05.52 PM.png
+    role: prompt
+  - kind: image
+    path: add to qbank 3 nov/K Rakuten Oa/Screenshot 2026-10-21 at 11.05.59 PM.png
+    role: prompt
+  - kind: image
+    path: add to qbank 3 nov/K Rakuten Oa/Screenshot 2026-10-21 at 11.06.07 PM.png
+    role: prompt
+updated_at: 2026-11-03

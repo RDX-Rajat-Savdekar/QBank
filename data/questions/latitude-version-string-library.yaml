@@ -1,0 +1,164 @@
+id: latitude-version-string-library
+title: Version String Library (BNF grammar)
+type: dsa
+tags:
+  - latitude
+  - strings
+  - oop
+topics:
+  - strings
+difficulty: medium
+status: extracted
+confidence: high
+evidence: friend-report
+prompt: |
+  Write a Python library that validates, compares, and modifies version strings
+  defined by this BNF grammar:
+
+    <version> ::= <major> | <major> "." <minor> | <major> "." <minor> "." <patch>
+    <major>   ::= <number>
+    <minor>   ::= <number>
+    <patch>   ::= <number>
+    <number>  ::= <digit> | <positive_digit> <digits>
+    <digits>  ::= <digit> | <digit> <digits>
+    <digit>   ::= "0" | <positive_digit>
+    <positive_digit> ::= "1" | "2" | ... | "9"
+
+  So a version is 1 to 3 dot-separated numbers with no leading zeros
+  ("0" itself is fine, "01" and "1.02.3" are not).
+
+  Required features:
+  - Validation: is a string a valid version per the grammar?
+  - Comparison: numeric (not lexicographic) ordering of versions.
+  - Modification: bump major / minor / patch.
+
+  Example version strings:
+    Valid: "1", "1.10.2", "0.3"
+    Invalid: "a.1.c" (non-numeric parts), "1.1.1-build2" (suffix not in grammar),
+             "1.02.3" (leading zero in a number)
+examples:
+  - input: '"1", "1.10.2", "0.3"'
+    output: "valid"
+  - input: '"a.1.c", "1.1.1-build2", "1.02.3"'
+    output: "invalid"
+  - input: 'compare("1.10", "1.2")'
+    output: "1 (numeric, not lexicographic)"
+  - input: 'compare("1", "1.0.0")'
+    output: "0 if missing parts count as 0"
+constraints: |
+  At most three dot-separated parts. Numbers have no leading zeros.
+  Clarify with the interviewer whether "1" should equal "1.0.0" or keep
+  its original precision — state the choice up front.
+follow_ups:
+  - text: How would you extend the grammar and comparison rules for pre-release / build tags (e.g. 1.0.0-alpha, SemVer)?
+    kind: variant
+  - text: How would you represent and evaluate version ranges like ">=1.2,<2"?
+    kind: variant
+  - text: Should "1" equal "1.0.0"? Defend the choice; how would you keep them distinct but ordered?
+    kind: variant
+  - text: What breaks with huge numbers (Python 3.11+ caps int() conversion at ~4300 digits)?
+    kind: scale
+  - text: "Explain the __eq__/__hash__ contract and the @total_ordering shortcut"
+    kind: concept
+  - text: "Python knowledge round: Flask vs Django vs FastAPI — which for an ML-serving API, and why is FastAPI fast (ASGI async I/O)?"
+    kind: concept
+  - text: "What is WSGI, and how do you run Flask in production (Gunicorn/uWSGI + Nginx)?"
+    kind: concept
+solution:
+  approach: |
+    Validate once at the boundary with a regex built from the BNF, parse into a
+    tuple of ints, and keep Version immutable so nothing downstream handles raw
+    strings. A number is `0|[1-9][0-9]*`; a version is 1-3 dot-separated numbers;
+    use `[0-9]` with `fullmatch` (not `\d`/`match` — `\d` and `str.isdigit()`
+    accept Unicode digits, `$` lets trailing newlines through). Comparison pads
+    missing parts with 0, so "1" == "1.0.0" (state this; the alternative stores
+    precision and compares (key, length)). Each bump returns a new Version and
+    resets lower parts; bump_minor on "1" gives "1.1". `__hash__` uses the same
+    key as `__eq__` so equal versions hash equal and work as dict keys.
+  complexity:
+    time: O(L) in the string length
+    space: O(1) extra (at most three parts)
+  code: |
+    import re
+    from functools import total_ordering
+    from typing import Tuple
+
+    _NUM = r"(0|[1-9][0-9]*)"
+    _VERSION_RE = re.compile(rf"{_NUM}(?:\.{_NUM}(?:\.{_NUM})?)?")
+
+    def is_valid(s: str) -> bool:
+        """True iff s matches the <version> grammar exactly."""
+        return isinstance(s, str) and _VERSION_RE.fullmatch(s) is not None
+
+    @total_ordering
+    class Version:
+        __slots__ = ("_parts",)
+
+        def __init__(self, s: str):
+            if not is_valid(s):
+                raise ValueError(f"invalid version string: {s!r}")
+            self._parts: Tuple[int, ...] = tuple(int(p) for p in s.split("."))
+
+        @property
+        def major(self) -> int: return self._parts[0]
+        @property
+        def minor(self) -> int: return self._parts[1] if len(self._parts) > 1 else 0
+        @property
+        def patch(self) -> int: return self._parts[2] if len(self._parts) > 2 else 0
+
+        def _key(self) -> Tuple[int, int, int]:
+            return (self.major, self.minor, self.patch)
+
+        def __eq__(self, other):
+            return isinstance(other, Version) and self._key() == other._key()
+
+        def __lt__(self, other):
+            if not isinstance(other, Version):
+                return NotImplemented
+            return self._key() < other._key()
+
+        def __hash__(self): return hash(self._key())
+
+        def _make(self, parts) -> "Version":
+            return Version(".".join(map(str, parts)))
+
+        def bump_major(self) -> "Version":
+            return self._make((self.major + 1,) + (0,) * (len(self._parts) - 1))
+
+        def bump_minor(self) -> "Version":
+            n = max(len(self._parts), 2)
+            return self._make((self.major, self.minor + 1) + (0,) * (n - 2))
+
+        def bump_patch(self) -> "Version":
+            return self._make((self.major, self.minor, self.patch + 1))
+
+        def __str__(self): return ".".join(map(str, self._parts))
+        def __repr__(self): return f"Version({str(self)!r})"
+
+    def compare(a: str, b: str) -> int:
+        """-1 if a < b, 0 if equal, 1 if a > b."""
+        va, vb = Version(a), Version(b)
+        return (va > vb) - (va < vb)
+  code_language: python
+  pitfalls:
+    - Comparing version parts lexicographically ("1.10" < "1.2") instead of numerically
+    - Using \d / match / $ so Unicode digits or trailing newlines slip through
+    - Accepting leading zeros ("01", "1.02.3")
+    - Defining __eq__ without __hash__ (objects become unhashable) or hashing mutable data
+    - Returning a raised error instead of NotImplemented from a comparison dunder
+    - Not stating the "1" vs "1.0.0" equality choice up front
+occurrences:
+  - company: latitude
+    round: onsite
+    year: 2026
+    contributor: friend
+    evidence: friend-report
+    notes: Version String Library coding round plus Python dunder-methods / web-framework knowledge round
+sources:
+  - kind: pdf
+    path: add to qbank 3 nov/latitude ai/k_interview_latitude_ai_Version String Library Solution, Interview Walkthrough & Python Dunder Methods.pdf
+    role: solution
+  - kind: image
+    path: add to qbank 3 nov/latitude ai/Screenshot 2026-10-30 at 1.26.33 PM.png
+    role: prompt
+updated_at: 2026-11-03

@@ -1,0 +1,78 @@
+id: mediverse-vr-drill-tool
+title: VR drill tool interaction (Unity XR test scene)
+type: takehome
+tags:
+  - mediverse
+  - unity
+  - vr
+  - xr-interaction
+topics: []
+difficulty: unknown
+status: extracted
+confidence: medium
+evidence: friend-report
+prompt: |
+  Build/debug a Unity VR "Drill Tool Test" scene (ToolLab_Drill): a test scene
+  for drilling a hole in an object.
+
+  Observed in-scene guide text: "Test Scene for drilling a hole in an
+  object. Guide: If in VR, use drill in front on the nearby sphere. Else,
+  use WASD to move tool, F/R for vertical movement for the drill in the
+  back."
+
+  Scene contents (from editor screenshots): ToolLab_Drill hierarchy with
+  Tool_Drill, Tool_Drill (VR), XR Origin MVR, XR Device Simulator, drill
+  target objects (DrillTarget cube with Box/Mesh Collider, DrillNew script:
+  Drill Speed 1, Heavy Update Interval 0.15, Debug Drill on), and an
+  MVR Tool_Drill interactable (grab/throw config, Drill VR group). Tested
+  with the XR Device Simulator (HMD / controller / hand input, W,A,S,D +
+  Q,E movement, mouse look). Console shows drill cut-volume warnings
+  ("CutVolume is overlapping 'DrillTarget' but no vertices are inside
+  radius 0.080...") and missing-script warnings — i.e. the working loop is:
+  grab/position the drill, overlap the target, verify the cut registers.
+examples: []
+starter: |
+  // Unity scene: ToolLab_Drill
+  // - Tool_Drill (VR) + MVR Tool_Drill interactable (XR Interaction Toolkit)
+  // - DrillTarget (Box Collider + Mesh Collider + DrillNew: drillSpeed 1,
+  //   heavyUpdateInterval 0.15, debugDrill on)
+  // - XR Device Simulator for desktop testing (WASD + QE move, mouse look)
+follow_ups: []
+solution:
+  approach: |
+    Wire the drill interactable through the XR Interaction Manager; drive the
+    cut volume from the drill tip transform each heavy update; tune radius vs
+    target mesh density until vertices fall inside the radius; resolve
+    missing-script references so the scene runs clean.
+  pitfalls:
+    - Cut radius too small relative to mesh vertex density (overlap logged
+      but no vertices inside → no hole)
+    - Missing/dangling script references on scene objects
+    - Drill tip transform not tracked to the grabbed controller pose
+    - Desktop-simulator-only testing without verifying on-device grab poses
+occurrences:
+  - company: mediverse
+    round: takehome
+    year: 2026
+    contributor: friend
+    evidence: friend-report
+    notes: Inferred from work-in-progress Unity editor screenshots (Aug 27);
+      no written prompt captured — round and exact deliverable unconfirmed
+sources:
+  - kind: image
+    path: add to qbank 3 nov/Mediverse media/aug 27/Screenshot 2026-08-27 at 2.12.37 PM.png
+    role: prompt
+  - kind: image
+    path: add to qbank 3 nov/Mediverse media/aug 27/Screenshot 2026-08-27 at 2.18.33 PM.png
+    role: prompt
+  - kind: image
+    path: add to qbank 3 nov/Mediverse media/aug 27/Screenshot 2026-08-27 at 2.32.42 PM.png
+    role: prompt
+  - kind: image
+    path: add to qbank 3 nov/Mediverse media/aug 27/Screenshot 2026-08-27 at 2.42.55 PM.png
+    role: prompt
+notes: Screenshots show active Unity development (XR Device Simulator,
+  Tool_Drill (VR), DrillNew/MVR Tool_Drill scripts, drill cut-volume console
+  warnings). Treated as a VR build task; exact ask reconstructed from the
+  in-scene guide text, so confidence is medium.
+updated_at: 2026-11-03

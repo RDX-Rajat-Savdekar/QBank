@@ -1,0 +1,8 @@
+name: IBM
+aliases: [ibm]
+levels: []
+loop: [oa]
+signals: []
+tools: [hackerrank, django, python]
+resources: []
+notes_md: ibm.md

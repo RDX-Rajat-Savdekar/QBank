@@ -1,0 +1,218 @@
+id: retell-flight-search-days
+title: Flight search system with day-of-week schedules
+type: oa-sim
+tags:
+  - retell
+  - codesignal
+  - flight-search
+topics:
+  - hashing
+  - design-api
+difficulty: medium
+status: extracted
+confidence: high
+evidence: friend-report
+prompt: |
+  Implement a simplified flight search system (CodeSignal "Filesystem with Unit Tests",
+  Python 3 / unittest, ~90 minutes, partial credit per main-test passed).
+
+  BASELINE (already implemented; must keep passing baseline tests):
+
+  - add_flight(self, flight_id: str, origin: str, destination: str,
+    departure_time: str, duration: int) -> bool — adds a daily non-stop flight
+    with unique identifier flight_id from origin to destination.
+    - flight_id, origin, destination: strings of at most 20 characters
+      (English letters, digits, spaces, underscores).
+    - departure_time: 24-hour HH:MM, same time every day.
+    - duration: minutes, integer between 1 and 24*60-1.
+    - Returns False (adds nothing) if origin == destination or the ID already
+      exists; otherwise stores and returns True.
+    - Guaranteed: departure times are unique across all adds with the same origin.
+  - remove_flight(self, flight_id: str) -> bool — removes the flight;
+    False if no such flight, else True.
+  - get_departures(self, origin: str) -> int — number of flights departing
+    from origin.
+  - find_flights(self, origin: str, destination: str) -> list[str] — flight IDs
+    from origin to destination ordered by duration; ties broken by
+    departure time.
+
+  YOUR TASK — add a day-of-week dimension:
+
+  - add_flight_on_days(self, flight_id: str, origin: str, destination: str,
+    days_of_the_week: list[str], departure_time: str, duration: int) -> bool —
+    same as add_flight plus the days the departure operates on.
+    add_flight now adds a flight that takes place every day.
+  - remove_flight_on_day(self, flight_id: str, day_of_the_week: str) -> bool —
+    removes only the departure on that day. remove_flight now removes the
+    flight for all days. Returns True if removed from at least one day,
+    else False.
+  - get_departures_on_day(self, origin: str, day_of_the_week: str) -> int —
+    number of flights departing from origin on that day.
+    get_departures still counts all flights from origin; a flight operating
+    on multiple days is counted only once.
+  - get_landing_datetime(self, flight_id: str, day_of_the_week: str)
+    -> str | None — "<landing_day_of_the_week>, <landing_time>" for the
+    flight departing on the given day, or None if there is no such
+    flight/day.
+  - find_flights_arriving_on(self, origin: str, destination: str,
+    day_of_the_week: str) -> list[str] — IDs of flights from origin to
+    destination ARRIVING on that day, same format/order as find_flights.
+    When ordering by departure time, the departure day is ignored
+    (a THU 14:00 departure sorts before a WED 16:00 one).
+    find_flights still returns all origin->destination flights regardless of
+    day (each ID once even if it flies multiple days per week).
+
+  - day_of_the_week is one of SUN, MON, TUE, WED, THU, FRI, SAT.
+  - days_of_the_week contains each day at most once.
+  - Execution time limit 3 seconds; memory limit 4 GB.
+examples:
+  - input: |
+      add_flight("flight1", "Bangkok", "Tokyo", "12:50", 345)
+      add_flight("flight2", "Bangkok", "Chennai", "12:30", 210)
+      add_flight("flight58", "London", "London", "00:00", 10)
+      get_departures("Bangkok")
+      get_departures("London")
+      remove_flight("flight1")
+      get_departures("Bangkok")
+    output: "True, True, False, 2, 0, True, 1"
+  - input: |
+      add_flight("flight1", "Bangkok", "Tokyo", "12:50", 345)
+      add_flight("flight2", "Bangkok", "Chennai", "12:30", 210)
+      add_flight("flight3", "Bangkok", "Tokyo", "06:20", 345)
+      add_flight("flight4", "Bangkok", "Chennai", "13:00", 190)
+      find_flights("Bangkok", "Chennai")
+      find_flights("Bangkok", "Tokyo")
+    output: '["flight4", "flight2"], ["flight3", "flight1"]'
+    explanation: Chennai pair ordered by duration (190 < 210); Tokyo pair tied
+      on duration 345, ordered by departure time (06:20 < 12:50).
+  - input: |
+      add_flight_on_days("flight1", "Paris", "Abidjan", ["WED", "SAT"], "15:00", 390)
+      add_flight_on_days("flight2", "Paris", "Abidjan", ["TUE"], "22:00", 390)
+      get_departures_on_day("Paris", "MON")
+      get_departures("Paris")
+      get_departures_on_day("Paris", "WED")
+      find_flights_arriving_on("Paris", "Abidjan", "WED")
+      get_landing_datetime("flight1", "SAT")
+    output: 'True, True, 0, 2, 1, ["flight1", "flight2"], "SAT, 21:30"'
+    explanation: flight2 departs TUE 22:00 + 390 min lands WED 04:30, so both
+      flights arrive WED; ordered by departure clock time 15:00 < 22:00.
+      flight1 SAT 15:00 + 390 min lands SAT 21:30.
+constraints: |
+  IDs/places: at most 20 chars (letters, digits, spaces, underscores).
+  departure_time HH:MM 24-hour; duration 1..1439 minutes.
+  Days: SUN/MON/TUE/WED/THU/FRI/SAT; days_of_the_week has no repeats.
+  Departure times unique per origin. Limits: 3 s, 4 GB.
+starter: |
+  from flight_system import FlightSystem
+  import operator
+
+  class Flight:
+      count = 0
+      def __init__(self, flight_id, origin, destination, departure_time, duration):
+          self.id = flight_id
+          self.origin = origin
+          self.destination = destination
+          self.departure_time = departure_time
+          self.duration = duration
+
+  class FlightSystemImpl(FlightSystem):
+      def __init__(self):
+          self.flight_data = dict()
+
+      def add_flight(self, flight_id, origin, destination, departure_time, duration):
+          if origin == destination or flight_id in self.flight_data:
+              return False
+          self.flight_data[flight_id] = Flight(
+              flight_id, origin, destination, departure_time, duration)
+          return True
+
+      def remove_flight(self, flight_id):
+          if flight_id not in self.flight_data:
+              return False
+          self.flight_data.pop(flight_id)
+          return True
+
+      def get_departures(self, origin):
+          filtered_flights = list(
+              filter(lambda flight: flight.origin == origin,
+                     self.flight_data.values()))
+          return len(filtered_flights)
+
+      def find_flights(self, origin, destination):
+          filtered_flights = list(
+              filter(lambda flight: (flight.origin, flight.destination) == (origin, destination),
+                     self.flight_data.values()))
+          filtered_flights = sorted(
+              filtered_flights,
+              key=(operator.attrgetter("duration", "departure_time")))
+          return list(map(operator.attrgetter("id"), filtered_flights))
+
+      # TODO: add_flight_on_days, remove_flight_on_day,
+      # get_departures_on_day, get_landing_datetime, find_flights_arriving_on
+follow_ups: []
+solution:
+  approach: |
+    Store per-flight a set of operating days (default: all 7 for add_flight).
+    Parse HH:MM to minutes; landing = departure + duration gives a day offset
+    (total // 1440) and clock time (total % 1440), mapped back through the
+    SUN..SAT order. get_departures_on_day / find_flights_arriving_on filter by
+    operating day / computed arrival day; find_flights keeps the combined
+    all-days list with each ID once, sorted by (duration, departure clock
+    time, ignoring departure day). remove_flight clears all days;
+    remove_flight_on_day drops one day (and the flight record when empty).
+  complexity:
+    time: O(n log n) per query (filter + sort), O(1) per add/remove
+    space: O(n) flights plus O(1) day sets
+  pitfalls:
+    - Counting a multi-day flight more than once in get_departures
+    - remove_flight deleting only one day instead of all days
+    - Ordering find_flights_arriving_on by (day, time) instead of clock time only
+    - Breaking the 20 baseline tests (original methods must behave as before)
+    - Spec text says get_departures "returns a string" but the signature and
+      examples return int — follow the signature/examples
+occurrences:
+  - company: retell
+    round: oa
+    year: 2026
+    tool: codesignal
+    contributor: friend
+    evidence: friend-report
+    notes: CodeSignal "Filesystem with Unit Tests" screen-share; flight search
+      plus day-of-week extension, Python 3 / unittest, 600-pt test suite
+sources:
+  - kind: image
+    path: add to qbank 3 nov/retell/Screenshot 2026-09-15 at 5.04.31 PM.png
+    role: prompt
+  - kind: image
+    path: add to qbank 3 nov/retell/Screenshot 2026-09-15 at 5.04.45 PM.png
+    role: prompt
+  - kind: image
+    path: add to qbank 3 nov/retell/Screenshot 2026-09-15 at 5.04.53 PM.png
+    role: prompt
+  - kind: image
+    path: add to qbank 3 nov/retell/Screenshot 2026-09-15 at 5.04.59 PM.png
+    role: prompt
+  - kind: image
+    path: add to qbank 3 nov/retell/Screenshot 2026-09-15 at 5.05.11 PM.png
+    role: prompt
+  - kind: image
+    path: add to qbank 3 nov/retell/Screenshot 2026-09-15 at 5.05.37 PM.png
+    role: commentary
+  - kind: image
+    path: add to qbank 3 nov/retell/Screenshot 2026-09-15 at 5.07.03 PM.png
+    role: solution
+  - kind: image
+    path: add to qbank 3 nov/retell/Screenshot 2026-09-15 at 5.07.10 PM.png
+    role: solution
+  - kind: image
+    path: add to qbank 3 nov/retell/Screenshot 2026-09-15 at 5.07.20 PM.png
+    role: solution
+  - kind: image
+    path: add to qbank 3 nov/retell/Screenshot 2026-09-15 at 5.07.26 PM.png
+    role: solution
+  - kind: code
+    path: add to qbank 3 nov/retell/Archive.zip
+    role: prompt
+notes: Archive.zip contains the same 10 screenshots (no separate code files);
+  unzipped copy was inspected only in /tmp, never in the repo.
+updated_at: 2026-11-03

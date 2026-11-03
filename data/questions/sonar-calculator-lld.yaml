@@ -1,0 +1,139 @@
+id: sonar-calculator-lld
+title: Calculator LLD with infix expression evaluation
+type: lld
+tags:
+  - sonar
+  - lld
+  - calculator
+  - expression-evaluation
+topics:
+  - strings
+  - stack
+  - math
+  - design-api
+difficulty: medium
+status: extracted
+confidence: medium
+evidence: friend-report
+prompt: |
+  Implement a calculator. Start with an extensible low-level design, then
+  implement and extend an infix expression evaluator.
+
+  Base design requirements:
+    - Support core arithmetic operations (+, -, *, /) with standard precedence
+    - Operation registration must be extensible (Strategy + Factory, Open/Closed)
+    - Execution history with Undo/Redo (Command pattern)
+    - Thread safety and domain-specific exceptions
+
+  Coding progression (constraints tighten then relax):
+    1. Evaluate expressions like `4+5*6+8` with correct precedence (expect 42).
+    2. Simplified grammar: single digits, no negatives, no decimals, no minus
+       sign — only `+` and `*`.
+    3. Extend to multi-digit integers (e.g. `116+5*6+8` -> 154).
+    4. Enforce 32-bit bounds: raise OverflowError when an intermediate
+       multiplication or the final sum exceeds INT_MAX (2**31 - 1).
+examples:
+  - input: "4+5*6+8"
+    output: "42"
+    explanation: "Multiplication binds tighter: 5*6=30, then 4+30+8=42."
+  - input: "116+5*6+8"
+    output: "154"
+    explanation: Multi-digit support with the same precedence rules.
+  - input: "2+3+4"
+    output: "9"
+  - input: "2*3*4"
+    output: "24"
+  - input: "0*9+1"
+    output: "1"
+    explanation: Zero handling in multiplication.
+constraints: |
+  Expression contains non-negative integers and the operators + and * only.
+  Intermediate multiplications and the final sum must not exceed
+  INT_MAX = 2**31 - 1 (raise OverflowError otherwise).
+starter: |
+  def calculate(st: str) -> int:
+      INT_MAX = 2**31 - 1
+      li = st.split("+")
+      numbers = []
+      for l in li:
+          if l.isdigit():
+              numbers.append(int(l))
+          else:
+              curr_result = 1
+              m_list = l.split("*")
+              for m in m_list:
+                  curr_result *= int(m)
+                  if curr_result > INT_MAX:
+                      raise OverflowError("Multiplication overflow")
+              numbers.append(curr_result)
+      total_sum = sum(numbers)
+      if total_sum > INT_MAX:
+          raise OverflowError("Addition overflow")
+      return total_sum
+follow_ups:
+  - text: Write the test cases you would hand to a teammate (happy path, zeros, identity operations, single element, overflow boundaries)
+    kind: testing
+  - text: 32-bit int ranges — signed [-2**31, 2**31 - 1], unsigned [0, 2**32 - 1]; how do Python (bignum, manual check) vs C++/Java (native overflow, check a > INT_MAX / b first) differ?
+    kind: variant
+  - text: Generalize from +/* to a full expression grammar, then to a programming language pipeline — lexer, parser, AST, evaluation
+    kind: scale
+  - text: Draw the AST for `4+5*6+8` — root +, left subtree (+ 4 (* 5 6)), right leaf 8
+    kind: variant
+solution:
+  approach: |
+    LLD: Operation interface (symbol, precedence, execute) with
+    Add/Subtract/Multiply/Divide strategies behind an OperationFactory;
+    CalculateCommand captures operands for undo; CalculatorEngine holds
+    current value plus history/redo stacks guarded by an RLock.
+
+    Coding: two-level split decomposition — split on "+" into additive
+    blocks, then split each non-digit block on "*" into products, checking
+    INT_MAX after every multiply and after the final sum. O(1)-space
+    alternative: single pass tracking running total and current product term.
+  complexity:
+    time: O(N) — single pass (O(1)-space variant) or two-level split
+    space: O(N) for the split lists; O(1) for the single-pass variant
+  code: |
+    def calculate(st: str) -> int:
+        INT_MAX = 2**31 - 1
+        li = st.split("+")
+        numbers = []
+
+        for l in li:
+            if l.isdigit():
+                numbers.append(int(l))
+            else:
+                curr_result = 1
+                m_list = l.split("*")
+                for m in m_list:
+                    curr_result *= int(m)
+                    if curr_result > INT_MAX:
+                        raise OverflowError("Multiplication overflow")
+                numbers.append(curr_result)
+
+        total_sum = sum(numbers)
+        if total_sum > INT_MAX:
+            raise OverflowError("Addition overflow")
+
+        return total_sum
+  code_language: python
+  pitfalls:
+    - Evaluating strictly left-to-right and ignoring * over + precedence
+    - l.isdigit() gate breaking on whitespace or unexpected characters
+    - Checking overflow only on the final sum while intermediates overflow
+    - Single-digit-only logic silently mis-evaluating multi-digit inputs
+occurrences:
+  - company: sonar
+    round: onsite
+    year: 2026
+    contributor: friend
+    evidence: friend-report
+    notes: Calculator LLD in Amazon-style format progressing into live expression-evaluation coding, precedence, INT_MAX bounds, AST/compiler-theory discussion
+sources:
+  - kind: notes
+    path: "add to qbank 3 nov/sonar/interview sonar/interview_summary.md"
+    role: solution
+  - kind: notes
+    path: "add to qbank 3 nov/sonar/interview sonar/sonar_interview_summary.md"
+    role: solution
+updated_at: 2026-11-03

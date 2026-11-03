@@ -1,0 +1,97 @@
+id: goog-ranking-signals-merge
+title: Merge weighted ranking-signal lists by page ID
+type: dsa
+tags:
+  - google
+  - intern
+  - hashmap
+topics:
+  - hashing
+difficulty: easy
+status: extracted
+confidence: high
+evidence: live-prompt
+prompt: |
+  When you run a query on Google Search, different ranking signals —
+  such as keyword relevance and page freshness — independently score
+  candidate web pages, and a simplified mixer blends their outputs into
+  a single ranked list. Each candidate page is represented as a weighted
+  item: a pair of page ID (int) and signal WEIGHT (int). A weighted item
+  list is a list of weighted items, sorted by WEIGHT with no repeated
+  IDs.
+
+  Implement an algorithm that takes two weighted item lists as input and
+  outputs a weighted item list that is the result of merging the input
+  lists together, following these rules: the output list must also be
+  sorted by WEIGHT with no repeated IDs. For pairs with the same ID, sum
+  their WEIGHTs.
+examples:
+  - input: list1 = [[1, 2], [2, 2], [4, 5]]; list2 = [[3, 1], [1, 2], [5, 4]]
+    output: "[[3, 1], [2, 2], [1, 4], [5, 4], [4, 5]]"
+    explanation: Page 1 sums to 2 + 2 = 4; ties (pages 1 and 5 at weight 4) resolved by a secondary tie-breaker
+constraints: |
+  Guard against null lists, null elements, and malformed pairs (length
+  != 2). Use Integer.compare-style comparison (not subtraction) to avoid
+  overflow. Generalizes to N input lists.
+starter: |
+  public List<List<Integer>> merge(int[][] list1, int[][] list2) {
+  }
+follow_ups:
+  - text: N input streams — accumulate across all streams with the same hash map
+    kind: variant
+  - text: Pre-sorted-by-ID inputs — two-pointer (2 lists) or K-way min-heap merge aggregating identical IDs, then sort by weight
+    kind: variant
+  - text: "Only top-K needed — bounded min-heap of capacity K over aggregated entries: O(N + M + U log K)"
+    kind: scale
+  - text: Inputs exceed RAM — MapReduce (hash-partition by page ID, reduce locally, global range-partitioned sort) or single-node external sort with K-way merge
+    kind: scale
+  - text: Negative or zero weights — plain summation handles them naturally
+    kind: edge
+solution:
+  approach: |
+    HashMap + sort. Aggregate: traverse both lists, accumulating
+    map[pageId] += weight. Transform map entries to a list. Sort by
+    accumulated weight ascending with a page-ID tie-breaker for
+    deterministic output.
+  complexity:
+    time: O(N + M + U log U) (U unique IDs)
+    space: O(U)
+  code: |
+    Map<Integer, Integer> weightMap = new HashMap<>();
+    for (int[][] stream : new int[][][]{list1, list2}) {
+        if (stream == null) continue;
+        for (int[] pair : stream) {
+            if (pair != null && pair.length == 2) {
+                weightMap.put(pair[0], weightMap.getOrDefault(pair[0], 0) + pair[1]);
+            }
+        }
+    }
+    List<int[]> result = new ArrayList<>(weightMap.size());
+    for (Map.Entry<Integer, Integer> e : weightMap.entrySet()) {
+        result.add(new int[]{e.getKey(), e.getValue()});
+    }
+    result.sort((a, b) -> {
+        int c = Integer.compare(a[1], b[1]);
+        return c != 0 ? c : Integer.compare(a[0], b[0]);
+    });
+  code_language: java
+  pitfalls:
+    - Subtracting weights/IDs in the comparator (overflow) instead of Integer.compare
+    - Forgetting the page-ID tie-breaker, producing nondeterministic order on ties
+    - Not guarding null lists / null pairs / malformed pairs
+occurrences:
+  - company: google
+    role: intern
+    round: onsite
+    year: 2026
+    contributor: friend
+    evidence: live-prompt
+    notes: Screenshot of live prompt (Java signature) plus summary PDF with N-list, pre-sorted, top-K, and distributed follow-ups
+sources:
+  - kind: image
+    path: add to qbank 3 nov/v_g_intern/Screenshot 2026-10-20 at 2.02.28 PM.png
+    role: prompt
+  - kind: pdf
+    path: add to qbank 3 nov/v_g_intern/V_G_1_Interview Summary - Google Search Ranking Signals DSA Problem.pdf
+    role: solution
+updated_at: 2026-11-03

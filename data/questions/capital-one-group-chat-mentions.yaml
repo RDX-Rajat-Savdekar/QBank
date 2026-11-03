@@ -1,0 +1,84 @@
+id: capital-one-group-chat-mentions
+title: Group-chat mention statistics
+type: dsa
+tags:
+  - capital-one
+  - oa-practice
+topics:
+  - strings
+  - hashing
+difficulty: medium
+status: extracted
+confidence: high
+evidence: friend-report
+prompt: |
+  Given chat `members` (ids like id123) and a list of `messages`, count for
+  each member how many messages mention them. A mention is a word starting
+  with @ followed by one or more comma-separated ids, e.g. @id1 or
+  @id1,id123,id983. A member mentioned several times in one message counts
+  only once for that message.
+
+  Return strings of the form "id=count" for every member, sorted by count
+  descending, and by id ascending (lexicographically) on ties. Mentions
+  are separated by spaces (or at the start/end of a message); @ inside a
+  word (appro@ch!, w@rds@) is not a mention. Ids of non-members are ignored.
+examples:
+  - input: members = ["id123", "id234", "id7", "id321"], messages = ["Hey @id123,id321 review this PR please! @id123 what ...", "Hey @id7 nice appro@ch! Great job! @id800 what ...", "@id123,id321 thx!"]
+    output: '["id123=2", "id321=2", "id7=1", "id234=0"]'
+    explanation: id123 and id321 tie at 2 and "id123" < "id321" lexicographically;
+      id234 has zero mentions but still appears.
+solution:
+  approach: |
+    Map every member to 0. Per message, split on spaces; for each word
+    starting with @, validate the body against id\d+(,id\d+)*, and collect
+    ids into a per-message set. Add 1 per distinct id that is a member.
+    Sort members by count descending, then id ascending, and emit id=count.
+  complexity:
+    time: O(L + m log m), L total message length, m member count
+    space: O(m + longest message)
+  code: |
+    String[] solution(String[] members, String[] messages) {
+        java.util.Map<String, Integer> count = new java.util.HashMap<>();
+        for (String m : members) count.put(m, 0);
+        for (String msg : messages) {
+            java.util.Set<String> seen = new java.util.HashSet<>();
+            for (String word : msg.split(" ")) {
+                if (word.length() < 2 || word.charAt(0) != '@') continue;
+                String body = word.substring(1);
+                if (!body.matches("id\\d+(,id\\d+)*")) continue;
+                for (String id : body.split(",")) seen.add(id);
+            }
+            for (String id : seen) {
+                if (count.containsKey(id)) count.put(id, count.get(id) + 1);
+            }
+        }
+        String[] sorted = members.clone();
+        java.util.Arrays.sort(sorted, (a, b) -> {
+            int diff = count.get(b) - count.get(a);
+            return diff != 0 ? diff : a.compareTo(b);
+        });
+        String[] result = new String[sorted.length];
+        for (int i = 0; i < sorted.length; i++) {
+            result[i] = sorted[i] + "=" + count.get(sorted[i]);
+        }
+        return result;
+    }
+  code_language: java
+  pitfalls:
+    - msg.split("") splits into single characters so no mention ever matches
+      and every count stays 0
+    - Counting duplicates inside one message instead of using a set
+    - Dropping members with 0 mentions from the output
+    - Sorting ties numerically instead of lexicographically
+occurrences:
+  - company: capital-one
+    round: oa
+    year: 2026
+    contributor: friend
+    evidence: friend-report
+    notes: Reconstructed from a Java practice-solutions PDF shared by a friend
+sources:
+  - kind: pdf
+    path: add to qbank 3 nov/capital one oa/capital_one_oa_Java_Practice_Solutions.pdf
+    role: prompt
+updated_at: 2026-11-03

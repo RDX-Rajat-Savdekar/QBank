@@ -35,6 +35,12 @@ occurrences:
     contributor: friend
     evidence: live-prompt
     notes: "Q1 paired with MovieDB debug"
+  - company: 'amazon'
+    round: 'oa'
+    year: 2026
+    contributor: friend
+    evidence: friend-report
+    notes: "Recurred Oct 2026 OA (Question 1, getMinInconvenience + MovieDB search fix); statement, Chebyshev definition and worked example match existing prompt"
 sources:
   - kind: bank
     path: "interview Q's/claude/PROBLEM_BANK (1).md"
@@ -54,6 +60,12 @@ sources:
     role: prompt
   - kind: image
     path: "interview Q's/Amazon/sajid/1/WhatsApp Image 2026-06-21 at 22.48.10.jpeg"
+    role: prompt
+  - kind: image
+    path: "add to qbank 3 nov/s amz oa/WhatsApp Image 2026-10-21 at 20.28.24 (1).jpeg"
+    role: prompt
+  - kind: image
+    path: "add to qbank 3 nov/s amz oa/WhatsApp Image 2026-10-21 at 20.28.23 (1).jpeg"
     role: prompt
 related: [amz-moviedb-debug, amz-contiguous-quality, amz-min-merge-conflicts, amz-drone-hubs]
 updated_at: 2026-08-31
